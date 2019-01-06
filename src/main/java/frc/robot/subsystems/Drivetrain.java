@@ -1,10 +1,17 @@
 package frc.robot.subsystems;
 
+/**Author: Alex Hill, tons of help from Nathaniel
+* Not tested yet, will do so next meeting. :)
+*/
+
+// imports reference folders
 import frc.robot.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
+//Identifying and assigning motors, also putting methods to control the system
 
 public class Drivetrain extends Subsystem {
 
@@ -21,11 +28,27 @@ public class Drivetrain extends Subsystem {
         rightMotor2.setInverted(false);
 		leftMotor1.setInverted(false);
 		leftMotor2.setInverted(false);
-		
+        
+        rightMotor2.follow(rightMotor1);
+        leftMotor2.follow(leftMotor1);
+
+        rightMotor1.setSafetyEnabled(false);
+        rightMotor2.setSafetyEnabled(false);
+        leftMotor1.setSafetyEnabled(false);
+        leftMotor2.setSafetyEnabled(false);
+
+        difDrive = new DifferentialDrive(RobotMap.rightMotor1, Robotmap.leftMotor1);
+
 	}   
 
+//Setting deadzone as default on the controller
+
 	public void initDefaultCommand(){
+        setDefaultCommand(new DriveControls(Presets.deadzone));
 
 	}
 
+    public void periodic() {
+
+    }
 }
