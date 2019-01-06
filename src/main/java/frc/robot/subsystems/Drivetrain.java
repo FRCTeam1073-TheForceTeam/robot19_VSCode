@@ -1,24 +1,45 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
+import frc.robot.Presets;
+import frc.robot.*;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-/**
- * An example subsystem.  You can replace me with your own Subsystem.
- */
 public class Drivetrain extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+    
+    private final WPI_TalonSRX rightMotor1 = RobotMap.rightMotor1;
+    private final WPI_VictorSPX rightMotor2 = RobotMap.rightMotor2;
+    private final WPI_TalonSRX leftMotor1 = RobotMap.leftMotor1;
+    private final WPI_VictorSPX leftMotor2 = RobotMap.leftMotor2;
+    
+    /** The Robot's Drivetrain */
+    public DifferentialDrive difDrive;
+    
+	public robotDrivetrain() {
+		leftMotor1.setInverted(false);
+    	leftMotor2.setInverted(false);
+    	rightMotor1.setInverted(false);
+    	rightMotor2.setInverted(false);
+    	
+    	leftMotor2.follow(leftMotor1);
+    	rightMotor2.follow(rightMotor1);
+    	
+    	rightMotor1.setSafetyEnabled(false);
+    	rightMotor2.setSafetyEnabled(false);
+    	leftMotor1.setSafetyEnabled(false);
+    	leftMotor2.setSafetyEnabled(false);
+    	
+    	difDrive = new DifferentialDrive(RobotMap.leftMotor1, RobotMap.rightMotor1);
+	}
+    
+    @Override
+    public void initDefaultCommand() {
+    	setDefaultCommand(new DriveControls(Presets.deadzone));
+    }
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+    public void periodic() {
+    	
+    }
 }
