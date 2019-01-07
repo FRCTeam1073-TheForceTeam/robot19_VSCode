@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
-
-import frc.robot.Presets;
 import frc.robot.*;
+import frc.robot.commands.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -17,7 +16,7 @@ public class Drivetrain extends Subsystem {
     /** The Robot's Drivetrain */
     public DifferentialDrive difDrive;
     
-	public robotDrivetrain() {
+	public Drivetrain() {
 		leftMotor1.setInverted(false);
     	leftMotor2.setInverted(false);
     	rightMotor1.setInverted(false);
