@@ -21,10 +21,10 @@ public class DriveControls extends Command {
 	private double deadzone;
 
 	/** Controller Data: Left Y */
-	public double fwd;
+	private double fwd;
 	
 	/** Controller Data: Right X */
-	public double rot;
+	private double rot;
 
 	/**
 	 * This is the driver movement controls
