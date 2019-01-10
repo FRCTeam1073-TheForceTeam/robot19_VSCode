@@ -12,7 +12,7 @@ public class AdvancedTurn extends Command {
 	private double slowDegrees = 37;
 	
 	/** Near end running speed */
-	private double slowSpeed = 0.35;
+	private double slowSpeed = 0.65;
 	
 	/** Normal running speed */
 	private double regularSpeed = 1;

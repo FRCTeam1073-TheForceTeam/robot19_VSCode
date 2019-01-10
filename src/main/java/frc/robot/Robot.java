@@ -45,8 +45,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    System.out.println("Robot Initializing");
+    	System.out.println("Robot Initializing");
 		
+		RobotMap.init();
+
 		initialBootTime = System.currentTimeMillis();
 		netTableInst = NetworkTableInstance.getDefault();
 		lidarSendTable = netTableInst.getTable("LidarSendTable");

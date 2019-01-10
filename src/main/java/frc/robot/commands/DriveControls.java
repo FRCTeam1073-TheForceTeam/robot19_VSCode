@@ -39,7 +39,7 @@ public class DriveControls extends Command {
 	 * This command does not finish.
 	 * 
 	 * @author Nathaniel
-	 * @see ./subsystems/robotDriveTrain.java
+	 * @see /subsystems/Drivetrain.java
 	 * @category Drive Command
 	 */
 	public DriveControls(double deadzone) {

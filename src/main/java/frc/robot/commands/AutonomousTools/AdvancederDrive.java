@@ -3,7 +3,6 @@ package frc.robot.commands.AutonomousTools;
 import frc.robot.*;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /*** Straight drive command 
  * @author Nathaniel 
