@@ -1,7 +1,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class XboxController extends Joystick {
@@ -112,7 +111,6 @@ public class XboxController extends Joystick {
 		try {
 			Thread.sleep((long) milis);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		setRumble(RumbleType.kLeftRumble,0);
@@ -135,7 +133,6 @@ public class XboxController extends Joystick {
 				try {
 					Thread.sleep((long) milis);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			setRumble(RumbleType.kLeftRumble,0);

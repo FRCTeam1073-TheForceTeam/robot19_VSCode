@@ -2,7 +2,6 @@ package frc.robot.commands.AutonomousTools;
 
 import frc.robot.*;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -11,18 +10,14 @@ public class TurnToPoint extends Command {
 	
 	private double turnSpeed;
 	private double turnDegrees;
-	private String turnDirection;
 	private double originalDegrees;
-	private double slowdownDistance = 11;
-	private double slowdownValue = .5;
 	private double slowdownMin = .5;
-	private double leftEnc,rightEnc;
 	private int loop;
 	double turnSpeedDecreased;
 	
 	/** Uses basic drive to turn based on the gyro's position from the last time the gyro was reset
 	 * 
-	 * @author Anderson
+	 * @author Jask
 	 * @category Drive Command
 	 * @param Speed from 0 to 1
 	 * @param Degrees should be positive

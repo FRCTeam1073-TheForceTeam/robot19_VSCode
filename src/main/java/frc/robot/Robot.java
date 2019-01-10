@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.*;
 import frc.robot.commands.AutonomousTools.*;
 import frc.robot.subsystems.*;
 
@@ -71,21 +70,21 @@ public class Robot extends TimedRobot {
 		elims = new AutoObject(6);
 		experimental = new AutoObject(7);
 		
-		/* The Position Chooser */
+		/* The Position Chooser 
 		autonomousPosition = new SendableChooser<AutoObject>();
 		autonomousPosition.addDefault("None", other);
 		autonomousPosition.addObject("Left", left);
 		autonomousPosition.addObject("Center", center);
 		autonomousPosition.addObject("Right", right);
-		SmartDashboard.putData("Position", autonomousPosition);
+		SmartDashboard.putData("Position", autonomousPosition);*/
 
-		/* The MatchType Chooser */
+		/* The MatchType Chooser 
 		autonomousMatchType = new SendableChooser<AutoObject>();
 		autonomousMatchType.addDefault("None", other);
 		autonomousMatchType.addObject("Qualifications", quals);
 		autonomousMatchType.addObject("Eliminations", elims);
 		autonomousMatchType.addObject("Experimental", experimental);
-		SmartDashboard.putData("Match Type", autonomousMatchType);
+		SmartDashboard.putData("Match Type", autonomousMatchType);*/
 		
 		autonomousCommand = new AutoTest();
   }

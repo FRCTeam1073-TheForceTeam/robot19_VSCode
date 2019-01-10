@@ -1,17 +1,12 @@
 package frc.robot.commands.AutonomousTools;
 
 import frc.robot.*;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-@SuppressWarnings("deprecation")
 public class VisionerCuberTrackerer extends Command{
 
 	// Defines speed and slow down markers	
 	private final Vision vision = Robot.vision;
-	private final double speed = .75;
 	private double completionWidth;
 	private double validZone; // Marks the reasonable area around the center
 	

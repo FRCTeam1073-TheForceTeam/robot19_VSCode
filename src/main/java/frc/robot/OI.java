@@ -1,10 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.AutonomousTools.*;
-import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -24,15 +21,10 @@ public class OI {
     	driverControl = new XboxController(0);
     	operatorControl = new XboxController(1);
     	
-    	RobotTeleInit = driverControl.start;
-    	
     	driverCancel = driverControl.a;
     	operatorCancel = operatorControl.a;
 
     	visionButton = driverControl.b;
     	visionButton.whenPressed(new VisionCubeTracker());
-
     }
 }
-
-

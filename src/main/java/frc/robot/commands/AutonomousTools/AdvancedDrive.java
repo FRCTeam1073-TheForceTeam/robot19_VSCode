@@ -3,7 +3,6 @@ package frc.robot.commands.AutonomousTools;
 import frc.robot.*;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /*** Straight drive command 
  * @author Nathaniel 
@@ -13,14 +12,13 @@ public class AdvancedDrive extends Command {
 	/** Class wide variable declaration */
 	private double speed, currentSpeed, finalSpeed, finalSpeedL, finalSpeedR, 
 	dist, toBeTraveled, inch, leftEncDif, rightEncDif, startleftEncDif, percentComplete, 
-	avgEncDif, startrightEncDif, originalDegrees, currentDegrees, n;
+	avgEncDif, startrightEncDif, originalDegrees, currentDegrees;
 
 	/* Ramp? */
 	private double ramp, rampStart, rampEnd;
 
 	/* Timer variables */
 	private double timeout, timer, timeEnd;
-	private boolean fin;
 	
 	//New Timer
 	
@@ -64,14 +62,10 @@ public class AdvancedDrive extends Command {
 		originalDegrees = RobotMap.headingGyro.getAngle();
 
 		/* Variables for the math of the encoder tick to distance */
-		double rotation = 1440;
-		double circumference = 12.25221134900019363000430919479;
+		//double rotation = 1440;
+		//double circumference = 12.25221134900019363000430919479;
 		inch = 117.52980412939963256779108679819;
 		toBeTraveled = (dist * inch * 1.045); // Distance to be traveled as used in the code
-
-		/* Extra variables */
-		n = 0;
-		fin = false;
 
 		/* Ramp? vars */
 		ramp = currentSpeed / 2;

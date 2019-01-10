@@ -27,5 +27,4 @@ public class RobotMap {
 		leftMotor2 = new WPI_VictorSPX(9);
 		leftMotor1 = new WPI_TalonSRX(8);
 	}
-
 }

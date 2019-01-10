@@ -1,10 +1,6 @@
 package frc.robot.commands.AutonomousTools;
 
-import frc.robot.*;
-import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
