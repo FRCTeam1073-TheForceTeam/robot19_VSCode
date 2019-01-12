@@ -1,24 +1,56 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-/**
- * An example subsystem.  You can replace me with your own Subsystem.
- */
+/**Author: Alex Hill, tons of help from Nathaniel
+* Not tested yet, will do so next meeting. :)
+*/
+
+// imports reference folders
+import frc.robot.RobotMap;
+import frc.robot.commands.ExampleCommand;
+
+//Identifying and assigning motors, also putting methods to control the system
+
 public class Drivetrain extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+    private final WPI_TalonSRX rightMotor1 = RobotMap.rightMotor1;
+    private final WPI_VictorSPX rightMotor2 = RobotMap.rightMotor2;
+    private final WPI_TalonSRX leftMotor1 = RobotMap.leftMotor1;
+    private final WPI_VictorSPX leftMotor2 = RobotMap.leftMotor2;
+
+    public DifferentialDrive difDrive;
+
+    public Drivetrain() {
+        rightMotor1.setInverted(false);
+        rightMotor2.setInverted(false);
+        leftMotor1.setInverted(false);
+        leftMotor2.setInverted(false);
+
+        rightMotor2.follow(rightMotor1);
+        leftMotor2.follow(leftMotor1);
+
+        rightMotor1.setSafetyEnabled(false);
+        rightMotor2.setSafetyEnabled(false);
+        leftMotor1.setSafetyEnabled(false);
+        leftMotor2.setSafetyEnabled(false);
+
+        difDrive = new DifferentialDrive(RobotMap.rightMotor1, RobotMap.leftMotor1);
+
+    }
+
+    @Override
+    // Setting deadzone as default on the controller
+    public void initDefaultCommand() {
+        setDefaultCommand(new ExampleCommand());
+
+    }
+
+    public void periodic() {
+
+    }
 }
