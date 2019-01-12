@@ -7,15 +7,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AutonomousTools.*;
-import frc.robot.subsystems.*;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.Drivetrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,19 +23,11 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-	public double initialBootTime, teleopStartTime, autoStartTime;
-	public static OI oi;
-	public static Drivetrain drivetrain;
-	public static Pnuematic pnuematic;
-	public static Vision vision;
-	public static String FMS;
-	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType;
-	public AutoObject left, center, right, other, quals, elims, experimental;
-	public static boolean clawBool, EncoderBool, EncoderBoolSet, notClear;
-	public static boolean selectedCamera;
-	public static NetworkTableInstance netTableInst;
-	public static edu.wpi.first.networktables.NetworkTable lidarSendTable;
-  	Command autonomousCommand;
+  public static Drivetrain drive = new Drivetrain();
+  public static OI oi;
+
+  Command autonomousCommand;
+  SendableChooser<Command> chooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -45,53 +35,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    	System.out.println("Robot Initializing");
-		
-		RobotMap.init();
-
-		RobotMap.headingGyro.reset();
-		RobotMap.headingGyro.calibrate();
-
-		initialBootTime = System.currentTimeMillis();
-		netTableInst = NetworkTableInstance.getDefault();
-		lidarSendTable = netTableInst.getTable("LidarSendTable");
-		
-		drivetrain = new Drivetrain();
-
-		pnuematic = new Pnuematic();
-
-		vision = new Vision();
-
-		oi = new OI();
-
-		FMS = "";
-
-		/* Position Objects */
-		left = new AutoObject(1);
-		center = new AutoObject(2);
-		right = new AutoObject(3);
-		other = new AutoObject(4);
-		quals = new AutoObject(5);
-		elims = new AutoObject(6);
-		experimental = new AutoObject(7);
-		
-		/* The Position Chooser 
-		autonomousPosition = new SendableChooser<AutoObject>();
-		autonomousPosition.addDefault("None", other);
-		autonomousPosition.addObject("Left", left);
-		autonomousPosition.addObject("Center", center);
-		autonomousPosition.addObject("Right", right);
-		SmartDashboard.putData("Position", autonomousPosition);*/
-
-		/* The MatchType Chooser 
-		autonomousMatchType = new SendableChooser<AutoObject>();
-		autonomousMatchType.addDefault("None", other);
-		autonomousMatchType.addObject("Qualifications", quals);
-		autonomousMatchType.addObject("Eliminations", elims);
-		autonomousMatchType.addObject("Experimental", experimental);
-		SmartDashboard.putData("Match Type", autonomousMatchType);*/
-		
-		autonomousCommand = new AutoTest();
+    oi = new OI();
+    chooser.setDefaultOption("Default Auto", new ExampleCommand());
+    // chooser.addOption("My Auto", new MyAutoCommand());
+    SmartDashboard.putData("Auto mode", chooser);
   }
 
   /**
@@ -105,94 +52,76 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
   }
-  
+
   /**
-   * This function is called when the disabled button is hit.
-   * You can use it to reset subsystems before shutting down.
+   * This function is called once each time the robot enters Disabled mode.
+   * You can use it to reset any subsystem information you want to clear when
+   * the robot is disabled.
    */
-	public void disabledInit(){
-		System.out.println("At " + ((System.currentTimeMillis() - initialBootTime) * 1000) + ", robot19.robot says \n"
-				+ "\" WE ARE DISABLED WHAT THE HECK?\"");
-		
-		System.out.println(RobotMap.headingGyro.getAngle());
-		
-		vision.init();
-		lidarSendTable = netTableInst.getTable("LidarSendTable");
-		
-		vision.refresh();
-		
-		Robot.oi.driverControl.rumbleTimeRep(1, 250, 2);
-		Robot.oi.driverControl.rumbleTimeRep(.2, 250, 2);
-		Robot.oi.driverControl.rumbleTimeRep(1, 250, 2);
-		Robot.oi.driverControl.rumbleTimeRep(.2, 250, 2);
-	}
+  @Override
+  public void disabledInit() {
+  }
 
-	public void disabledPeriodic() {
-		vision.init();
-		lidarSendTable = netTableInst.getTable("LidarSendTable");
-		
-		vision.refresh();
-	}
+  @Override
+  public void disabledPeriodic() {
+    Scheduler.getInstance().run();
+  }
 
-	public void autonomousInit() {
-		autoStartTime = System.currentTimeMillis();
-		
-		vision.init();
-		lidarSendTable = netTableInst.getTable("LidarSendTable");
-		
-		vision.refresh();
-		
-		System.out.println("Auto Setting Up");
-		
-		RobotMap.headingGyro.reset();
+  /**
+   * This autonomous (along with the chooser code above) shows how to select
+   * between different autonomous modes using the dashboard. The sendable
+   * chooser code works with the Java SmartDashboard. If you prefer the
+   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
+   * getString code to get the auto name from the text box below the Gyro
+   *
+   * <p>You can add additional auto modes by adding additional commands to the
+   * chooser code above (like the commented example) or additional comparisons
+   * to the switch structure below with additional strings & commands.
+   */
+  @Override
+  public void autonomousInit() {
+    autonomousCommand = chooser.getSelected();
 
-		FMS = DriverStation.getInstance().getGameSpecificMessage();
-		SmartDashboard.putString("FMS", FMS);
-		System.out.println("FMS: " + FMS);
+    /*
+     * String autoSelected = SmartDashboard.getString("Auto Selector",
+     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
+     * = new MyAutoCommand(); break; case "Default Auto": default:
+     * autonomousCommand = new ExampleCommand(); break; }
+     */
 
-		Scheduler.getInstance().run();
-		
-		Robot.notClear = lidarSendTable.getEntry("Stop").getBoolean(false);
-		
-		System.out.println("Auto Starting");
-		if (autonomousCommand != null) autonomousCommand.start();
-	}
+    // schedule the autonomous command (example)
+    if (autonomousCommand != null) autonomousCommand.start();
+  }
 
-	/** This function is called periodically during autonomous */
-	public void autonomousPeriodic() {
-		lidarSendTable = netTableInst.getTable("LidarSendTable");
-		
-		vision.refresh();
-		
-		Scheduler.getInstance().run();
-		Robot.notClear = lidarSendTable.getEntry("Stop").getBoolean(false);
-	}
+  /**
+   * This function is called periodically during autonomous.
+   */
+  @Override
+  public void autonomousPeriodic() {
+    Scheduler.getInstance().run();
+  }
 
-	public void teleopInit() {
-		teleopStartTime = System.currentTimeMillis();
-		
-		vision.init();
-		lidarSendTable = netTableInst.getTable("LidarSendTable");
-		
-		if (autonomousCommand != null) autonomousCommand.cancel();
-		
-		FMS = DriverStation.getInstance().getGameSpecificMessage();
-		SmartDashboard.putString("FMS", FMS);
-		System.out.println("FMS: " + FMS);
-	}
-	
-	/** This function is called periodically during operator control */
-	public void teleopPeriodic() {
-		lidarSendTable = netTableInst.getTable("LidarSendTable");
-		
-		vision.refresh();
-		
-		Scheduler.getInstance().run();
-	}
+  @Override
+  public void teleopInit() {
+    // This makes sure that the autonomous stops running when
+    // teleop starts running. If you want the autonomous to
+    // continue until interrupted by another command, remove
+    // this line or comment it out.
+    if (autonomousCommand != null) autonomousCommand.cancel();
+  }
 
-	/** This function is called periodically during test mode */
-	public void testPeriodic() {
-		System.out.println("Test Mode.");
-		vision.refresh();
-	}
+  /**
+   * This function is called periodically during operator control.
+   */
+  @Override
+  public void teleopPeriodic() {
+    Scheduler.getInstance().run();
+  }
+
+  /**
+   * This function is called periodically during test mode.
+   */
+  @Override
+  public void testPeriodic() {
+  }
 }
