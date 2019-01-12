@@ -43,7 +43,7 @@ public class AdvancederDrive extends Command {
 	/** Direction modifier */
 	private double direction = 0;
 
-	/** PID, but not, because this actually works
+	/** Not PID because this actually works
 	 * @author Nathaniel
 	 * @param distance in inches 
 	 * Note: must be positive (like no literally we make it positive (this is for the idiots that might not read this but still it's extremely bad practice to assume negativity will change something when it won't so just do it right and don't use a negative please and thank you))
