@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**Author: Alex Hill, tons of help from Nathaniel
-* Not tested yet, will do so next meeting. :)
+* Not tested yet, please let me test this.
 */
 
 // imports reference folders
 import frc.robot.RobotMap;
 import frc.robot.commands.ExampleCommand;
 
-//Identifying and assigning motors, also putting methods to control the system
+//Identifying and assigning motors, also committing methods to the control system
 
 public class Drivetrain extends Subsystem {
 
