@@ -26,8 +26,9 @@ public class AutoObject {
 	}
 
 	/** Coopertition?? */
+
 	public void Invert() {
-		if 		(Robot.FMS.equals("RRR")) Robot.FMS = "LLL";
+		if(Robot.FMS.equals("RRR")) Robot.FMS = "LLL";
 		else if (Robot.FMS.equals("RLR")) Robot.FMS = "LRL";
 		else if (Robot.FMS.equals("LLL")) Robot.FMS = "RRR";
 		else if (Robot.FMS.equals("LRL")) Robot.FMS = "RLR";
