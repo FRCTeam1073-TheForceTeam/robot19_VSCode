@@ -1,5 +1,6 @@
-package frc.robot;
+package frc.robot.subsystems;
 
+import frc.robot.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Vision {

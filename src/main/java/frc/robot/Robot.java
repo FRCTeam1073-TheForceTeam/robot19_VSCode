@@ -28,6 +28,8 @@ public class Robot extends TimedRobot {
 	public double initialBootTime, teleopStartTime, autoStartTime;
 	public static OI oi;
 	public static Drivetrain drivetrain;
+	public static Pnuematic pnuematic;
+	public static Vision vision;
 	public static String FMS;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType;
 	public AutoObject left, center, right, other, quals, elims, experimental;
@@ -35,8 +37,7 @@ public class Robot extends TimedRobot {
 	public static boolean selectedCamera;
 	public static NetworkTableInstance netTableInst;
 	public static edu.wpi.first.networktables.NetworkTable lidarSendTable;
-	public static Vision vision;
-  Command autonomousCommand;
+  	Command autonomousCommand;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -48,15 +49,19 @@ public class Robot extends TimedRobot {
 		
 		RobotMap.init();
 
+		RobotMap.headingGyro.reset();
+		RobotMap.headingGyro.calibrate();
+
 		initialBootTime = System.currentTimeMillis();
 		netTableInst = NetworkTableInstance.getDefault();
 		lidarSendTable = netTableInst.getTable("LidarSendTable");
 		
+		drivetrain = new Drivetrain();
+
+		pnuematic = new Pnuematic();
+
 		vision = new Vision();
 
-		RobotMap.headingGyro.reset();
-		
-		drivetrain = new Drivetrain();
 		oi = new OI();
 
 		FMS = "";
@@ -102,9 +107,9 @@ public class Robot extends TimedRobot {
   }
   
   /**
-	 * This function is called when the disabled button is hit.
-	 * You can use it to reset subsystems before shutting down.
-	 */
+   * This function is called when the disabled button is hit.
+   * You can use it to reset subsystems before shutting down.
+   */
 	public void disabledInit(){
 		System.out.println("At " + ((System.currentTimeMillis() - initialBootTime) * 1000) + ", robot19.robot says \n"
 				+ "\" WE ARE DISABLED WHAT THE HECK?\"");

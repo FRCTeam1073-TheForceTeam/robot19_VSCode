@@ -32,10 +32,10 @@ public class AdvancederDrive extends Command {
 	private double adjustSpeed = .85;
 	
 	/** Near end running speed */
-	private double slowSpeed = .75;
-	
-	/** Percent completion for slow down */
-	private double slowPercent = .75;
+	private double slowSpeed = .7;
+
+	/** Near end distance */
+	private double inchesLeft = 7;
 	
 	/** Timeout values */
 	private double timeStart, timeout;
@@ -56,7 +56,7 @@ public class AdvancederDrive extends Command {
 	 * @category Drive Command
 	 */
 	public AdvancederDrive(double distance, String direction, double timeout) {
-		this.distance = Math.abs(distance);
+		this.distance = Math.abs(distance * 118);
 		
 		if (direction.equals("forward")) this.direction = -1;
 		else if (direction.equals("backward")) this.direction = 1;
@@ -66,19 +66,16 @@ public class AdvancederDrive extends Command {
 				+ "Your input: " + direction + "\"");
 		
 		if (timeout != 0) this.timeout = timeout;
-		else this.timeout = 214748364.9999999;
+		else this.timeout = 95000000;
 	}
 
-	protected void initialize() {		
+	protected void initialize() {
 		/* Grabs initial robot encoder positions */
 		initialLeft = Robot.drivetrain.leftEncoder;
 		initialRight = Robot.drivetrain.rightEncoder;
 		
 		/* Grabs current heading to use for comparison during drive */
 		initialDegrees = RobotMap.headingGyro.getAngle(); 
-		
-		/* Converts inches to encoder ticks */
-		distance *= (118);
 		
 		/* Grabs a start time for timeout */
 		timeStart = System.currentTimeMillis();
@@ -98,17 +95,17 @@ public class AdvancederDrive extends Command {
 	
 	/** Uses encoders to check whether or not to start slowing down */
 	private double encoderCheck() {
-		if (percentCheck() >= slowPercent) return slowSpeed;
+		if (distanceCheck() >= distance - (inchesLeft * 118)) return slowSpeed;
 		return normalSpeed;
 	}
 	
 	/** Checks percent of the distance traveled */
-	private double percentCheck() {
+	private double distanceCheck() {
 		System.out.println("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
-				+ "\"percentCheck: TD " + (int)(Math.abs(currentLeft - initialLeft) + Math.abs(currentRight - initialRight) / (2 * distance)) + "\t CL" + (int)currentLeft + "\t CR" + (int)currentRight + "\"");
-		if (Math.abs(initialLeft - currentLeft) == 0) return Math.abs(initialRight - currentRight) / (distance);
-		if (Math.abs(initialRight - currentRight) == 0) return Math.abs(initialLeft - currentLeft) / (distance);
-		return Math.abs(initialLeft - currentLeft) + Math.abs(initialRight - currentRight) / (2 * distance);
+				+ "\"distanceCheck: TD " + (int)(Math.abs(currentLeft - initialLeft) + Math.abs(currentRight - initialRight) / (2 * distance)) + "\t CL" + (int)currentLeft + "\t CR" + (int)currentRight + "\"");
+		if (Math.abs(currentLeft - initialLeft) <= 2) return Math.abs(currentRight - initialRight);
+		if (Math.abs(currentRight - initialRight) <= 2) return Math.abs(currentLeft - initialLeft);
+		return (Math.abs(currentLeft - initialLeft) + Math.abs(currentRight - initialRight)) / 2;
 	}
 
 	/** Modifier to stop the robot if lidar sees a robot */
@@ -137,8 +134,13 @@ public class AdvancederDrive extends Command {
 	 * or if either the timeout or distance is traveled
 	 */
 	protected boolean isFinished() {
-		if (Robot.oi.driverCancel.get() == true || Robot.oi.operatorCancel.get() == true) return true;
-		if (System.currentTimeMillis() - timeStart >= timeout || direction == 0 || percentCheck() >= 1) return true;
+		if (Robot.oi.driverCancel.get() == true || Robot.oi.operatorCancel.get() == true || 
+		System.currentTimeMillis() - timeStart >= timeout || direction == 0 || distanceCheck() >= distance) return true;
 		return false;
+	}	
+
+	protected void end() {
+		System.out.println("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
+		+ "\"Command Finished with PC: " + distanceCheck() + "\"");
 	}
 }
