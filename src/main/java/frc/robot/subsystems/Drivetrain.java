@@ -50,5 +50,6 @@ public class Drivetrain extends Subsystem {
     public void periodic() {
 		leftEncoder = leftMotor1.getSelectedSensorPosition();
 		rightEncoder = rightMotor1.getSelectedSensorPosition();
+
     }
 }
