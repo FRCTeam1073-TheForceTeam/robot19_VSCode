@@ -30,7 +30,11 @@ public class RobotMap {
 	public static Compressor compressor;
 	public static Solenoid high;
 	public static Solenoid low;
-	
+  
+  /* @author Alex
+  *  simply the code below
+  */
+
 	public static void init() {
 		headingGyro = new ADXRS450_Gyro();
 		
