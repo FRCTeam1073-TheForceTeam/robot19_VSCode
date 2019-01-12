@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Vision {
 	
 	public double xDelta, xWidth, yDelta, yWidth, blockCount, width;
-	public static edu.wpi.first.networktables.NetworkTable visionTable;
+	public edu.wpi.first.networktables.NetworkTable visionTable;
 	
 	public Vision() {
 		System.out.println("\"Where we droppin' boys?\"");

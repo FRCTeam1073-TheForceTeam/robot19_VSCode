@@ -8,6 +8,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -22,6 +24,6 @@ public class GearBox extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
   public void periodic() {
-
+    Robot.vision.visionTable.getEntry("Velocity String").setString("Left velocity: " + RobotMap.leftMotor1.getSelectedSensorVelocity() + "\tRight velocity: " + RobotMap.rightMotor1.getSelectedSensorVelocity());
   }
 }

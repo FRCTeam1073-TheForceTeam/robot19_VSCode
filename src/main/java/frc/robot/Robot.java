@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
+	public static GearBox gearbox;
 	public static Vision vision;
 	public static String FMS;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType;
@@ -59,6 +60,8 @@ public class Robot extends TimedRobot {
 		drivetrain = new Drivetrain();
 
 		pnuematic = new Pnuematic();
+
+		gearbox = new GearBox();
 
 		vision = new Vision();
 

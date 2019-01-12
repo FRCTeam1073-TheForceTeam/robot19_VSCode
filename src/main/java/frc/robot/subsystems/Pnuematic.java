@@ -7,7 +7,8 @@
 
 package frc.robot.subsystems;
  
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.Compress;
@@ -21,7 +22,10 @@ public class Pnuematic extends Subsystem {
   
   private final Compressor compressor = RobotMap.compressor;
 	private final Solenoid high = RobotMap.high;
-	private final Solenoid low = RobotMap.low;
+  private final Solenoid low = RobotMap.low;
+  
+  public Pnuematic() {
+  }
 
   @Override
   public void initDefaultCommand() {
