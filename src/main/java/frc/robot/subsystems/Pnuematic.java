@@ -36,6 +36,7 @@ public class Pnuematic extends Subsystem {
   
 	public void lowGear() {
 	  low.set(true);
-		high.set(false);
+    high.set(false);
+    
 	}
 }
