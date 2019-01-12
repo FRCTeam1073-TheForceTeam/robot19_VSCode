@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
+	public static GearBox gearbox;
 	public static Vision vision;
 	public static String FMS;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType;
@@ -60,6 +61,8 @@ public class Robot extends TimedRobot {
 
 		pnuematic = new Pnuematic();
 
+		gearbox = new GearBox();
+
 		vision = new Vision();
 
 		oi = new OI();
@@ -75,21 +78,21 @@ public class Robot extends TimedRobot {
 		elims = new AutoObject(6);
 		experimental = new AutoObject(7);
 		
-		/* The Position Chooser 
+		/* The Position Chooser */
 		autonomousPosition = new SendableChooser<AutoObject>();
-		autonomousPosition.addDefault("None", other);
-		autonomousPosition.addObject("Left", left);
-		autonomousPosition.addObject("Center", center);
-		autonomousPosition.addObject("Right", right);
-		SmartDashboard.putData("Position", autonomousPosition);*/
+		autonomousPosition.setDefaultOption("None", other);
+		autonomousPosition.addOption("Left", left);
+		autonomousPosition.addOption("Center", center);
+		autonomousPosition.addOption("Right", right);
+		SmartDashboard.putData("Position", autonomousPosition);
 
-		/* The MatchType Chooser 
+		/* The MatchType Chooser */
 		autonomousMatchType = new SendableChooser<AutoObject>();
-		autonomousMatchType.addDefault("None", other);
-		autonomousMatchType.addObject("Qualifications", quals);
-		autonomousMatchType.addObject("Eliminations", elims);
-		autonomousMatchType.addObject("Experimental", experimental);
-		SmartDashboard.putData("Match Type", autonomousMatchType);*/
+		autonomousMatchType.setDefaultOption("None", other);
+		autonomousMatchType.addOption("Qualifications", quals);
+		autonomousMatchType.addOption("Eliminations", elims);
+		autonomousMatchType.addOption("Experimental", experimental);
+		SmartDashboard.putData("Match Type", autonomousMatchType);
 		
 		autonomousCommand = new AutoTest();
   }
