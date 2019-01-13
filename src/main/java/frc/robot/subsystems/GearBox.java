@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import java.text.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -19,6 +20,8 @@ public class GearBox extends Subsystem {
   // here. Call these from Commands.
 
   public double leftVelocity, rightVelocity, averageSpeed;
+  private String gear;
+  private DecimalFormat dec = new DecimalFormat("#.##");
   private final Pnuematic pnuematic = Robot.pnuematic;
 
   @Override
@@ -42,7 +45,8 @@ public class GearBox extends Subsystem {
     leftVelocity = RobotMap.leftMotor1.getSelectedSensorVelocity();
     rightVelocity = RobotMap.rightMotor1.getSelectedSensorVelocity();
     averageSpeed = (Math.abs(leftVelocity) + Math.abs(rightVelocity)) / 2;
-
-    Robot.vision.visionTable.getEntry("Velocity String").setString("Left velocity: " + leftVelocity + "\tRight velocity: " + rightVelocity + "\tSpeed: " + averageSpeed);
+    if (pnuematic.isHighGear()) gear = "high";
+    else if (pnuematic.isLowGear()) gear = "low";
+    Robot.networktable.table.getEntry("GearBox").setString("\tLeft velocity: " + dec.format(leftVelocity / 141.6) + "\tRight velocity: " + dec.format(rightVelocity / 141.6) + "\tSpeed: " + dec.format(averageSpeed / 141.6) + "\tGear: " + gear);
   }
 }
