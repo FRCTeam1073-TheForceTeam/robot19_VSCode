@@ -37,13 +37,14 @@ public class RobotMap {
 
 	public static void init() {
 		headingGyro = new ADXRS450_Gyro();
-		
+
 		rightMotor2 = new WPI_VictorSPX(2);
 		rightMotor1 = new WPI_TalonSRX(3);
 		leftMotor2 = new WPI_VictorSPX(9);
 		leftMotor1 = new WPI_TalonSRX(8);
+
 		compressor = new Compressor();
-		high = new Solenoid (1, 5);
-		low = new Solenoid (1, 7);
+		high = new Solenoid (1, 0);
+		low = new Solenoid (1, 1);
 	}
 }

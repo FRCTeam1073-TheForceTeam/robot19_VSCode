@@ -26,12 +26,22 @@ public class Pnuematic extends Subsystem {
     setDefaultCommand(new Compress());
   }
 
-  public void highGear() {
+  public boolean isHighGear() {
+    if (!low.get() && high.get()) return true;
+    return false;
+  }
+
+  public boolean isLowGear() {
+    if (low.get() && !high.get()) return true;
+    return false;
+  }
+
+  public void setHighGear() {
 		low.set(false);
 		high.set(true);
   }
   
-	public void lowGear() {
+	public void setLowGear() {
 	  low.set(true);
     high.set(false);
     
