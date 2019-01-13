@@ -1,7 +1,11 @@
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.*;
-import edu.wpi.first.wpilibj.*;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -34,7 +38,7 @@ public class RobotMap {
 		leftMotor2 = new WPI_VictorSPX(9);
 		leftMotor1 = new WPI_TalonSRX(8);
 
-		compressor = new Compressor();
+		compressor = new Compressor(0);
 		high = new Solenoid (1, 0);
 		low = new Solenoid (1, 1);
 	}
