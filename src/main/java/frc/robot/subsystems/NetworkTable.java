@@ -15,23 +15,27 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class NetworkTable extends Subsystem {
 
-	public NetworkTableInstance netTableInst;
+  
+	public static NetworkTableInstance inst;
   public edu.wpi.first.networktables.NetworkTable table;
-  private String tableName;
 
-  public NetworkTable(String tableName) {
-    this.tableName = tableName;
-    table = netTableInst.getTable(tableName);
+  public NetworkTable() {
+    
+		inst = NetworkTableInstance.getDefault();
+    table = inst.getTable("1073Table");
   }
 
   @Override
   public void initDefaultCommand() {
   }
 
+  public static void init() {
+  }
+
   public void periodic() {
   }
 
   public void refresh() {
-    table = netTableInst.getTable(tableName);
+    table = inst.getTable("1073Table");
   }
 }

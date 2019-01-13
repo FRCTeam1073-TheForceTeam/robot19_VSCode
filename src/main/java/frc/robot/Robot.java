@@ -12,8 +12,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AutonomousTools.*;
-import frc.robot.subsystems.*;
+import frc.robot.commands.AutonomousTools.AutoTest;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.GearBox;
+import frc.robot.subsystems.Lidar;
+import frc.robot.subsystems.NetworkTable;
+import frc.robot.subsystems.Pnuematic;
+import frc.robot.subsystems.Vision;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -51,7 +56,7 @@ public class Robot extends TimedRobot {
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
 
-		networktable = new NetworkTable("1073Table");
+		networktable = new NetworkTable();
 		
 		drivetrain = new Drivetrain();
 

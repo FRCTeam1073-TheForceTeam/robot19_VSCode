@@ -47,6 +47,6 @@ public class GearBox extends Subsystem {
     averageSpeed = (Math.abs(leftVelocity) + Math.abs(rightVelocity)) / 2;
     if (pnuematic.isHighGear()) gear = "high";
     else if (pnuematic.isLowGear()) gear = "low";
-    Robot.networktable.table.getEntry("GearBox").setString("\tLeft velocity: " + dec.format(leftVelocity / 141.6) + "\tRight velocity: " + dec.format(rightVelocity / 141.6) + "\tSpeed: " + dec.format(averageSpeed / 141.6) + "\tGear: " + gear);
+    Robot.networktable.table.getEntry("GearBox").setString("\tLeft velocity: " + dec.format(leftVelocity / 141.6) + "\tRight velocity: " + dec.format(rightVelocity / 141.6) + "\tSpeed: " + dec.format(averageSpeed / 141.6) + "\tGear: " + gear + "\tPressure Good: " + Robot.pnuematic.PSICheck());
   }
 }

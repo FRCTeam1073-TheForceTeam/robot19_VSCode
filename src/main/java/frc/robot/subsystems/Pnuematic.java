@@ -31,6 +31,10 @@ public class Pnuematic extends Subsystem {
     setDefaultCommand(new Compress());
   }
 
+  public boolean PSICheck() {
+    return !RobotMap.compressor.getPressureSwitchValue();
+  }
+
   public boolean isHighGear() {
     if (!low.get() && high.get()) return true;
     return false;
