@@ -14,13 +14,18 @@ public class OI {
 	public JoystickButton RobotTeleInit;
 	public JoystickButton visionButton;
 	public JoystickButton driverCancel;
-	public JoystickButton operatorCancel;   
+	public JoystickButton operatorCancel;
+	public JoystickButton lowGearHold;
+	public JoystickButton highGearHold;
 	
     public OI() {
 		
     	
     	driverControl = new XboxController(0);
-    	operatorControl = new XboxController(1);
+		operatorControl = new XboxController(1);
+		
+		lowGearHold = driverControl.leftBumper;
+		highGearHold = driverControl.rightBumper;
     	
     	driverCancel = driverControl.a;
     	operatorCancel = operatorControl.a;

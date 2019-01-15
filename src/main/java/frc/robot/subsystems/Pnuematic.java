@@ -1,13 +1,7 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
  
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.*;
@@ -21,7 +15,10 @@ public class Pnuematic extends Subsystem {
   
   private final Compressor compressor = RobotMap.compressor;
 	private final Solenoid high = RobotMap.high;
-	private final Solenoid low = RobotMap.low;
+  private final Solenoid low = RobotMap.low;
+  
+  public Pnuematic() {
+  }
 
   @Override
   public void initDefaultCommand() {
@@ -29,13 +26,24 @@ public class Pnuematic extends Subsystem {
     setDefaultCommand(new Compress());
   }
 
-  public void highGear() {
+  public boolean isHighGear() {
+    if (!low.get() && high.get()) return true;
+    return false;
+  }
+
+  public boolean isLowGear() {
+    if (low.get() && !high.get()) return true;
+    return false;
+  }
+
+  public void setHighGear() {
 		low.set(false);
 		high.set(true);
   }
   
-	public void lowGear() {
+	public void setLowGear() {
 	  low.set(true);
-		high.set(false);
+    high.set(false);
+    
 	}
 }
