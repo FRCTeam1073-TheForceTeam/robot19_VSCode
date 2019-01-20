@@ -6,10 +6,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoTest extends CommandGroup {
 
     public AutoTest() {
-		addSequential(new DataTester());
-    	//addSequential(new AdvancederDrive(24, "forward", 15000));
-    	//addSequential(new AdvancedTurn(90, "right", 3000));
-    	//addSequential(new AdvancedTurn(90, "left", 3000));
-    	//addSequential(new AdvancedTurn(0, "point", 3000));
+		double P=0.05;
+		double I=0.002;
+		double D=0;
+	    
+		System.out.println("JRJR AutoTest constructor");
+    	addSequential(new TurnWithGyroPID(1, 90, "clockwise", P, I, D));
     }
 }
