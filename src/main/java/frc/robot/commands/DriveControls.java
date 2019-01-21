@@ -1,18 +1,21 @@
 package frc.robot.commands;
 
-import frc.robot.*;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 /**
  * This is the driver movement controls
  * for the teleoperated period of a match.
  * It is also the default command for 
- * the robotDrivetrain.java subsystem.
+ * the Drivetrain.java subsystem.
  * 
  * This command does not finish.
  * 
  * @author Nathaniel
- * @see ./subsystems/robotDriveTrain.java
+ * @see /subsystems/DriveTrain.java
  * @category Drive Command
  */
 public class DriveControls extends Command {
@@ -21,10 +24,19 @@ public class DriveControls extends Command {
 	private double deadzone;
 
 	/** Controller Data: Left Y */
-	private double fwd;
+	private double forward;
 	
 	/** Controller Data: Right X */
-	private double rot;
+	private double rotational;
+
+	/** Output for Motor Power */
+	private double leftMotorOutput, rightMotorOutput;
+
+	private double setDirection;
+
+	/** True if going straight */
+	private boolean isStraight;
+
 
 	/**
 	 * This is the driver movement controls
@@ -47,15 +59,75 @@ public class DriveControls extends Command {
 		this.deadzone = deadzone;
 	}
 
+	protected void initialize() {
+		setDirection = RobotMap.headingGyro.getAngle();
+		isStraight = false;
+	}
+
 	/** Called Repeatedly */
 	protected void execute() {
 		/* Controller Data */
-		fwd = Robot.oi.driverControl.getRawAxis(1);
-		rot = Robot.oi.driverControl.getRawAxis(4);
+		forward = Robot.oi.driverControl.getRawAxis(1);
+		rotational = Robot.oi.driverControl.getRawAxis(4);
 		
 		/* Outputs Checked Controller Data to Motors */
-		Robot.drivetrain.difDrive.arcadeDrive(deadZoneCheck(fwd), -deadZoneCheck(rot));
+		arcaderDrive(limit(deadZoneCheck(forward)), limit(deadZoneCheck(rotational)));
 	}
+
+	/**
+   	 * Arcade drive method for differential drive platform.
+   	 *
+   	 * @param fwd The robot's speed along the X axis [-1.0..1.0]. Forward is positive.
+   	 * @param rot The robot's rotation rate around the Z axis [-1.0..1.0]. Clockwise is positive.
+   	 */
+	public void arcaderDrive(double fwd, double rot) {
+		double maxInput = Math.copySign(Math.max(Math.abs(fwd), Math.abs(rot)), fwd);
+
+		if (rot == 0) isStraight = true;
+		else {
+			isStraight = false;
+			setDirection = RobotMap.headingGyro.getAngle();
+		}
+		if (fwd >= 0.0) {
+			if (rot >= 0.0) {
+				leftMotorOutput = maxInput;
+				rightMotorOutput = fwd - rot;
+			} else {
+				leftMotorOutput = fwd + rot;
+				rightMotorOutput = maxInput;
+			}
+		} else {
+			if (rot >= 0.0) {
+				leftMotorOutput = fwd + rot;
+				rightMotorOutput = maxInput;
+			} else {
+				leftMotorOutput = maxInput;
+				rightMotorOutput = fwd - rot;
+			}
+		}
+		System.out.println("RIGHT: "+ (400 * limit(rightMotorOutput))+","+RobotMap.rightMotor1.getSelectedSensorVelocity()+" ; LEFT: "+ (400 * limit(leftMotorOutput))+","+RobotMap.leftMotor1.getSelectedSensorVelocity());
+		//RobotMap.leftMotor1.set(ControlMode.Velocity, 100);
+		//RobotMap.rightMotor1.set(ControlMode.Velocity, 100);
+		RobotMap.rightMotor1.set(limit(rightMotorOutput));
+		RobotMap.leftMotor1.set(limit(leftMotorOutput));
+	}
+
+	private double gainCheck(double speed, String side) {
+		/*if (isStraight && forward > 0 && RobotMap.headingGyro.getAngle() > setDirection && side.equals("right")) return speed * .96;
+		if (isStraight && forward < 0 && RobotMap.headingGyro.getAngle() < setDirection && side.equals("right")) return speed * .96;
+		if (isStraight && forward < 0 && RobotMap.headingGyro.getAngle() < setDirection && side.equals("left")) return speed * .96;
+		if (isStraight && forward > 0 && RobotMap.headingGyro.getAngle() > setDirection && side.equals("left")) return speed * .96;*/
+		return speed;
+	}
+
+	/* n3
+		if (direction == 1 && side.equals("left") && currentDegrees > initialDegrees + deadzone) return adjustSpeed;
+		if (direction == 1 && side.equals("right") && currentDegrees < initialDegrees - deadzone) return adjustSpeed;
+		if (direction == -1 && side.equals("left") && currentDegrees < initialDegrees - deadzone) return adjustSpeed;
+		if (direction == -1 && side.equals("right") && currentDegrees > initialDegrees + deadzone) return adjustSpeed;
+		return 1;
+
+	*/
 	
 	/** 
 	 * @param val Input to check against dead zone
@@ -64,7 +136,17 @@ public class DriveControls extends Command {
 	private double deadZoneCheck(double val) {
 		if(Math.abs(val) < deadzone) return 0;
 		return val;
+
 	}
+
+  	/**
+   	 * Limit motor values to the -1.0 to +1.0 range.
+   	 */
+  	private double limit(double value) {
+    	if (value > 1.0) return 1.0;
+    	if (value < -1.0) return -1.0;
+    	return value;
+  	}
 
 	/** 
 	 * This command should never finish as it 

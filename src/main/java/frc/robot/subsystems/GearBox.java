@@ -19,7 +19,7 @@ public class GearBox extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public double leftVelocity, rightVelocity, averageSpeed;
+  public double leftVelocity, rightVelocity, speed;
   private String gear;
   private DecimalFormat dec = new DecimalFormat("#.##");
   private final Pnuematic pnuematic = Robot.pnuematic;
@@ -36,7 +36,7 @@ public class GearBox extends Subsystem {
   }
 
   public void shiftCheck() {
-    if (averageSpeed >= 400 && !Robot.oi.lowGearHold.get()) pnuematic.setHighGear();
+    if (speed >= 400 && !Robot.oi.lowGearHold.get()) pnuematic.setHighGear();
     else if (Robot.oi.highGearHold.get()) pnuematic.setHighGear();
     else pnuematic.setLowGear();
   }
@@ -44,9 +44,10 @@ public class GearBox extends Subsystem {
   public void update() {
     leftVelocity = RobotMap.leftMotor1.getSelectedSensorVelocity();
     rightVelocity = RobotMap.rightMotor1.getSelectedSensorVelocity();
-    averageSpeed = (Math.abs(leftVelocity) + Math.abs(rightVelocity)) / 2;
+    speed = (Math.abs(leftVelocity) + Math.abs(rightVelocity)) / 2;
     if (pnuematic.isHighGear()) gear = "high";
     else if (pnuematic.isLowGear()) gear = "low";
-    Robot.networktable.table.getEntry("GearBox").setString("\tLeft velocity: " + dec.format(leftVelocity / 141.6) + "\tRight velocity: " + dec.format(rightVelocity / 141.6) + "\tSpeed: " + dec.format(averageSpeed / 141.6) + "\tGear: " + gear);
+    Robot.networktable.table.getEntry("GearBoxReadout").setString("\tLeft velocity: " + dec.format(leftVelocity / 141.6) + "\tRight velocity: " + dec.format(rightVelocity / 141.6) + "\tSpeed: " + dec.format(speed / 141.6) + "\tGear: " + gear);
+    Robot.networktable.table.getEntry("Gyro").setString("Gyro: " + RobotMap.headingGyro.getAngle());
   }
 }

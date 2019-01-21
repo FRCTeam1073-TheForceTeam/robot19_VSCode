@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.Compress;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -27,8 +26,6 @@ public class Pnuematic extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    setDefaultCommand(new Compress());
   }
 
   public boolean isHighGear() {

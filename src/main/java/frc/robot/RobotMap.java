@@ -26,7 +26,6 @@ public class RobotMap {
 	public static WPI_VictorSPX rightMotor2;
 	public static WPI_TalonSRX leftMotor1;
 	public static WPI_VictorSPX leftMotor2;
-	public static Compressor compressor;
 	public static Solenoid high;
 	public static Solenoid low;
 	
@@ -37,9 +36,8 @@ public class RobotMap {
 		rightMotor1 = new WPI_TalonSRX(3);
 		leftMotor2 = new WPI_VictorSPX(9);
 		leftMotor1 = new WPI_TalonSRX(8);
-
-		compressor = new Compressor(0);
-		high = new Solenoid (1, 0);
-		low = new Solenoid (1, 1);
+		
+		high = new Solenoid (1, 7);
+		low = new Solenoid (1, 5);
 	}
 }

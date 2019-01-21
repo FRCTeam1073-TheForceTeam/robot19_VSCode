@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -20,19 +21,12 @@ public class NetworkTable extends Subsystem {
   public edu.wpi.first.networktables.NetworkTable table;
 
   public NetworkTable() {
-    
 		inst = NetworkTableInstance.getDefault();
     table = inst.getTable("1073Table");
   }
 
   @Override
   public void initDefaultCommand() {
-  }
-
-  public static void init() {
-  }
-
-  public void periodic() {
   }
 
   public void refresh() {
