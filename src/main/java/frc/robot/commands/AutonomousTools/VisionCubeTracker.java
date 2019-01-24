@@ -149,7 +149,6 @@ public class VisionCubeTracker extends Command{
 		}
 		SmartDashboard.putBoolean("clawBool", Robot.clawBool);
 	}
-
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		boolean finished = false;

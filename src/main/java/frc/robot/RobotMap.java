@@ -15,10 +15,11 @@ import edu.wpi.first.wpilibj.Solenoid;
  */
 public class RobotMap {
   
-  // If you are using multiple modules, make sure to define both the port
-  // number and the module. For example you with a rangefinder:
-  // public static int rangefinderPort = 1;
-  // public static int rangefinderModule = 1;
+  /** If you are using multiple modules, make sure to define both the port
+  * number and the module. For example you with a rangefinder:
+  * public static int rangefinderPort = 1;
+  * public static int rangefinderModule = 1;
+  */
   
 	public static PowerDistributionPanel pdp;
 	public static AnalogGyro headingGyro;
@@ -28,7 +29,11 @@ public class RobotMap {
 	public static WPI_VictorSPX leftMotor2;
 	public static Solenoid high;
 	public static Solenoid low;
-	
+  
+  /* @author Alex
+  *  simply the code below
+  */
+
 	public static void init() {
 		headingGyro = new AnalogGyro(0);
 
