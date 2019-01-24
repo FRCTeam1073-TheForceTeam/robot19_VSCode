@@ -3,9 +3,6 @@ package frc.robot.commands.AutonomousTools;
 import frc.robot.*;
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class TurnToPoint extends Command {
 	
 	private double turnSpeed;
