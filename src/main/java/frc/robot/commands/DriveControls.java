@@ -105,36 +105,19 @@ public class DriveControls extends Command {
 				rightMotorOutput = fwd - rot;
 			}
 		}
-		System.out.println("RIGHT: "+ (400 * limit(rightMotorOutput))+","+RobotMap.rightMotor1.getSelectedSensorVelocity()+" ; LEFT: "+ (400 * limit(leftMotorOutput))+","+RobotMap.leftMotor1.getSelectedSensorVelocity());
+		System.out.println("RIGHT: "+ (limit(rightMotorOutput))+","+RobotMap.rightMotor1.getSelectedSensorVelocity()+" ; LEFT: "+ (limit(leftMotorOutput))+","+RobotMap.leftMotor1.getSelectedSensorVelocity());
 		//RobotMap.leftMotor1.set(ControlMode.Velocity, 100);
 		//RobotMap.rightMotor1.set(ControlMode.Velocity, 100);
 		RobotMap.rightMotor1.set(limit(rightMotorOutput));
 		RobotMap.leftMotor1.set(limit(leftMotorOutput));
 	}
 
-	private double gainCheck(double speed, String side) {
-		/*if (isStraight && forward > 0 && RobotMap.headingGyro.getAngle() > setDirection && side.equals("right")) return speed * .96;
-		if (isStraight && forward < 0 && RobotMap.headingGyro.getAngle() < setDirection && side.equals("right")) return speed * .96;
-		if (isStraight && forward < 0 && RobotMap.headingGyro.getAngle() < setDirection && side.equals("left")) return speed * .96;
-		if (isStraight && forward > 0 && RobotMap.headingGyro.getAngle() > setDirection && side.equals("left")) return speed * .96;*/
-		return speed;
-	}
-
-	/* n3
-		if (direction == 1 && side.equals("left") && currentDegrees > initialDegrees + deadzone) return adjustSpeed;
-		if (direction == 1 && side.equals("right") && currentDegrees < initialDegrees - deadzone) return adjustSpeed;
-		if (direction == -1 && side.equals("left") && currentDegrees < initialDegrees - deadzone) return adjustSpeed;
-		if (direction == -1 && side.equals("right") && currentDegrees > initialDegrees + deadzone) return adjustSpeed;
-		return 1;
-
-	*/
-	
 	/** 
 	 * @param val Input to check against dead zone
 	 * @return If within dead zone return 0, Else return val
 	 */
 	private double deadZoneCheck(double val) {
-		if(Math.abs(val) < deadzone) return 0;
+		if (Math.abs(val) < deadzone) return 0;
 		return val;
 
 	}

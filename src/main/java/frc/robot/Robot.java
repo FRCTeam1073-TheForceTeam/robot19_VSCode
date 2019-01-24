@@ -53,6 +53,9 @@ public class Robot extends TimedRobot {
 		
 		RobotMap.init();
 
+		RobotMap.leftMotor1.configFactoryDefault();
+		RobotMap.rightMotor1.configFactoryDefault();
+
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
 
