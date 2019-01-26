@@ -22,8 +22,14 @@ public class DataTester extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //System.out.println(RobotMap.headingGyro.isConnected());
-    System.out.println("DataTester says: \"Gyro is @ " + RobotMap.headingGyro.getAngle() + ", LeftEncoder is @" + Robot.drivetrain.leftEncoder + ", RightEncoder is @" + Robot.drivetrain.rightEncoder + "\"");
+    if (Robot.oi.driverControl.b.get()) RobotMap.leftMotor1.set(1);
+    else if (Robot.oi.driverControl.x.get()) RobotMap.leftMotor1.set(-1);
+    else if (Robot.oi.driverControl.y.get()) RobotMap.rightMotor1.set(1);
+    else if (Robot.oi.driverControl.start.get()) RobotMap.rightMotor1.set(-1);
+    else {
+      RobotMap.leftMotor1.set(0);
+      RobotMap.rightMotor1.set(0);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
