@@ -24,8 +24,8 @@ public class Drivetrain extends Subsystem {
     public DifferentialDrive difDrive;
     
 	public Drivetrain() {
-		leftMotor1.setInverted(false);
-    	leftMotor2.setInverted(false);
+		leftMotor1.setInverted(true);
+    	leftMotor2.setInverted(true);
     	rightMotor1.setInverted(false);
     	rightMotor2.setInverted(false);
     	
@@ -39,8 +39,6 @@ public class Drivetrain extends Subsystem {
 		
 		leftMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 		rightMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-    	
-    	difDrive = new DifferentialDrive(leftMotor1, rightMotor1);
 	}
     
     @Override
@@ -51,6 +49,5 @@ public class Drivetrain extends Subsystem {
     public void periodic() {
 		leftEncoder = leftMotor1.getSelectedSensorPosition();
 		rightEncoder = rightMotor1.getSelectedSensorPosition();
-
     }
 }
