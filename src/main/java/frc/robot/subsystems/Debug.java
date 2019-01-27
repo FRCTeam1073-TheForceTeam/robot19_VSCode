@@ -5,31 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
-import frc.robot.RobotMap;
+import frc.robot.*;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class DataTester extends Command {
-    public DataTester() {
-      requires(Robot.drivetrain);
+public class Debug extends Command {
+  public Debug() {
+    // Use requires() here to declare subsystem dependencies
+    requires(Robot.drivetrain);
   }
-  // RobotMap.headingGyro.reset();
+
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
+  }
+
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.oi.driverControl.b.get()) RobotMap.leftMotor1.set(1);
-    else if (Robot.oi.driverControl.x.get()) RobotMap.leftMotor1.set(-1);
-    else if (Robot.oi.driverControl.y.get()) RobotMap.rightMotor1.set(1);
-    else if (Robot.oi.driverControl.start.get()) RobotMap.rightMotor1.set(-1);
-    else {
-      RobotMap.leftMotor1.set(0);
-      RobotMap.rightMotor1.set(0);
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -37,4 +34,10 @@ public class DataTester extends Command {
   protected boolean isFinished() {
     return false;
   }
+
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+  }
+
 }
