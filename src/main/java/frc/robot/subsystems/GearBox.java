@@ -32,7 +32,7 @@ public class GearBox extends Subsystem {
 
   public void periodic() {
     update();
-    shiftCheck();
+    if (!Robot.debugMode) shiftCheck();
   }
 
   public void shiftCheck() {

@@ -105,9 +105,6 @@ public class DriveControls extends Command {
 				rightMotorOutput = fwd - rot;
 			}
 		}
-		System.out.println("RIGHT: "+ (limit(rightMotorOutput))+","+RobotMap.rightMotor1.getSelectedSensorVelocity()+" ; LEFT: "+ (limit(leftMotorOutput))+","+RobotMap.leftMotor1.getSelectedSensorVelocity());
-		//RobotMap.leftMotor1.set(ControlMode.Velocity, 100);
-		//RobotMap.rightMotor1.set(ControlMode.Velocity, 100);
 		RobotMap.rightMotor1.set(limit(rightMotorOutput));
 		RobotMap.leftMotor1.set(limit(leftMotorOutput));
 	}
@@ -126,8 +123,7 @@ public class DriveControls extends Command {
    	 * Limit motor values to the -1.0 to +1.0 range.
    	 */
   	private double limit(double value) {
-    	if (value > 1.0) return 1.0;
-    	if (value < -1.0) return -1.0;
+    	if (Math.abs(value) > 1.0) return Math.copySign(1, value);
     	return value;
   	}
 
