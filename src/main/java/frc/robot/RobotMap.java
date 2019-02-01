@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.Solenoid;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
-public class RobotMap {
+public class RobotMap {}
   
   /** If you are using multiple modules, make sure to define both the port
   * number and the module. For example you with a rangefinder:
