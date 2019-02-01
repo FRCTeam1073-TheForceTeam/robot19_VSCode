@@ -1,8 +1,10 @@
 package frc.robot.commands.AutonomousTools;
 
-import frc.robot.*;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 /*** Straight drive command 
  * @author Nathaniel 
@@ -39,8 +41,8 @@ public class AdvancedDrive extends Command {
 		this.timeout = timeout;
 
 		/* Sets up encoders */
-		RobotMap.leftMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-		RobotMap.rightMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+		RobotMap.leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+		RobotMap.rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 
 	}
 
@@ -50,8 +52,8 @@ public class AdvancedDrive extends Command {
 		timer = 0;
 
 		/* Grabs initial robot encoder position */
-		startleftEncDif = RobotMap.leftMotor1.getSelectedSensorPosition(0);
-		startrightEncDif = RobotMap.rightMotor1.getSelectedSensorPosition(0);
+		startleftEncDif = Robot.drivetrain.leftEncoder;
+		startrightEncDif = Robot.drivetrain.rightEncoder;
 
 		/* Sets speed to an editable value and zeros out values */
 		currentSpeed = speed;
@@ -86,8 +88,8 @@ public class AdvancedDrive extends Command {
 		
 		/** Heading Checks */
 		/* Checks how far the robot has gone from the initial position */
-		leftEncDif = Math.abs(startleftEncDif - RobotMap.leftMotor1.getSelectedSensorPosition(0));
-		rightEncDif = Math.abs(startrightEncDif - RobotMap.rightMotor1.getSelectedSensorPosition(0));
+		leftEncDif = Math.abs(startleftEncDif - Robot.drivetrain.leftEncoder);
+		rightEncDif = Math.abs(startrightEncDif - Robot.drivetrain.rightEncoder);
 
 		/* Checks current heading */
 		currentDegrees = RobotMap.headingGyro.getAngle();
@@ -164,14 +166,16 @@ public class AdvancedDrive extends Command {
 			}
 
 			/* Sets the motor with their respective offsets based on heading adjustment */ 
-			Robot.drivetrain.difDrive.tankDrive(-finalSpeed * finalSpeedL, -finalSpeed * finalSpeedR);
+			RobotMap.leftMaster.set(ControlMode.PercentOutput, -finalSpeed * finalSpeedL);
+			RobotMap.rightMaster.set(ControlMode.PercentOutput, -finalSpeed * finalSpeedR);
 
 			/* Timer step for if timed */
 			timer++;
 		}
 		else {
 			/* Stops the robot */
-			Robot.drivetrain.difDrive.tankDrive(0, 0);
+			RobotMap.leftMaster.set(ControlMode.PercentOutput, 0);
+			RobotMap.rightMaster.set(ControlMode.PercentOutput, 0);
 
 			/* Resets Ramp? */
 			rampStart = 0;

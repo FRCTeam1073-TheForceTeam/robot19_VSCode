@@ -32,7 +32,7 @@ public class GearBox extends Subsystem {
 
   public void periodic() {
     update();
-    if (!Robot.debugMode) shiftCheck();
+    if (!Robot.debugMode && !Robot.shiftDisable) shiftCheck();
   }
 
   public void shiftCheck() {
@@ -42,12 +42,12 @@ public class GearBox extends Subsystem {
   }
 
   public void update() {
-    leftVelocity = RobotMap.leftMotor1.getSelectedSensorVelocity();
-    rightVelocity = RobotMap.rightMotor1.getSelectedSensorVelocity();
+    leftVelocity = Robot.drivetrain.leftMaster.getSelectedSensorVelocity();
+    rightVelocity = Robot.drivetrain.rightMaster.getSelectedSensorVelocity();
     speed = (Math.abs(leftVelocity) + Math.abs(rightVelocity)) / 2;
     if (pnuematic.isHighGear()) gear = "high";
     else if (pnuematic.isLowGear()) gear = "low";
-    Robot.networktable.table.getEntry("GearBoxReadout").setString("\tLeft velocity: " + dec.format(leftVelocity / 141.6) + "\tRight velocity: " + dec.format(rightVelocity / 141.6) + "\tSpeed: " + dec.format(speed / 141.6) + "\tGear: " + gear);
+    Robot.networktable.table.getEntry("GearBoxReadout").setString("\tLeft velocity: " + dec.format(leftVelocity) + "\tRight velocity: " + dec.format(rightVelocity) + "\tSpeed: " + dec.format(speed / 141.6) + "\tGear: " + gear);
     Robot.networktable.table.getEntry("Gyro").setString("Gyro: " + RobotMap.headingGyro.getAngle());
   }
 }

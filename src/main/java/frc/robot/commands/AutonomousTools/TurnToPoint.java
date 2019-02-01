@@ -1,7 +1,9 @@
 package frc.robot.commands.AutonomousTools;
 
-import frc.robot.*;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class TurnToPoint extends Command {
 	
@@ -48,11 +50,13 @@ public class TurnToPoint extends Command {
     	
     	if (originalDegrees < turnDegrees)
     	{
-    		Robot.drivetrain.difDrive.tankDrive(-Double.max(slowdownMin, turnSpeedDecreased), Double.max(slowdownMin, turnSpeedDecreased));
+			RobotMap.leftMaster.set(ControlMode.PercentOutput, -Double.max(slowdownMin, turnSpeedDecreased));
+			RobotMap.rightMaster.set(ControlMode.PercentOutput, Double.max(slowdownMin, turnSpeedDecreased));
     	}
     	else if (originalDegrees > turnDegrees)
     	{
-    		Robot.drivetrain.difDrive.tankDrive(Double.max(slowdownMin, turnSpeedDecreased), -Double.max(slowdownMin, turnSpeedDecreased));
+			RobotMap.leftMaster.set(ControlMode.PercentOutput, Double.max(slowdownMin, turnSpeedDecreased));
+			RobotMap.rightMaster.set(ControlMode.PercentOutput, -Double.max(slowdownMin, turnSpeedDecreased));
     	}
  	   	
    	if (originalDegrees > (turnDegrees - 15) && originalDegrees < (turnDegrees + 15) ){

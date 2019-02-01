@@ -1,10 +1,8 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
 /**
  * This is the driver movement controls
@@ -32,11 +30,6 @@ public class DriveControls extends Command {
 	/** Output for Motor Power */
 	private double leftMotorOutput, rightMotorOutput;
 
-	private double setDirection;
-
-	/** True if going straight */
-	private boolean isStraight;
-
 
 	/**
 	 * This is the driver movement controls
@@ -60,8 +53,6 @@ public class DriveControls extends Command {
 	}
 
 	protected void initialize() {
-		setDirection = RobotMap.headingGyro.getAngle();
-		isStraight = false;
 	}
 
 	/** Called Repeatedly */
@@ -83,11 +74,6 @@ public class DriveControls extends Command {
 	public void arcaderDrive(double fwd, double rot) {
 		double maxInput = Math.copySign(Math.max(Math.abs(fwd), Math.abs(rot)), fwd);
 
-		if (rot == 0) isStraight = true;
-		else {
-			isStraight = false;
-			setDirection = RobotMap.headingGyro.getAngle();
-		}
 		if (fwd >= 0.0) {
 			if (rot >= 0.0) {
 				leftMotorOutput = maxInput;
@@ -105,8 +91,13 @@ public class DriveControls extends Command {
 				rightMotorOutput = fwd - rot;
 			}
 		}
-		RobotMap.rightMotor1.set(limit(rightMotorOutput));
-		RobotMap.leftMotor1.set(limit(leftMotorOutput));
+		/* Percent Output 
+		Robot.drivetrain.rightMaster.set(limit(rightMotorOutput));
+		Robot.drivetrain.leftMaster.set(limit(leftMotorOutput));*/
+
+		/* Velocity Output */
+		Robot.drivetrain.rightMaster.set(ControlMode.Velocity, speedModifier(limit(rightMotorOutput)));
+		Robot.drivetrain.leftMaster.set(ControlMode.Velocity, speedModifier(limit(leftMotorOutput)));
 	}
 
 	/** 
@@ -117,6 +108,10 @@ public class DriveControls extends Command {
 		if (Math.abs(val) < deadzone) return 0;
 		return val;
 
+	}
+
+	private double speedModifier(double val) {
+		return Math.copySign(Math.pow(Math.abs(val), 3) * 1300, val);
 	}
 
   	/**

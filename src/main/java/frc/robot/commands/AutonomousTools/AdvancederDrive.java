@@ -1,6 +1,7 @@
 package frc.robot.commands.AutonomousTools;
 
 import frc.robot.*;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 
 /*** Straight drive command 
@@ -90,7 +91,8 @@ public class AdvancederDrive extends Command {
 		currentRight = Robot.drivetrain.rightEncoder;
 		
 		/* Sets the motor with their respective offsets based on heading adjustment */ 
-		Robot.drivetrain.difDrive.tankDrive(direction * encoderCheck() * lidarCheck() * gyroCheck("left"), direction * encoderCheck() * lidarCheck() * gyroCheck("right"));
+		RobotMap.leftMaster.set(ControlMode.PercentOutput, distance * encoderCheck() * lidarCheck() * gyroCheck("left"));
+		RobotMap.rightMaster.set(ControlMode.PercentOutput, direction * encoderCheck() * lidarCheck() * gyroCheck("right"));
 	}
 	
 	/** Uses encoders to check whether or not to start slowing down */

@@ -1,6 +1,7 @@
 package frc.robot.commands.AutonomousTools;
 
 import frc.robot.*;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 
 /*** Gyro based turn command 
@@ -89,7 +90,8 @@ public class AdvancedTurn extends Command {
 
 	protected void execute() {
 		currentDegrees = RobotMap.headingGyro.getAngle();
-		Robot.drivetrain.difDrive.tankDrive(turnCheck("left") * turnSpeed(), turnCheck("right") * turnSpeed());
+		RobotMap.leftMaster.set(ControlMode.PercentOutput, turnCheck("left") * turnSpeed());
+		RobotMap.rightMaster.set(ControlMode.PercentOutput, turnCheck("right") * turnSpeed());
 	}
 	
 	private double turnCheck(String string) {
