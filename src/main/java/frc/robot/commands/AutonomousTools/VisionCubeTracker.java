@@ -119,31 +119,26 @@ public class VisionCubeTracker extends Command{
 				SmartDashboard.putString("visionDir", "right");
 			}
 			else if (dir.equals("Left") && driveDir >= 0) {
-				RobotMap.leftMaster.set(ControlMode.PercentOutput, 0);
-				RobotMap.rightMaster.set(ControlMode.PercentOutput, -speed * driveDir / 1.0);
+				Robot.drivetrain.tank(0, -speed * driveDir / 1.0);
 				SmartDashboard.putString("visionDir", "left");
 			}
 			else if (dir.equals("Very Right") && driveDir >= 0) {
-				RobotMap.leftMaster.set(ControlMode.PercentOutput, -speed * driveDir / 1.0);
-				RobotMap.rightMaster.set(ControlMode.PercentOutput, speed * .65);
+				Robot.drivetrain.tank(-speed * driveDir / 1.0, speed * .65);
 				SmartDashboard.putString("visionDir", "very right");
 			}
 			else if (dir.equals("Very Left") && driveDir >= 0) {
-				RobotMap.leftMaster.set(ControlMode.PercentOutput, speed * .65);
-				RobotMap.rightMaster.set(ControlMode.PercentOutput, -speed * driveDir / 1.0);
+				Robot.drivetrain.tank(speed * .65, -speed * driveDir / 1.0);
 				SmartDashboard.putString("visionDir", "very left");
 			}
 			else if (dir.equals("Center")) {
 				SmartDashboard.putString("visionDir", "center");
-				RobotMap.leftMaster.set(ControlMode.PercentOutput, -speed * driveDir * 1.0);
-				RobotMap.rightMaster.set(ControlMode.PercentOutput, -speed * driveDir * 1.0);
+				Robot.drivetrain.tank(-speed * driveDir * 1.0, -speed * driveDir * 1.0);
 			}
 		}
 		// When no blocks are seen, we strafe back and forth, and up and down,
 		// while the bot looks for the target
 		else {
-			RobotMap.leftMaster.set(ControlMode.PercentOutput, 0);
-			RobotMap.rightMaster.set(ControlMode.PercentOutput, 0);
+			Robot.drivetrain.zero();
 			SmartDashboard.putString("visionDir", "HELP!");
 		}
 		SmartDashboard.putBoolean("clawBool", Robot.clawBool);

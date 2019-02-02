@@ -1,6 +1,5 @@
 package frc.robot.commands.AutonomousTools;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -166,16 +165,14 @@ public class AdvancedDrive extends Command {
 			}
 
 			/* Sets the motor with their respective offsets based on heading adjustment */ 
-			RobotMap.leftMaster.set(ControlMode.PercentOutput, -finalSpeed * finalSpeedL);
-			RobotMap.rightMaster.set(ControlMode.PercentOutput, -finalSpeed * finalSpeedR);
+			Robot.drivetrain.tank(-finalSpeed * finalSpeedL, -finalSpeed * finalSpeedR);
 
 			/* Timer step for if timed */
 			timer++;
 		}
 		else {
 			/* Stops the robot */
-			RobotMap.leftMaster.set(ControlMode.PercentOutput, 0);
-			RobotMap.rightMaster.set(ControlMode.PercentOutput, 0);
+			Robot.drivetrain.zero();
 
 			/* Resets Ramp? */
 			rampStart = 0;
