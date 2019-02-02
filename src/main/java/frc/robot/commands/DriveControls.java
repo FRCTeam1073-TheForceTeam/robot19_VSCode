@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -91,11 +90,11 @@ public class DriveControls extends Command {
 				rightMotorOutput = fwd - rot;
 			}
 		}
-		/* Percent Output 
-		Robot.drivetrain.tank(limit(leftMotorOutput), (limit(rightMotorOutput));*/
+		/* Percent Output */
+		Robot.drivetrain.tank(limit(leftMotorOutput), (limit(rightMotorOutput)));
 
-		/* Velocity Output */
-		Robot.drivetrain.velocity(speedModifier(limit(rightMotorOutput)), speedModifier(limit(leftMotorOutput)));
+		/* Velocity Output 
+		Robot.drivetrain.velocity(speedModifier(limit(rightMotorOutput)), speedModifier(limit(leftMotorOutput)));*/
 	}
 
 	/** 

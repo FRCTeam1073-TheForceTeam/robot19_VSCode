@@ -1,7 +1,6 @@
 package frc.robot.commands.AutonomousTools;
 
 import frc.robot.*;
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 
 /*** Straight drive command 
