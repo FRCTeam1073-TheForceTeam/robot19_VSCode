@@ -50,13 +50,11 @@ public class TurnToPoint extends Command {
     	
     	if (originalDegrees < turnDegrees)
     	{
-			RobotMap.leftMaster.set(ControlMode.PercentOutput, -Double.max(slowdownMin, turnSpeedDecreased));
-			RobotMap.rightMaster.set(ControlMode.PercentOutput, Double.max(slowdownMin, turnSpeedDecreased));
+			Robot.drivetrain.tank(-Double.max(slowdownMin, turnSpeedDecreased), Double.max(slowdownMin, turnSpeedDecreased));
     	}
     	else if (originalDegrees > turnDegrees)
     	{
-			RobotMap.leftMaster.set(ControlMode.PercentOutput, Double.max(slowdownMin, turnSpeedDecreased));
-			RobotMap.rightMaster.set(ControlMode.PercentOutput, -Double.max(slowdownMin, turnSpeedDecreased));
+			Robot.drivetrain.tank(Double.max(slowdownMin, turnSpeedDecreased), -Double.max(slowdownMin, turnSpeedDecreased));
     	}
  	   	
    	if (originalDegrees > (turnDegrees - 15) && originalDegrees < (turnDegrees + 15) ){

@@ -92,12 +92,10 @@ public class DriveControls extends Command {
 			}
 		}
 		/* Percent Output 
-		Robot.drivetrain.rightMaster.set(limit(rightMotorOutput));
-		Robot.drivetrain.leftMaster.set(limit(leftMotorOutput));*/
+		Robot.drivetrain.tank(limit(leftMotorOutput), (limit(rightMotorOutput));*/
 
 		/* Velocity Output */
-		Robot.drivetrain.rightMaster.set(ControlMode.Velocity, speedModifier(limit(rightMotorOutput)));
-		Robot.drivetrain.leftMaster.set(ControlMode.Velocity, speedModifier(limit(leftMotorOutput)));
+		Robot.drivetrain.velocity(speedModifier(limit(rightMotorOutput)), speedModifier(limit(leftMotorOutput)));
 	}
 
 	/** 

@@ -1,6 +1,5 @@
 package frc.robot.commands.AutonomousTools;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -50,21 +49,17 @@ public class TurnWithGyro extends Command {
  	   	
     	if(turnDirection.equals("clockwise")) {
  	   		if(Math.abs(RobotMap.headingGyro.getAngle() - (originalDegrees + turnDegrees)) > slowdownDistance) {
-				RobotMap.leftMaster.set(ControlMode.PercentOutput, -left);
-				RobotMap.rightMaster.set(ControlMode.PercentOutput, right);
+				Robot.drivetrain.tank(-left, right);
  	   		}
  	   		else if(Math.abs(RobotMap.headingGyro.getAngle() - (originalDegrees + turnDegrees)) <= slowdownDistance) {
-				RobotMap.leftMaster.set(ControlMode.PercentOutput, Double.min(left*(slowdownDistance - (originalDegrees + turnDegrees))*-.01, slowdownMin*-1));
-				RobotMap.rightMaster.set(ControlMode.PercentOutput, Double.max(right*(slowdownDistance - (originalDegrees + turnDegrees))*.01, slowdownMin));
+				Robot.drivetrain.tank(Double.min(left*(slowdownDistance - (originalDegrees + turnDegrees))*-.01, slowdownMin*-1), Double.max(right*(slowdownDistance - (originalDegrees + turnDegrees))*.01, slowdownMin));
  	   		}
  	   	}else if(turnDirection.equals("counterclockwise")){
  	   		if(Math.abs(RobotMap.headingGyro.getAngle() - (originalDegrees - turnDegrees)) > slowdownDistance) {
-				RobotMap.leftMaster.set(ControlMode.PercentOutput, left);
-				RobotMap.rightMaster.set(ControlMode.PercentOutput, -right);
+				Robot.drivetrain.tank(left, -right);
  	   		}
  	   		else if(Math.abs(RobotMap.headingGyro.getAngle() - (originalDegrees - turnDegrees)) <= slowdownDistance) {
-				RobotMap.leftMaster.set(ControlMode.PercentOutput, Double.max(left*(slowdownDistance - (originalDegrees - turnDegrees))*.01, slowdownMin));
-				RobotMap.rightMaster.set(ControlMode.PercentOutput, Double.min(right*(slowdownDistance - (originalDegrees - turnDegrees))*-.01, slowdownMin*-1));
+				Robot.drivetrain.tank(Double.max(left*(slowdownDistance - (originalDegrees - turnDegrees))*.01, slowdownMin), Double.min(right*(slowdownDistance - (originalDegrees - turnDegrees))*-.01, slowdownMin*-1));
  	   		}
  	   	}
     }
