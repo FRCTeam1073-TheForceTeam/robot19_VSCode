@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -19,8 +20,8 @@ public class Drivetrain extends Subsystem {
 	
 	public double leftEncoder;
 	public double rightEncoder;
-	private double P = 1;
-	private double I = 0;
+	private double P = .7;
+	private double I = 0.002;
 	private double D = 0;
 	private double K = 0;
 	private int IZ = 300;
@@ -173,5 +174,25 @@ public class Drivetrain extends Subsystem {
 		//leftSlave.config_IntegralZone(0,IZ, Presets.kTimeoutMs);
 		leftSlave.configClosedLoopPeakOutput(0,PO, Presets.kTimeoutMs);
 		leftSlave.configAllowableClosedloopError(0,CLE, Presets.kTimeoutMs);
+	}
+
+	public void tank(double left, double right) {
+		leftMaster.set(ControlMode.PercentOutput, left);
+		rightMaster.set(ControlMode.PercentOutput, right);
+	}
+
+	public void velocity(double left, double right) {
+		leftMaster.set(ControlMode.Velocity, left);
+		rightMaster.set(ControlMode.Velocity, right);
+	}
+
+	public void distance(double left, double right) {
+		leftMaster.set(ControlMode.Position, left);
+		rightMaster.set(ControlMode.Position, right);
+	}
+
+	public void zero() {
+		leftMaster.set(ControlMode.PercentOutput, 0);
+		rightMaster.set(ControlMode.PercentOutput, 0);
 	}
 }
