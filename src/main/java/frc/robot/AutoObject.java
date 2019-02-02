@@ -22,6 +22,10 @@ public class AutoObject {
 		if (objectValue == 5) return "quals";
 		if (objectValue == 6) return "elims";
 		if (objectValue == 7) return "experimental";
+		if (objectValue == 59) return "all";
+		if (objectValue == 60) return "motors";
+		if (objectValue == 61) return "gearbox";
+		if (objectValue == 62) return "bling";
 		return "not set";
 	}
 

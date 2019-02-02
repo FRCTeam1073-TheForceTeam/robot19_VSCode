@@ -12,13 +12,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AutonomousTools.AutoTest;
+import frc.robot.commands.DataTester;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.GearBox;
 import frc.robot.subsystems.Lidar;
 import frc.robot.subsystems.NetworkTable;
 import frc.robot.subsystems.Pnuematic;
 import frc.robot.subsystems.Vision;
+import frc.robot.commands.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,12 +38,12 @@ public class Robot extends TimedRobot {
 	public static Vision vision;
 	public static Lidar lidar;
 	public static String FMS;
-	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType;
-	public AutoObject left, center, right, other, quals, elims, experimental;
+	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
+	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
 	public static boolean clawBool, EncoderBool, EncoderBoolSet, notClear;
-	public static boolean selectedCamera;
+	public static boolean selectedCamera, debugMode, shiftDisable;
+	public static Command debugRunner;
   	Command autonomousCommand;
-
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -52,9 +53,12 @@ public class Robot extends TimedRobot {
     	System.out.println("Robot Initializing");
 		
 		RobotMap.init();
+		
+		debugMode = false;
+		shiftDisable = false;
 
-		RobotMap.leftMotor1.configFactoryDefault();
-		RobotMap.rightMotor1.configFactoryDefault();
+		RobotMap.leftMaster.configFactoryDefault();
+		RobotMap.rightMaster.configFactoryDefault();
 
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
@@ -83,6 +87,11 @@ public class Robot extends TimedRobot {
 		quals = new AutoObject(5);
 		elims = new AutoObject(6);
 		experimental = new AutoObject(7);
+		debugAll = new AutoObject(59);
+		debugMotors = new AutoObject(60);
+		debugGearbox = new AutoObject(61);
+		debugBling = new AutoObject(62);
+
 		
 		/* The Position Chooser */
 		autonomousPosition = new SendableChooser<AutoObject>();
@@ -99,8 +108,17 @@ public class Robot extends TimedRobot {
 		autonomousMatchType.addOption("Eliminations", elims);
 		autonomousMatchType.addOption("Experimental", experimental);
 		SmartDashboard.putData("Match Type", autonomousMatchType);
+
+		/* The Debug Chooser */
+		debugChooser = new SendableChooser<AutoObject>();
+		debugChooser.setDefaultOption("All", debugAll);
+		debugChooser.addOption("Motors", debugMotors);
+		debugChooser.addOption("Gearbox", debugGearbox);
+		debugChooser.addOption("Bling", debugBling);
+		SmartDashboard.putData("Debug", debugChooser);
 		
-		autonomousCommand = new AutoTest();
+		debugRunner = new SystemTest();
+		autonomousCommand = new DataTester();
   }
 
   /**
@@ -167,13 +185,25 @@ public class Robot extends TimedRobot {
 		
 		networktable.refresh();
 
+		if (networktable.table.getEntry("DebugMode").getBoolean(false)) {
+			debugMode = true;
+			debugRunner.start();
+		}
+		else debugMode = false;
+
+		if (networktable.table.getEntry("DebugMode").getBoolean(false)) shiftDisable = true;
+		else debugMode = false;
+
 		Scheduler.getInstance().run();
 
 		if (autonomousCommand != null) autonomousCommand.cancel();
 	}
 	
 	/** This function is called periodically during operator control */
-	public void teleopPeriodic() {		
+	public void teleopPeriodic() {
+		if (networktable.table.getEntry("ShiftDisable").getBoolean(false)) shiftDisable = true;
+		else shiftDisable = false;
+
 		Scheduler.getInstance().run();
 	}
 
