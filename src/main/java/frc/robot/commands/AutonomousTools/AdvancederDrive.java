@@ -90,7 +90,7 @@ public class AdvancederDrive extends Command {
 		currentRight = Robot.drivetrain.rightEncoder;
 		
 		/* Sets the motor with their respective offsets based on heading adjustment */ 
-		Robot.drivetrain.tank(distance * encoderCheck() * lidarCheck() * gyroCheck("left"), direction * encoderCheck() * lidarCheck() * gyroCheck("right"));
+		Robot.drivetrain.tank(direction * encoderCheck() * lidarCheck() * gyroCheck("left"), direction * encoderCheck() * lidarCheck() * gyroCheck("right"));
 	}
 	
 	/** Uses encoders to check whether or not to start slowing down */
