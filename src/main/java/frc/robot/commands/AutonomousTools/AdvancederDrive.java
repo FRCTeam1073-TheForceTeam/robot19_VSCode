@@ -29,7 +29,7 @@ public class AdvancederDrive extends Command {
 	private double normalSpeed = 1;
 	
 	/** Modifier to speed when adjusting for drift */
-	private double adjustSpeed = .85;
+	private double adjustSpeed = .95;
 	
 	/** Near end running speed */
 	private double slowSpeed = .7;
@@ -58,8 +58,8 @@ public class AdvancederDrive extends Command {
 	public AdvancederDrive(double distance, String direction, double timeout) {
 		this.distance = Math.abs(distance * 118);
 		
-		if (direction.equals("forward")) this.direction = -1;
-		else if (direction.equals("backward")) this.direction = 1;
+		if (direction.equals("forward")) this.direction = 1;
+		else if (direction.equals("backward")) this.direction = -1;
 		else System.out.println("WARN: robot19.commands.AutonomousTools.AdvancederDrive says\n"
 				+ "\"Invalid string!\n"
 				+ "Must be: \"forward\" or \"backward\"\n"
@@ -142,5 +142,6 @@ public class AdvancederDrive extends Command {
 	protected void end() {
 		System.out.println("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
 		+ "\"Command Finished with PC: " + distanceCheck() + "\"");
+		Robot.drivetrain.zero();
 	}
 }

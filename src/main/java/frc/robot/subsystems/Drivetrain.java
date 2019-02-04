@@ -21,7 +21,7 @@ public class Drivetrain extends Subsystem {
 	public double leftEncoder;
 	public double rightEncoder;
 	private double P = .7;
-	private double I = 0.002;
+	private double I = 0.005;
 	private double D = 0;
 	private double K = 0;
 	private int IZ = 300;
@@ -123,13 +123,13 @@ public class Drivetrain extends Subsystem {
 		leftEncoder = leftMaster.getSelectedSensorPosition();
 		rightEncoder = rightMaster.getSelectedSensorPosition();
 
-		if (Robot.networktable.table.getEntry("changeP").getDouble(P)  != P ||
+		/*if (Robot.networktable.table.getEntry("changeP").getDouble(P)  != P ||
 		Robot.networktable.table.getEntry("changeI").getDouble(I) != I ||
 		Robot.networktable.table.getEntry("changeD").getDouble(D) != D ||
 		Robot.networktable.table.getEntry("changeK").getDouble(K) != K ||
 		(int)Robot.networktable.table.getEntry("changeIZ").getDouble(IZ) != IZ ||
 		Robot.networktable.table.getEntry("changePO").getDouble(PO) != PO ||
-		(int)Robot.networktable.table.getEntry("changeCLE").getDouble(CLE) != CLE) PIDChange();
+		(int)Robot.networktable.table.getEntry("changeCLE").getDouble(CLE) != CLE) PIDChange();*/
 	}
 
 	public void PIDChange() {
@@ -181,6 +181,12 @@ public class Drivetrain extends Subsystem {
 		rightMaster.set(ControlMode.PercentOutput, right);
 	}
 
+	public void tank(double left, double right, double threshhold) {
+		if (Math.abs(leftMaster.getSelectedSensorVelocity()) < threshhold && Math.abs(left) > .75) left = Math.copySign(left * (((Math.abs(leftMaster.getSelectedSensorVelocity()) / threshhold) + .75) / 2), left);
+		if (Math.abs(rightMaster.getSelectedSensorVelocity()) < threshhold && Math.abs(right) > .75) right = Math.copySign(right * (((Math.abs(rightMaster.getSelectedSensorVelocity()) / threshhold) + .75) / 2), right);
+		tank(left, right);
+	}
+
 	public void velocity(double left, double right) {
 		leftMaster.set(ControlMode.Velocity, left);
 		rightMaster.set(ControlMode.Velocity, right);
@@ -192,7 +198,7 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void zero() {
-		leftMaster.set(ControlMode.PercentOutput, 0);
-		rightMaster.set(ControlMode.PercentOutput, 0);
+		leftMaster.set(ControlMode.Velocity, 0);
+		rightMaster.set(ControlMode.Velocity, 0);
 	}
 }
