@@ -29,6 +29,8 @@ public class DriveControls extends Command {
 	/** Output for Motor Power */
 	private double leftMotorOutput, rightMotorOutput;
 
+	private double executes = 0;
+
 
 	/**
 	 * This is the driver movement controls
@@ -91,7 +93,13 @@ public class DriveControls extends Command {
 			}
 		}
 		/* Percent Output */
-		Robot.drivetrain.tank(limit(leftMotorOutput), (limit(rightMotorOutput)));
+		if (forward == 0 && rotational == 0) {
+			if (executes > 20) Robot.drivetrain.zero();
+			executes++;
+		}
+		else {
+			Robot.drivetrain.tank(limit(leftMotorOutput), (limit(rightMotorOutput)), 400);
+		}
 
 		/* Velocity Output 
 		Robot.drivetrain.velocity(speedModifier(limit(rightMotorOutput)), speedModifier(limit(leftMotorOutput)));*/

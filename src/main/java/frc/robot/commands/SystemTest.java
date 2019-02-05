@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import java.text.DecimalFormat;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Command;
@@ -25,6 +26,7 @@ public class SystemTest extends Command {
   private edu.wpi.first.networktables.NetworkTable table = Robot.networktable.table;
   private final WPI_TalonSRX leftMaster = RobotMap.leftMaster;
   private final WPI_TalonSRX rightMaster = RobotMap.rightMaster;
+  private DecimalFormat dec = new DecimalFormat("#.####");
   private String state, str;
   private int stepsLeft;
   private double speed;
@@ -36,6 +38,10 @@ public class SystemTest extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    table.getEntry("DebugState" + leftMaster.getName() + "Low").setString("");
+    table.getEntry("DebugState" + rightMaster.getName() + "Low").setString("");
+    table.getEntry("DebugState" + leftMaster.getName() + "High").setString("");
+    table.getEntry("DebugState" + rightMaster.getName() + "High").setString("");
     state = Robot.debugChooser.getSelected().getString();
 
     firstTime = true;
@@ -56,10 +62,10 @@ public class SystemTest extends Command {
   @Override
   protected void execute() {
     if (state.equals("all")) {
-      if (stepsLeft == 4) motorTest(leftMaster, "low", 2000);
-      if (stepsLeft == 3) motorTest(rightMaster, "low", 2000);
-      if (stepsLeft == 2) motorTest(leftMaster, "high", 2000);
-      if (stepsLeft == 1) motorTest(rightMaster, "high", 2000);
+      if (stepsLeft == 4) motorTest(leftMaster, "Low", 1000);
+      if (stepsLeft == 3) motorTest(rightMaster, "Low", 1000);
+      if (stepsLeft == 2) motorTest(leftMaster, "High", 1000);
+      if (stepsLeft == 1) motorTest(rightMaster, "High", 1000);
       if (complete) {
         stepsLeft--;
         complete = false;
@@ -67,8 +73,8 @@ public class SystemTest extends Command {
       }
     }
     else if (state.equals("motors")) {
-      if (stepsLeft == 2) motorTest(leftMaster, "low", 2000);
-      if (stepsLeft == 1) motorTest(rightMaster, "low", 2000);
+      if (stepsLeft == 2) motorTest(leftMaster, "Low", 2000);
+      if (stepsLeft == 1) motorTest(rightMaster, "Low", 2000);
       if (complete) {
         stepsLeft--;
         complete = false;
@@ -76,10 +82,10 @@ public class SystemTest extends Command {
       }
     }
     else if (state.equals("gearbox")) {
-      if (stepsLeft == 4) motorTest(leftMaster, "low", 2000);
-      if (stepsLeft == 3) motorTest(rightMaster, "low", 2000);
-      if (stepsLeft == 2) motorTest(leftMaster, "high", 2000);
-      if (stepsLeft == 1) motorTest(rightMaster, "high", 2000);
+      if (stepsLeft == 4) motorTest(leftMaster, "Low", 2000);
+      if (stepsLeft == 3) motorTest(rightMaster, "Low", 2000);
+      if (stepsLeft == 2) motorTest(leftMaster, "High", 2000);
+      if (stepsLeft == 1) motorTest(rightMaster, "High", 2000);
       if (complete) {
         stepsLeft--;
         complete = false;
@@ -90,8 +96,8 @@ public class SystemTest extends Command {
   }
 
   private void motorTest(WPI_TalonSRX side, String gear, double duration) {
-    if (gear.equals("low")) Robot.pnuematic.setLowGear();
-    else if (gear.equals("high")) Robot.pnuematic.setHighGear();
+    if (gear.equals("Low")) Robot.pnuematic.setLowGear();
+    else if (gear.equals("High")) Robot.pnuematic.setHighGear();
     if (firstTime) {
       speed = 0.01;
       initialPos = side.getSelectedSensorPosition();
@@ -99,17 +105,18 @@ public class SystemTest extends Command {
       str = "loop stuck";
     }
 
+    if (side.getSelectedSensorPosition() != initialPos) str = "Working";
+    else str = "Failed";
+
+    table.getEntry("DebugState" + side.getName() + gear).setString("Motor Test: " + side.getName() + "\tGear: " + gear + "\tPower Sent: " + dec.format(speed) + "\tVelocity: " + side.getSelectedSensorVelocity() + "\tStatus: " + str);
+    
     side.set(ControlMode.PercentOutput, speed);
 
     if (speed > .99 && speed < 1) {
       startTime = System.currentTimeMillis();
-      table.getEntry("DebugState").setString("Motor Test: " + side.getName() + "\tPower Sent: " + speed + "\tVelocity: " + side.getSelectedSensorVelocity() + "\tStatus: " + str);
     }
     if (speed < 1) {
-      if (side.getSelectedSensorPosition() != initialPos) str = "Working";
-      else str = "Failed";
-      table.getEntry("DebugState").setString("Motor Test: " + side.getName() + "\tGear: " + gear + "\tPower Sent: " + speed + "\tVelocity: " + side.getSelectedSensorVelocity() + "\tStatus: " + str);
-      speed += 0.01;
+      speed += 0.005;
     } 
     if (speed > 1 && System.currentTimeMillis() - startTime > duration) {
       complete = true;
@@ -121,7 +128,10 @@ public class SystemTest extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (stepsLeft == 0) return true;
+    if (stepsLeft == 0) {
+      table.getEntry("DebugMode").setBoolean(false);
+      return true;
+    }
     return false;
   }
 

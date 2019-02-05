@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DataTester;
+import frc.robot.commands.AutonomousTools.AutoTest;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.GearBox;
 import frc.robot.subsystems.Lidar;
@@ -43,7 +44,12 @@ public class Robot extends TimedRobot {
 	public static boolean clawBool, EncoderBool, EncoderBoolSet, notClear;
 	public static boolean selectedCamera, debugMode, shiftDisable;
 	public static Command debugRunner;
-  	Command autonomousCommand;
+	public Command autonomousCommand;
+	  
+	protected Robot() {
+		super(0.03);
+	}
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -56,6 +62,7 @@ public class Robot extends TimedRobot {
 		
 		debugMode = false;
 		shiftDisable = false;
+		notClear = false;
 
 		RobotMap.leftMaster.configFactoryDefault();
 		RobotMap.rightMaster.configFactoryDefault();
@@ -118,7 +125,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Debug", debugChooser);
 		
 		debugRunner = new SystemTest();
-		autonomousCommand = new DataTester();
+		autonomousCommand = new AutoTest();
   }
 
   /**
@@ -131,8 +138,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-	lidar.refresh();
-	vision.refresh();
   }
   
   /**
@@ -158,6 +163,9 @@ public class Robot extends TimedRobot {
 	}
 
 	public void autonomousInit() {
+		networktable.table.getEntry("DebugMode").setBoolean(false);
+		debugMode = false;
+
 		System.out.println("Auto Setting Up");
 		RobotMap.headingGyro.reset();
 		autoStartTime = System.currentTimeMillis();
@@ -166,18 +174,13 @@ public class Robot extends TimedRobot {
 
 		Scheduler.getInstance().run();
 		
-		Robot.notClear = lidar.stop;
-		
 		System.out.println("Auto Starting");
 		if (autonomousCommand != null) autonomousCommand.start();
 	}
 
 	/** This function is called periodically during autonomous */
 	public void autonomousPeriodic() {
-		
 		Scheduler.getInstance().run();
-
-		Robot.notClear = lidar.stop;
 	}
 
 	public void teleopInit() {
@@ -191,9 +194,6 @@ public class Robot extends TimedRobot {
 		}
 		else debugMode = false;
 
-		if (networktable.table.getEntry("DebugMode").getBoolean(false)) shiftDisable = true;
-		else debugMode = false;
-
 		Scheduler.getInstance().run();
 
 		if (autonomousCommand != null) autonomousCommand.cancel();
@@ -201,9 +201,6 @@ public class Robot extends TimedRobot {
 	
 	/** This function is called periodically during operator control */
 	public void teleopPeriodic() {
-		if (networktable.table.getEntry("ShiftDisable").getBoolean(false)) shiftDisable = true;
-		else shiftDisable = false;
-
 		Scheduler.getInstance().run();
 	}
 
