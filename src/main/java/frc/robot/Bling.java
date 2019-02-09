@@ -59,7 +59,7 @@ package frc.robot;
                         break;
 
                 default:
-                        setPattern("Alternates", "Blue", "All", "Slow", 0, 100);
+                        setPattern("Alternates", "TeamColors", "All", "Slow", 0, 100);
                         break;
                 
                 }
@@ -72,4 +72,17 @@ package frc.robot;
 
         
         }
+        public void AdvancedTurn() {
+                setPattern("Solid", "Aqua", "All", "Fast", 0, 100);
+                send();
+        }
+        public void VisionCubeTracker() {
+                setPattern("RainbowHslves", "Red", "All", "Fast", 0, 100);
+                send();
+        }
+        public void TurnToPoint() {
+                setPattern("ColorWipe", "Purple", "All", "Fast", 0, 100);
+                send();
+        }
+        
 }
