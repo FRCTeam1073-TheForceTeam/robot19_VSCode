@@ -31,13 +31,13 @@ public class Wait extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drivetrain.difDrive.tankDrive(0,0);
+    Robot.drivetrain.tank(0,0);
   }
 
   // Called once after timeout
   @Override
   protected void end() {
-    Robot.drivetrain.difDrive.tankDrive(0,0);
+    Robot.drivetrain.tank(0,0);
   }
 
   // Called when another command which requires one or more of the same

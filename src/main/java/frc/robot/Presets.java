@@ -43,4 +43,8 @@ public class Presets {
 	public final static int kSlot_Turning = SLOT_1;
 	public final static int kSlot_Velocit = SLOT_2;
 	public final static int kSlot_MotProf = SLOT_3;
+	/* Data for Turn with PID */
+	public final static double turnP =0.06;
+	public final static double turnI=0.005;
+	public final static double turnD=0;
 }

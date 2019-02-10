@@ -25,14 +25,14 @@ public class TurnWithGyroPID extends PIDCommand {
 	 * 
 	 * for PIDCommand example see http://robottutorial.alexpavel.com
 	 */
-    public TurnWithGyroPID(double Speed, double Degrees, String Direction, double P, double I, double D) {
-        super(P,I,D);
+    public TurnWithGyroPID(double Speed, double Degrees, String Direction) {
+        super(Presets.turnP,Presets.turnI,Presets.turnD);
         // JRJR It would be really good to get P,I,D from a preference but I failed in my first attempt at getting it from the smart dashboard
     	turnSpeed = Speed;
     	turnDegrees = Degrees;
     	turnDirection = Direction;
         requires(Robot.drivetrain);
-		System.out.println("TurnWithGyroPID constructor()  P:" + P +" I:"+ I + " D:" + D + "\n");    		
+		System.out.println("TurnWithGyroPID constructor()  P:" + Presets.turnP +" I:"+ Presets.turnI + " D:" + Presets.turnD + "\n");    		
 
     }
     
@@ -79,7 +79,7 @@ public class TurnWithGyroPID extends PIDCommand {
     		//System.out.println("TurnWithGyroPID NOT onTarget  timeout=" + timeoutCounter);
     		onTargetCounter = 0;
     	}
-    	if (onTargetCounter >= 25){
+    	if (onTargetCounter >= 10){
     		finished = true;
     		System.out.println("\nTurnWithGyroPID onTarget done\n\n");
     	}
@@ -94,7 +94,7 @@ public class TurnWithGyroPID extends PIDCommand {
     // Called once after isFinished returns true
     protected void end() {
     	getPIDController().disable();
-		Robot.drivetrain.difDrive.tankDrive(0, 0);
+		Robot.drivetrain.tank(0, 0);
 		System.out.println("\n\nTurnWithGyroPID end() \n\n");
     }
 
@@ -115,11 +115,11 @@ public class TurnWithGyroPID extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		System.out.println("TurnWithGyroPID output: " + output + " angle: " + RobotMap.headingGyro.getAngle() +
-				" error: " + getPIDController().getError()  );
+		System.out.println("TurnWithGyroPID output: " + String.format("%.2f",output) + " angle: " + String.format("%.2f",RobotMap.headingGyro.getAngle()) +
+				" error: " + String.format("%.2f",getPIDController().getError())  );
 		//JR need code here to deal with the fact that voltages below about .4 (more or less depending on battery)
 		//  are not enough to move the robot
-		Robot.drivetrain.difDrive.tankDrive(output*-1, output);
+		Robot.drivetrain.tank(output, output*-1);
 		
 	}
 }
