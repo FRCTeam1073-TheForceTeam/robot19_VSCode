@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomousTools.AutoTest;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.GearBox;
+import frc.robot.subsystems.HatchManipulator;
 import frc.robot.subsystems.Lidar;
 import frc.robot.subsystems.NetworkTable;
 import frc.robot.subsystems.Pnuematic;
@@ -34,6 +35,7 @@ public class Robot extends TimedRobot {
 	public static NetworkTable networktable;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
+	public static HatchManipulator hatch;
 	public static GearBox gearbox;
 	public static Vision vision;
 	public static Lidar lidar;
@@ -44,7 +46,7 @@ public class Robot extends TimedRobot {
 	public static boolean debugMode, shiftDisable;
 	public static Command debugRunner;
 	public Command autonomousCommand;
-	  
+
 	protected Robot() {
 		super(0.03); //cycle time
 	}
@@ -74,7 +76,7 @@ public class Robot extends TimedRobot {
 		drivetrain = new Drivetrain();
 
 		pnuematic = new Pnuematic();
-
+		hatch = new HatchManipulator();
 		gearbox = new GearBox();
 
 		vision = new Vision();

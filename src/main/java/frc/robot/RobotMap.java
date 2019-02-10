@@ -30,7 +30,10 @@ public class RobotMap {
 	public static Solenoid high;
 	public static Solenoid low;
 	public static BuiltInAccelerometer accelerometer;
-  
+	public static Solenoid finger;
+	public static Solenoid hatchExtender;
+	public static WPI_TalonSRX hatchIntake;
+	public static WPI_TalonSRX hatchFlipper;
   	public static void init() {
 		headingGyro = new ADXRS450_Gyro();
 		accelerometer = new BuiltInAccelerometer();
@@ -42,5 +45,7 @@ public class RobotMap {
 
 		high = new Solenoid (1, 7);
 		low = new Solenoid (1, 5);
+		// finger = new Solenoid(2, 7);
+		// hatchExtender = new Solenoid(2, 5);
 	}
 }

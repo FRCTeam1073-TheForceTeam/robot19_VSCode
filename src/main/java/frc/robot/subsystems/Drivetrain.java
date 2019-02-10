@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Presets;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.DriveControls;
+import frc.robot.commands.TeleopControls.DriveControls;
 
 public class Drivetrain extends Subsystem {
     
