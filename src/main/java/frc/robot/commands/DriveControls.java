@@ -29,6 +29,7 @@ public class DriveControls extends Command {
 	/** Output for Motor Power */
 	private double leftMotorOutput, rightMotorOutput;
 
+	/** Just a delay */
 	private double executes = 0;
 
 
@@ -99,6 +100,7 @@ public class DriveControls extends Command {
 		}
 		else {
 			Robot.drivetrain.tank(limit(leftMotorOutput), (limit(rightMotorOutput)), 400);
+			executes = 0;
 		}
 
 		/* Velocity Output 

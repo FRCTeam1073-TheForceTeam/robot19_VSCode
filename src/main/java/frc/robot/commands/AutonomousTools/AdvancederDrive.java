@@ -135,7 +135,10 @@ public class AdvancederDrive extends Command {
 	 */
 	protected boolean isFinished() {
 		if (Robot.oi.driverCancel.get() == true || Robot.oi.operatorCancel.get() == true || 
-		System.currentTimeMillis() - timeStart >= timeout || direction == 0 || distanceCheck() >= distance) return true;
+		System.currentTimeMillis() - timeStart >= timeout || direction == 0 || distanceCheck() >= distance) {
+			Robot.drivetrain.zero();
+			return true;
+		}
 		return false;
 	}	
 

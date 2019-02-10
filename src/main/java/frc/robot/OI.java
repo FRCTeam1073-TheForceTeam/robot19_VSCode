@@ -1,7 +1,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.DataTester;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -29,8 +28,5 @@ public class OI {
     	
     	driverCancel = driverControl.a;
 		operatorCancel = operatorControl.a;
-		
-		motorTest = driverControl.select;
-		driverControl.select.toggleWhenPressed(new DataTester());
 	}
 }

@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.DataTester;
 import frc.robot.commands.AutonomousTools.AutoTest;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.GearBox;
@@ -41,13 +40,13 @@ public class Robot extends TimedRobot {
 	public static String FMS;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
 	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
-	public static boolean clawBool, EncoderBool, EncoderBoolSet, notClear;
-	public static boolean selectedCamera, debugMode, shiftDisable;
+	public static boolean notClear;
+	public static boolean debugMode, shiftDisable;
 	public static Command debugRunner;
 	public Command autonomousCommand;
 	  
 	protected Robot() {
-		super(0.03);
+		super(0.03); //cycle time
 	}
 
   /**
