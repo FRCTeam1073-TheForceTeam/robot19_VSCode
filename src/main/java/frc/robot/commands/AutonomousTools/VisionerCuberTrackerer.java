@@ -1,7 +1,9 @@
 package frc.robot.commands.AutonomousTools;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.subsystems.Vision;
 
 public class VisionerCuberTrackerer extends Command{
@@ -33,7 +35,8 @@ public class VisionerCuberTrackerer extends Command{
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.drivetrain.difDrive.tankDrive(vision.blockCheck() * turnMultiplier("right"), vision.blockCheck() * turnMultiplier("left"));
+		RobotMap.leftMaster.set(ControlMode.PercentOutput, vision.blockCheck() * turnMultiplier("left"));
+		RobotMap.rightMaster.set(ControlMode.PercentOutput, vision.blockCheck() * turnMultiplier("right"));
 	}
 	
 	private double turnMultiplier(String side) {

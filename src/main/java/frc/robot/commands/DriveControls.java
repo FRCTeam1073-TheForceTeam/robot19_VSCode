@@ -1,10 +1,7 @@
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
 /**
  * This is the driver movement controls
@@ -32,10 +29,7 @@ public class DriveControls extends Command {
 	/** Output for Motor Power */
 	private double leftMotorOutput, rightMotorOutput;
 
-	private double setDirection;
-
-	/** True if going straight */
-	private boolean isStraight;
+	private double executes = 0;
 
 
 	/**
@@ -60,8 +54,6 @@ public class DriveControls extends Command {
 	}
 
 	protected void initialize() {
-		setDirection = RobotMap.headingGyro.getAngle();
-		isStraight = false;
 	}
 
 	/** Called Repeatedly */
@@ -83,11 +75,6 @@ public class DriveControls extends Command {
 	public void arcaderDrive(double fwd, double rot) {
 		double maxInput = Math.copySign(Math.max(Math.abs(fwd), Math.abs(rot)), fwd);
 
-		if (rot == 0) isStraight = true;
-		else {
-			isStraight = false;
-			setDirection = RobotMap.headingGyro.getAngle();
-		}
 		if (fwd >= 0.0) {
 			if (rot >= 0.0) {
 				leftMotorOutput = maxInput;
@@ -105,11 +92,17 @@ public class DriveControls extends Command {
 				rightMotorOutput = fwd - rot;
 			}
 		}
-		System.out.println("RIGHT: "+ (limit(rightMotorOutput))+","+RobotMap.rightMotor1.getSelectedSensorVelocity()+" ; LEFT: "+ (limit(leftMotorOutput))+","+RobotMap.leftMotor1.getSelectedSensorVelocity());
-		//RobotMap.leftMotor1.set(ControlMode.Velocity, 100);
-		//RobotMap.rightMotor1.set(ControlMode.Velocity, 100);
-		RobotMap.rightMotor1.set(limit(rightMotorOutput));
-		RobotMap.leftMotor1.set(limit(leftMotorOutput));
+		/* Percent Output */
+		if (forward == 0 && rotational == 0) {
+			if (executes > 20) Robot.drivetrain.zero();
+			executes++;
+		}
+		else {
+			Robot.drivetrain.tank(limit(leftMotorOutput), (limit(rightMotorOutput)), 400);
+		}
+
+		/* Velocity Output 
+		Robot.drivetrain.velocity(speedModifier(limit(rightMotorOutput)), speedModifier(limit(leftMotorOutput)));*/
 	}
 
 	/** 
@@ -122,12 +115,15 @@ public class DriveControls extends Command {
 
 	}
 
+	private double speedModifier(double val) {
+		return Math.copySign(Math.pow(Math.abs(val), 3) * 1300, val);
+	}
+
   	/**
    	 * Limit motor values to the -1.0 to +1.0 range.
    	 */
   	private double limit(double value) {
-    	if (value > 1.0) return 1.0;
-    	if (value < -1.0) return -1.0;
+    	if (Math.abs(value) > 1.0) return Math.copySign(1, value);
     	return value;
   	}
 

@@ -8,8 +8,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.RobotMap;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -17,7 +17,8 @@ import frc.robot.RobotMap;
 public class NetworkTable extends Subsystem {
 
   
-	public static NetworkTableInstance inst;
+  public static NetworkTableInstance inst;
+  public static DriverStation ds = DriverStation.getInstance();
   public edu.wpi.first.networktables.NetworkTable table;
 
   public NetworkTable() {
@@ -31,5 +32,6 @@ public class NetworkTable extends Subsystem {
 
   public void refresh() {
     table = inst.getTable("1073Table");
+    table.getEntry("Enabled").setBoolean(ds.isEnabled());
   }
 }

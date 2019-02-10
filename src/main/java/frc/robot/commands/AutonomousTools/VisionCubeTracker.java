@@ -1,17 +1,15 @@
 package frc.robot.commands.AutonomousTools;
 
 import frc.robot.*;
-import edu.wpi.first.networktables.NetworkTableInstance;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionCubeTracker extends Command{
 
-	edu.wpi.first.networktables.NetworkTable netTable;
-	NetworkTableInstance netTableInst;
-	public double xDelta, xWidth, yDelta, yWidth, blockCount, driveDir, v, width;
-	public String dir;
-	public boolean fullDir;
+	private edu.wpi.first.networktables.NetworkTable netTable;
+	private double xDelta, xWidth, yDelta, yWidth, blockCount, driveDir, v, width;
+	private String dir;
 	
 	/** Stays about 2 feet away from a cube. Will back up or move forwards and turn as necessary.
 	 * @category Autonomous
@@ -20,8 +18,7 @@ public class VisionCubeTracker extends Command{
 	 */
 	public VisionCubeTracker(double width) {
 		this.width = width;
-		netTableInst = NetworkTableInstance.getDefault();
-		netTable = netTableInst.getTable("TurretTable");
+		netTable = Robot.networktable.table;
 	}
 
 	/** Stays about 2 feet away from a cube. Will back up or move forwards and turn as necessary.
@@ -31,8 +28,7 @@ public class VisionCubeTracker extends Command{
 	 */
 	public VisionCubeTracker() {
 		this.width = 110;
-		netTableInst = NetworkTableInstance.getDefault();
-		netTable = netTableInst.getTable("TurretTable");
+		netTable = Robot.networktable.table;
 	}
 
 	// Called just before this Command runs the first time
@@ -42,7 +38,6 @@ public class VisionCubeTracker extends Command{
 		v = 0;
 		driveDir = 0;
 		dir = "not set";
-		fullDir = false;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -59,16 +54,14 @@ public class VisionCubeTracker extends Command{
 		double side = 30; // Marks the reasonable area around the center	
 
 		// Puts variables from Network Tables on SmartDashboard
-		SmartDashboard.putNumber("xDelta", xDelta);
-		SmartDashboard.putNumber("xWidth", xWidth);
-		SmartDashboard.putNumber("yDelta", yDelta);
-		SmartDashboard.putNumber("yWidth", yWidth);
-		SmartDashboard.putNumber("Block Count", blockCount);
-		SmartDashboard.putBoolean("I see you", false);
+		netTable.getEntry("xDelta").setDouble(xDelta);
+		netTable.getEntry("xWidth").setDouble(xWidth);
+		netTable.getEntry("yDelta").setDouble(yDelta);
+		netTable.getEntry("yWidth").setDouble(yWidth);
+		netTable.getEntry("Block Count").setDouble(blockCount);
 		// BlockCount asks the Pixy how many things it sees
 		// when it sees something, we track it
 		if (blockCount > 0) {
-			SmartDashboard.putBoolean("I see you", true);
 			// This code handles the left and right motion of the bot
 			// based on the Pixy's values
 			if (xDelta > 1.75 * side) {
@@ -121,30 +114,31 @@ public class VisionCubeTracker extends Command{
 				v++;
 			}
 			if (dir.equals("Right") && driveDir >= 0) {
-				Robot.drivetrain.difDrive.tankDrive(-speed * driveDir / 1.0, 0);
+				RobotMap.leftMaster.set(ControlMode.PercentOutput, -speed * driveDir / 1.0);
+				RobotMap.rightMaster.set(ControlMode.PercentOutput, 0);
 				SmartDashboard.putString("visionDir", "right");
 			}
 			else if (dir.equals("Left") && driveDir >= 0) {
-				Robot.drivetrain.difDrive.tankDrive(0, -speed * driveDir / 1.0);
+				Robot.drivetrain.tank(0, -speed * driveDir / 1.0);
 				SmartDashboard.putString("visionDir", "left");
 			}
 			else if (dir.equals("Very Right") && driveDir >= 0) {
-				Robot.drivetrain.difDrive.tankDrive(-speed * driveDir / 1.0, speed * .65);
+				Robot.drivetrain.tank(-speed * driveDir / 1.0, speed * .65);
 				SmartDashboard.putString("visionDir", "very right");
 			}
 			else if (dir.equals("Very Left") && driveDir >= 0) {
-				Robot.drivetrain.difDrive.tankDrive(speed * .65, -speed * driveDir / 1.0);
+				Robot.drivetrain.tank(speed * .65, -speed * driveDir / 1.0);
 				SmartDashboard.putString("visionDir", "very left");
 			}
 			else if (dir.equals("Center")) {
 				SmartDashboard.putString("visionDir", "center");
-				Robot.drivetrain.difDrive.tankDrive(-speed * driveDir * 1.0, -speed * driveDir * 1.0);
+				Robot.drivetrain.tank(-speed * driveDir * 1.0, -speed * driveDir * 1.0);
 			}
 		}
 		// When no blocks are seen, we strafe back and forth, and up and down,
 		// while the bot looks for the target
 		else {
-			Robot.drivetrain.difDrive.tankDrive(0, 0);
+			Robot.drivetrain.zero();
 			SmartDashboard.putString("visionDir", "HELP!");
 		}
 		SmartDashboard.putBoolean("clawBool", Robot.clawBool);

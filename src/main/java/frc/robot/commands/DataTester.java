@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
 /**
  * An example command.  You can replace me with your own command.
@@ -18,17 +17,17 @@ public class DataTester extends Command {
     public DataTester() {
       requires(Robot.drivetrain);
   }
-  // RobotMap.headingGyro.reset();
+  // Robot.drivetrain.headingGyro.reset();
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.oi.driverControl.b.get()) RobotMap.leftMotor1.set(1);
-    else if (Robot.oi.driverControl.x.get()) RobotMap.leftMotor1.set(-1);
-    else if (Robot.oi.driverControl.y.get()) RobotMap.rightMotor1.set(1);
-    else if (Robot.oi.driverControl.start.get()) RobotMap.rightMotor1.set(-1);
+    if (Robot.oi.driverControl.b.get()) Robot.drivetrain.leftMaster.set(1);
+    else if (Robot.oi.driverControl.x.get()) Robot.drivetrain.leftMaster.set(-1);
+    else if (Robot.oi.driverControl.y.get()) Robot.drivetrain.rightMaster.set(1);
+    else if (Robot.oi.driverControl.start.get()) Robot.drivetrain.rightMaster.set(-1);
     else {
-      RobotMap.leftMotor1.set(0);
-      RobotMap.rightMotor1.set(0);
+      Robot.drivetrain.leftMaster.set(0);
+      Robot.drivetrain.rightMaster.set(0);
     }
   }
 

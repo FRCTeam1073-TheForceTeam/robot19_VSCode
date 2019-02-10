@@ -89,7 +89,7 @@ public class AdvancedTurn extends Command {
 
 	protected void execute() {
 		currentDegrees = RobotMap.headingGyro.getAngle();
-		Robot.drivetrain.difDrive.tankDrive(turnCheck("left") * turnSpeed(), turnCheck("right") * turnSpeed());
+		Robot.drivetrain.tank(turnCheck("left") * turnSpeed(), turnCheck("right") * turnSpeed());
 	}
 	
 	private double turnCheck(String string) {
