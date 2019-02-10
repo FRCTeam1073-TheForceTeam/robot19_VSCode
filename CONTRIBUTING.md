@@ -69,6 +69,13 @@ Booleans:
 
     Bad:
     if (bool == false) doThis();
+    
+    for boolean bool1 = false, bool2 = true;
+    Good:
+    if (bool1 || (bool2 && bool1)) doThis();
+    
+    Bad:
+    if (bool1||(bool2&&bool1)) doThis();
 
 Strings:
 
