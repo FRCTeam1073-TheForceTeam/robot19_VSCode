@@ -47,10 +47,10 @@ public class Drivetrain extends Subsystem {
 		rightSlave.setNeutralMode(NeutralMode.Brake);
 		
 		/* Configure the left Talon's selected sensor to a Quad Encoder*/
-		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.kTimeoutMs);
+		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
 		
-		/* Configure Sum [Sum of both QuadEncoders] to be used for Primary PID Index */
-		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.kTimeoutMs);
+		/* Configure the right Talon's selected sensor to a Quad Encoder*/
+		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
 		
 		/* Configure output and sensor direction */
 		leftMaster.setInverted(true);
@@ -58,47 +58,48 @@ public class Drivetrain extends Subsystem {
 
 		leftSlave.setInverted(true);
 		rightSlave.setInverted(false);
+
 		/**
 		 * Max out the peak output (for all modes).  
 		 * However you can limit the output of a given PID object with configClosedLoopPeakOutput().
 		 */
-		leftMaster.configPeakOutputForward(1.0, Presets.kTimeoutMs);
-		leftMaster.configPeakOutputReverse(-1.0, Presets.kTimeoutMs);
-		rightMaster.configPeakOutputForward(1.0, Presets.kTimeoutMs);
-		rightMaster.configPeakOutputReverse(-1.0, Presets.kTimeoutMs);
+		leftMaster.configPeakOutputForward(1.0, Presets.timeoutMS);
+		leftMaster.configPeakOutputReverse(-1.0, Presets.timeoutMS);
+		rightMaster.configPeakOutputForward(1.0, Presets.timeoutMS);
+		rightMaster.configPeakOutputReverse(-1.0, Presets.timeoutMS);
 
 		/* FPID Gains for velocity servo */
 		rightMaster.config_kP(0,P);
 		rightMaster.config_kI(0,I);
 		rightMaster.config_kD(0,D);
-		rightMaster.config_kF(0,K, Presets.kTimeoutMs);
-		//rightMaster.config_IntegralZone(0,IZ, Presets.kTimeoutMs);
-		rightMaster.configClosedLoopPeakOutput(0,PO, Presets.kTimeoutMs);
-		rightMaster.configAllowableClosedloopError(0,CLE, Presets.kTimeoutMs);
+		rightMaster.config_kF(0,K, Presets.timeoutMS);
+		//rightMaster.config_IntegralZone(0,IZ, Presets.timeoutMS);
+		rightMaster.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+		rightMaster.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 
 		leftMaster.config_kP(0,P);
 		leftMaster.config_kI(0,I);
 		leftMaster.config_kD(0,D);
-		leftMaster.config_kF(0,K, Presets.kTimeoutMs);
-		//leftMaster.config_IntegralZone(0,IZ, Presets.kTimeoutMs);
-		leftMaster.configClosedLoopPeakOutput(0,PO, Presets.kTimeoutMs);
-		leftMaster.configAllowableClosedloopError(0,CLE, Presets.kTimeoutMs);
+		leftMaster.config_kF(0,K, Presets.timeoutMS);
+		//leftMaster.config_IntegralZone(0,IZ, Presets.timeoutMS);
+		leftMaster.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+		leftMaster.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 
 		rightSlave.config_kP(0,P);
 		rightSlave.config_kI(0,I);
 		rightSlave.config_kD(0,D);
-		rightSlave.config_kF(0,K, Presets.kTimeoutMs);
-		//rightSlave.config_IntegralZone(0,IZ, Presets.kTimeoutMs);
-		rightSlave.configClosedLoopPeakOutput(0,PO, Presets.kTimeoutMs);
-		rightSlave.configAllowableClosedloopError(0,CLE, Presets.kTimeoutMs);
+		rightSlave.config_kF(0,K, Presets.timeoutMS);
+		//rightSlave.config_IntegralZone(0,IZ, Presets.timeoutMS);
+		rightSlave.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+		rightSlave.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 
 		leftSlave.config_kP(0,P);
 		leftSlave.config_kI(0,I);
 		leftSlave.config_kD(0,D);
-		leftSlave.config_kF(0,K, Presets.kTimeoutMs);
-		//leftSlave.config_IntegralZone(0,IZ, Presets.kTimeoutMs);
-		leftSlave.configClosedLoopPeakOutput(0,PO, Presets.kTimeoutMs);
-		leftSlave.configAllowableClosedloopError(0,CLE, Presets.kTimeoutMs);
+		leftSlave.config_kF(0,K, Presets.timeoutMS);
+		//leftSlave.config_IntegralZone(0,IZ, Presets.timeoutMS);
+		leftSlave.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+		leftSlave.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 
 		rightSlave.follow(rightMaster);
 		leftSlave.follow(leftMaster);
@@ -146,34 +147,34 @@ public class Drivetrain extends Subsystem {
 		rightMaster.config_kP(0,P);
 		rightMaster.config_kI(0,I);
 		rightMaster.config_kD(0,D);
-		rightMaster.config_kF(0,K, Presets.kTimeoutMs);
-		//rightMaster.config_IntegralZone(0,IZ, Presets.kTimeoutMs);
-		rightMaster.configClosedLoopPeakOutput(0,PO, Presets.kTimeoutMs);
-		rightMaster.configAllowableClosedloopError(0,CLE, Presets.kTimeoutMs);
+		rightMaster.config_kF(0,K, Presets.timeoutMS);
+		//rightMaster.config_IntegralZone(0,IZ, Presets.timeoutMS);
+		rightMaster.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+		rightMaster.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 
 		leftMaster.config_kP(0,P);
 		leftMaster.config_kI(0,I);
 		leftMaster.config_kD(0,D);
-		leftMaster.config_kF(0,K, Presets.kTimeoutMs);
-		//leftMaster.config_IntegralZone(0,IZ, Presets.kTimeoutMs);
-		leftMaster.configClosedLoopPeakOutput(0,PO, Presets.kTimeoutMs);
-		leftMaster.configAllowableClosedloopError(0,CLE, Presets.kTimeoutMs);
+		leftMaster.config_kF(0,K, Presets.timeoutMS);
+		//leftMaster.config_IntegralZone(0,IZ, Presets.timeoutMS);
+		leftMaster.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+		leftMaster.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 
 		rightSlave.config_kP(0,P);
 		rightSlave.config_kI(0,I);
 		rightSlave.config_kD(0,D);
-		rightSlave.config_kF(0,K, Presets.kTimeoutMs);
-		//rightSlave.config_IntegralZone(0,IZ, Presets.kTimeoutMs);
-		rightSlave.configClosedLoopPeakOutput(0,PO, Presets.kTimeoutMs);
-		rightSlave.configAllowableClosedloopError(0,CLE, Presets.kTimeoutMs);
+		rightSlave.config_kF(0,K, Presets.timeoutMS);
+		//rightSlave.config_IntegralZone(0,IZ, Presets.timeoutMS);
+		rightSlave.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+		rightSlave.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 
 		leftSlave.config_kP(0,P);
 		leftSlave.config_kI(0,I);
 		leftSlave.config_kD(0,D);
-		leftSlave.config_kF(0,K, Presets.kTimeoutMs);
-		//leftSlave.config_IntegralZone(0,IZ, Presets.kTimeoutMs);
-		leftSlave.configClosedLoopPeakOutput(0,PO, Presets.kTimeoutMs);
-		leftSlave.configAllowableClosedloopError(0,CLE, Presets.kTimeoutMs);
+		leftSlave.config_kF(0,K, Presets.timeoutMS);
+		//leftSlave.config_IntegralZone(0,IZ, Presets.timeoutMS);
+		leftSlave.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+		leftSlave.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 	}
 
 	public void tank(double left, double right) {
