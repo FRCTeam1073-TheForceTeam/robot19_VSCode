@@ -93,18 +93,35 @@ public class DriveControls extends Command {
 				rightMotorOutput = fwd - rot;
 			}
 		}
-		/* Percent Output */
-		if (forward == 0 && rotational == 0) {
-			if (executes > 20) Robot.drivetrain.zero();
-			executes++;
+		output(leftMotorOutput, rightMotorOutput, "Zeroing");
+	}
+	
+	private void output(double left, double right, String mode) {
+		if (mode.equals("Zeroing")) {
+			if (forward == 0 && rotational == 0) {
+				if (executes > 20) Robot.drivetrain.zero();
+				else Robot.drivetrain.tank(0, 0);
+				executes++;
+			}
+			else {
+				Robot.drivetrain.tank(limit(left), (limit(right)));
+				executes = 0;
+			}
 		}
-		else {
-			Robot.drivetrain.tank(limit(leftMotorOutput), (limit(rightMotorOutput)), 400);
-			executes = 0;
+		else if (mode.equals("Ramped Zeroing")) {
+			if (forward == 0 && rotational == 0) {
+				if (executes > 20) Robot.drivetrain.zero();
+				else Robot.drivetrain.tank(0, 0);
+				executes++;
+			}
+			else {
+				Robot.drivetrain.tank(limit(left), (limit(right)), 400);
+				executes = 0;
+			}
 		}
+		else if (mode.equals("PID")) Robot.drivetrain.velocity(speedModifier(limit(left)), speedModifier(limit(right)));
+		else Robot.drivetrain.tank(limit(left), (limit(right)));
 
-		/* Velocity Output 
-		Robot.drivetrain.velocity(speedModifier(limit(rightMotorOutput)), speedModifier(limit(leftMotorOutput)));*/
 	}
 
 	/** 
