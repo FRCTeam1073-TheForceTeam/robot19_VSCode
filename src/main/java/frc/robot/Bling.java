@@ -77,12 +77,11 @@ package frc.robot;
                 send();
         }
         public void VisionCubeTracker() {
-                setPattern("RainbowHslves", "Red", "All", "Fast", 0, 100);
+                setPattern("RainbowHalves", "Red", "All", "Fast", 0, 100);
                 send();
         }
-        public void TurnToPoint() {
+        public void AutoTest() {
                 setPattern("ColorWipe", "Purple", "All", "Fast", 0, 100);
                 send();
         }
-        
 }
