@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
+import frc.robot.subsystems.Pnuematic;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -21,12 +22,13 @@ public class RobotMap {
   * public static int rangefinderModule = 1;
   */
   
-	public static PowerDistributionPanel pdp;
 	public static ADXRS450_Gyro headingGyro;
 	public static WPI_TalonSRX rightMaster;
 	public static WPI_VictorSPX rightSlave;
+	public static WPI_VictorSPX rightSlaveTwo;
 	public static WPI_TalonSRX leftMaster;
 	public static WPI_VictorSPX leftSlave;
+	public static WPI_VictorSPX leftSlaveTwo;
 	public static Solenoid high;
 	public static Solenoid low;
 	public static BuiltInAccelerometer accelerometer;
@@ -35,8 +37,10 @@ public class RobotMap {
 		headingGyro = new ADXRS450_Gyro();
 		accelerometer = new BuiltInAccelerometer();
 
+		rightSlaveTwo = new WPI_VictorSPX(1);
 		rightSlave = new WPI_VictorSPX(2);
 		rightMaster = new WPI_TalonSRX(3);
+		leftSlaveTwo = new WPI_VictorSPX(7);
 		leftSlave = new WPI_VictorSPX(9);
 		leftMaster = new WPI_TalonSRX(8);
 

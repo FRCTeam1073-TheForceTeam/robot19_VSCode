@@ -65,9 +65,6 @@ public class Robot extends TimedRobot {
 		shiftDisable = false;
 		notClear = false;
 
-		RobotMap.leftMaster.configFactoryDefault();
-		RobotMap.rightMaster.configFactoryDefault();
-
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
 
