@@ -1,19 +1,13 @@
 package frc.robot.subsystems;
 
 import frc.robot.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Vision {
 	
 	public double xDelta, xWidth, yDelta, yWidth, blockCount, width;
-	public edu.wpi.first.networktables.NetworkTable visionTable;
 	
 	public Vision() {
 		System.out.println("\"Where we droppin' boys?\"");
-	}
-	
-	public void init() {
-		visionTable = Robot.netTableInst.getTable("TurretTable");
 	}
 
 	/** Checks if vision sees anything */
@@ -24,16 +18,12 @@ public class Vision {
 	
 	/** Pulls variables from Network Tables */
 	public void refresh() {
-		xDelta = visionTable.getEntry("centerDistX").getDouble(0);
-		xWidth = visionTable.getEntry("AverageWidth").getDouble(0);
-		yDelta = visionTable.getEntry("centerDistY").getDouble(0);
-		yWidth = visionTable.getEntry("AverageHeight").getDouble(0);
-		blockCount = visionTable.getEntry("Blocks").getDouble(0);
+		xDelta = Robot.networktable.table.getEntry("centerDistX").getDouble(0);
+		xWidth = Robot.networktable.table.getEntry("AverageWidth").getDouble(0);
+		yDelta = Robot.networktable.table.getEntry("centerDistY").getDouble(0);
+		yWidth = Robot.networktable.table.getEntry("AverageHeight").getDouble(0);
+		blockCount = Robot.networktable.table.getEntry("Blocks").getDouble(0);
 		
-		SmartDashboard.putNumber("xDelta", xDelta);
-		SmartDashboard.putNumber("xWidth", xWidth);
-		SmartDashboard.putNumber("yDelta", yDelta);
-		SmartDashboard.putNumber("yWidth", yWidth);
-		SmartDashboard.putNumber("Block Count", blockCount);
+		Robot.networktable.table.getEntry("VisionReadout").setString("BlockCount: " + blockCount + "\txDelta: " + xDelta + "\txWidth: " + xWidth + "\tyDelta: " + yDelta + "\tyWidth: " + yWidth);
 	}
 }

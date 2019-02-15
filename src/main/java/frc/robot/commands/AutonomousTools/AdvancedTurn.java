@@ -89,7 +89,7 @@ public class AdvancedTurn extends Command {
 
 	protected void execute() {
 		currentDegrees = RobotMap.headingGyro.getAngle();
-		Robot.drivetrain.difDrive.tankDrive(turnCheck("left") * turnSpeed(), turnCheck("right") * turnSpeed());
+		Robot.drivetrain.tank(turnCheck("left") * turnSpeed(), turnCheck("right") * turnSpeed());
 	}
 	
 	private double turnCheck(String string) {
@@ -103,15 +103,18 @@ public class AdvancedTurn extends Command {
 	}
 
 	protected boolean isFinished() {
-		if (Robot.oi.driverCancel.get() == true || Robot.oi.operatorCancel.get() == true) return true;
-		if ((point && Math.abs(finalDegrees - currentDegrees % 360) <= 0) || 
-			(!point && Math.abs(currentDegrees - initialDegrees) >= finalDegrees) || 
-			System.currentTimeMillis() - timeStart >= timeout ||
-			direction.equals("empty")) return true;
+		if (Robot.oi.driverCancel.get() == true || Robot.oi.operatorCancel.get() == true || System.currentTimeMillis() - timeStart >= timeout || 
+		(point && Math.abs(finalDegrees - currentDegrees % 360) <= 0) || 
+		(!point && Math.abs(currentDegrees - initialDegrees) >= finalDegrees) ||
+		direction.equals("empty")) {
+			Robot.drivetrain.zero();
+			return true;
+		}
 		return false;
 	}
 	
 	protected void end() {
+		Robot.drivetrain.zero();
 		System.out.println("LOG: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
 				+ "\"Final Gyro point: " + currentDegrees + "\"");
 	}
