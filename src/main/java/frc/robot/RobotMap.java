@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -34,6 +35,8 @@ public class RobotMap {
 	public static Solenoid hatchExtender;
 	public static WPI_TalonSRX hatchIntake;
 	public static WPI_TalonSRX hatchFlipper;
+	public static DigitalInput flipperLimitSwitchUp;
+	public static DigitalInput flipperLimitSwitchDown;
   	public static void init() {
 		headingGyro = new ADXRS450_Gyro();
 		accelerometer = new BuiltInAccelerometer();

@@ -7,11 +7,15 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.commands.HatchCommands.*;
 import frc.robot.commands.TeleopControls.HatchControls;
 
 /**
@@ -20,12 +24,14 @@ import frc.robot.commands.TeleopControls.HatchControls;
 public class HatchManipulator extends Subsystem {
   private WPI_TalonSRX hatchIntake=RobotMap.hatchIntake;
   private WPI_TalonSRX hatchFlipper=RobotMap.hatchFlipper;
+  public DigitalInput switchDown = RobotMap.flipperLimitSwitchDown;
+  public DigitalInput switchUp = RobotMap.flipperLimitSwitchUp;
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new HatchControls());
   }
   public boolean getLimitSwitchState(){
-    return false;
+    return (switchDown.get()||switchUp.get());
     // if hatchFlipper limit switch 1 activated
     //   return true
     // else if hatchFlipper limit switch 2 activated
@@ -34,10 +40,13 @@ public class HatchManipulator extends Subsystem {
     //   return false
   }
   public void setFlipper(double power){
-//    hatchFlipper.set(ControlMode.PercentOutput,power);
+    hatchFlipper.set(ControlMode.PercentOutput,power);
   }
   public void flipUp(){
-    // setDefaultCommand(new );
+    setDefaultCommand(new FlipUp());
+  }
+  public void flipDown(){
+    setDefaultCommand(new FlipDown());
   }
   public void setIntake(double power){
 //    hatchIntake.set(ControlMode.PercentOutput,power);

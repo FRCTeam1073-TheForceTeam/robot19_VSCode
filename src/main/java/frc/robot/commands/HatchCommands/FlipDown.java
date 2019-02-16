@@ -5,12 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.TeleopControls;
+package frc.robot.commands.HatchCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-public class HatchControls extends Command {
-  public HatchControls() {
+
+public class FlipDown extends Command {
+  public FlipDown() {
     requires(Robot.hatch);
   }
 
@@ -23,33 +24,25 @@ public class HatchControls extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double value=Robot.oi.operatorControl.getRawAxis(1);
-    System.out.println(value);
-    if(Robot.oi.operatorControl.y.get()){
-      Robot.hatch.fingerRaise();
-    }
-    else if(Robot.oi.operatorControl.x.get()){
-      Robot.hatch.fingerRaise();
-    }
-    if(!Robot.hatch.getLimitSwitchState()){
-      Robot.hatch.setFlipper(value);
-    }
+    Robot.hatch.setFlipper(-1);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.hatch.getLimitSwitchState();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.hatch.setFlipper(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.hatch.setFlipper(0);
   }
 }
