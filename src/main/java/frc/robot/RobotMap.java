@@ -46,6 +46,9 @@ public class RobotMap {
 		leftSlave = new WPI_VictorSPX(9);
 		leftMaster = new WPI_TalonSRX(8);
 
+		hatchFlipper=new WPI_TalonSRX(7);
+		hatchIntake=new WPI_TalonSRX(5);
+
 		high = new Solenoid (1, 7);
 		low = new Solenoid (1, 5);
 		// finger = new Solenoid(2, 7);

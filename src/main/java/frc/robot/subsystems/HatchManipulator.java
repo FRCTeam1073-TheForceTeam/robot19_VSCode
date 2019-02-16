@@ -49,10 +49,10 @@ public class HatchManipulator extends Subsystem {
     setDefaultCommand(new FlipDown());
   }
   public void setIntake(double power){
-//    hatchIntake.set(ControlMode.PercentOutput,power);
+    hatchIntake.set(ControlMode.PercentOutput,power);
   }
   public void fingerRaise(){
-//    Robot.pnuematic.fingerRaise();
+//  Robot.pnuematic.fingerRaise();
   }
   public void fingerLower(){
 //    Robot.pnuematic.fingerLower();

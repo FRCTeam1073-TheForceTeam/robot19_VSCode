@@ -23,17 +23,20 @@ public class HatchControls extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double value=Robot.oi.operatorControl.getRawAxis(1);
-    System.out.println(value);
+    double flipperValue=Robot.oi.operatorControl.getRawAxis(1);
+    double intakeValue=Robot.oi.operatorControl.getRawAxis(5);
+    System.out.println(flipperValue+"\t"+intakeValue);
     if(Robot.oi.operatorControl.y.get()){
       Robot.hatch.fingerRaise();
     }
     else if(Robot.oi.operatorControl.x.get()){
       Robot.hatch.fingerRaise();
     }
+
     if(!Robot.hatch.getLimitSwitchState()){
-      Robot.hatch.setFlipper(value);
+      Robot.hatch.setFlipper(flipperValue);
     }
+    Robot.hatch.setIntake(intakeValue);
   }
 
   // Make this return true when this Command no longer needs to run execute()
