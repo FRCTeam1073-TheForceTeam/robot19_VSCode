@@ -37,7 +37,24 @@ public class OI {
 		
 		driverCancel = driverControl.a;
 		
-		cargoIn = 
+		// cargoIn = 
+
+		// cargoOut = 
+
+		// Both above are triggers and i hate it
+
+		duckOut = operatorControl.rightBumper;
+		//Insert Do Thing
+
+		lidarUp = operatorControl.y;
+		//Insert Do Thing
+
+		foldIn = operatorControl.x;
+		//Insert Do Thing
+
+		
+
+
 
 		operatorCancel = operatorControl.a;
 	}
