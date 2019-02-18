@@ -13,10 +13,19 @@ public class OI {
 	public JoystickButton RobotTeleInit;
 	public JoystickButton visionButton;
 	public JoystickButton driverCancel;
-	public JoystickButton operatorCancel;
 	public JoystickButton lowGearHold;
 	public JoystickButton highGearHold;
 	public JoystickButton motorTest;
+
+	public JoystickButton operatorCancel;
+	public JoystickButton cargoIn;
+	public JoystickButton cargoOut;
+	public JoystickButton duckOut;
+	public JoystickButton lidarUp;
+	public JoystickButton foldIn;
+	public JoystickButton hatchUp;
+	public JoystickButton hatchDown;
+	public JoystickButton precisionMode;
 	
     public OI() {
     	
@@ -25,8 +34,11 @@ public class OI {
 		
 		lowGearHold = driverControl.leftBumper;
 		highGearHold = driverControl.rightBumper;
-    	
-    	driverCancel = driverControl.a;
+		
+		driverCancel = driverControl.a;
+		
+		cargoIn = 
+
 		operatorCancel = operatorControl.a;
 	}
 }
