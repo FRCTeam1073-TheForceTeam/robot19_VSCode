@@ -57,16 +57,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    	System.out.println("Robot Initializing");
+    	debugPrint("Robot Initializing");
 		
 		RobotMap.init();
 		
 		debugMode = false;
 		shiftDisable = false;
 		notClear = false;
-
-		RobotMap.leftMaster.configFactoryDefault();
-		RobotMap.rightMaster.configFactoryDefault();
 
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
@@ -148,10 +145,10 @@ public class Robot extends TimedRobot {
    * You can use it to reset subsystems before shutting down.
    */
 	public void disabledInit() {
-		System.out.println("At " + ((System.currentTimeMillis() - initialBootTime) * 1000) + ", robot19.robot says \n" 
+		debugPrint("At " + ((System.currentTimeMillis() - initialBootTime) * 1000) + ", robot19.robot says \n" 
 			+ "\" WE ARE DISABLED WHAT THE HECK?\"");
 		
-		System.out.println(RobotMap.headingGyro.getAngle());
+		debugPrint(RobotMap.headingGyro.getAngle());
 		
 		networktable.refresh();
 		
@@ -169,7 +166,7 @@ public class Robot extends TimedRobot {
 		networktable.table.getEntry("DebugMode").setBoolean(false);
 		debugMode = false;
 
-		System.out.println("Auto Setting Up");
+		debugPrint("Auto Setting Up");
 		RobotMap.headingGyro.reset();
 		autoStartTime = System.currentTimeMillis();
 		
@@ -177,7 +174,7 @@ public class Robot extends TimedRobot {
 
 		Scheduler.getInstance().run();
 		
-		System.out.println("Auto Starting");
+		debugPrint("Auto Starting");
 		if (autonomousCommand != null) autonomousCommand.start();
 	}
 
@@ -209,8 +206,36 @@ public class Robot extends TimedRobot {
 
 	/** This function is called periodically during test mode */
 	public void testPeriodic() {
-		System.out.println("Test Mode.");
+		debugPrint("Test Mode.");
 
 		Scheduler.getInstance().run();
+	}
+
+	/** Enables or disables logging */
+	private static boolean logging = false;
+
+	/** Used instead of Console Prints */
+	public static void debugPrint(String str) {
+		if (logging) System.out.println(str);
+	}
+	/** Used instead of Console Prints */
+	public static void debugPrint(Object obj) {
+		if (logging) System.out.println(obj);
+	}
+	/** Used instead of Console Prints */
+	public static void debugPrint(int num) {
+		if (logging) System.out.println(num);
+	}
+	/** Used instead of Console Prints */
+	public static void debugPrint(double num) {
+		if (logging) System.out.println(num);
+	}
+	/** Used instead of Console Prints */
+	public static void debugPrint(float num) {
+		if (logging) System.out.println(num);
+	}
+	/** Used instead of Console Prints */
+	public static void debugPrint(boolean bool) {
+		if (logging) System.out.println(bool);
 	}
 }
