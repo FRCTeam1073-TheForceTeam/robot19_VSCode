@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.HatchCommands.*;
-import frc.robot.commands.TeleopControls.HatchControls;
+import frc.robot.commands.HatchControls;
 
 /**
  * Add your docs here.
