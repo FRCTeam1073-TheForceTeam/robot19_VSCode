@@ -23,10 +23,10 @@ public class RobotMap {
 	public static ADXRS450_Gyro headingGyro;
 	public static WPI_TalonSRX rightMaster;
 	public static WPI_VictorSPX rightSlave;
-	public static WPI_VictorSPX rightSlaveTwo;
+	public static WPI_VictorSPX rightSlave2;
 	public static WPI_TalonSRX leftMaster;
 	public static WPI_VictorSPX leftSlave;
-	public static WPI_VictorSPX leftSlaveTwo;
+	public static WPI_VictorSPX leftSlave2;
 
 	public static WPI_TalonSRX rightClimber;
 	public static WPI_TalonSRX lidar;
@@ -36,7 +36,7 @@ public class RobotMap {
 	public static WPI_TalonSRX cargoCollect;
 	
 	public static WPI_VictorSPX leftClimber;
-	public static WPI_VictorSPX cargoLiftTwo;
+	public static WPI_VictorSPX cargoLift2;
 
 	public static Solenoid high;
 	public static Solenoid low;
@@ -46,10 +46,10 @@ public class RobotMap {
 		headingGyro = new ADXRS450_Gyro();
 		accelerometer = new BuiltInAccelerometer();
 
-		rightSlaveTwo = new WPI_VictorSPX(3);
+		rightSlave2 = new WPI_VictorSPX(3);
 		rightSlave = new WPI_VictorSPX(2);
 		rightMaster = new WPI_TalonSRX(4);
-		leftSlaveTwo = new WPI_VictorSPX(7);
+		leftSlave2 = new WPI_VictorSPX(7);
 		leftSlave = new WPI_VictorSPX(9);
 		leftMaster = new WPI_TalonSRX(8);
 
@@ -61,7 +61,7 @@ public class RobotMap {
 		rightClimber = new WPI_TalonSRX(10);
 		leftClimber = new WPI_VictorSPX(11);
 
-		cargoLiftTwo = new WPI_VictorSPX(12);
+		cargoLift2 = new WPI_VictorSPX(12);
 		cargoLift = new WPI_TalonSRX(13);
 		cargoCollect = new WPI_TalonSRX(14);
 

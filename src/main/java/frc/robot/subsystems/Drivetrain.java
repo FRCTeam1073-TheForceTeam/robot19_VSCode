@@ -15,10 +15,10 @@ public class Drivetrain extends Subsystem {
     
     public final WPI_TalonSRX rightMaster = RobotMap.rightMaster;
 	public final WPI_VictorSPX rightSlave = RobotMap.rightSlave;
-	public final WPI_VictorSPX rightSlaveTwo = RobotMap.rightSlaveTwo;
+	public final WPI_VictorSPX rightSlave2 = RobotMap.rightSlave2;
     public final WPI_TalonSRX leftMaster = RobotMap.leftMaster;
 	public final WPI_VictorSPX leftSlave = RobotMap.leftSlave;
-	public final WPI_VictorSPX leftSlaveTwo = RobotMap.leftSlaveTwo;
+	public final WPI_VictorSPX leftSlave2 = RobotMap.leftSlave2;
 	
 	public double leftEncoder;
 	public double rightEncoder;
@@ -39,16 +39,16 @@ public class Drivetrain extends Subsystem {
 		rightSlave.configFactoryDefault();
 		leftSlave.configFactoryDefault();
 		if (sixSim) {
-			rightSlaveTwo.configFactoryDefault();
-			leftSlaveTwo.configFactoryDefault();
+			rightSlave2.configFactoryDefault();
+			leftSlave2.configFactoryDefault();
 		}
 
     	rightMaster.setSafetyEnabled(false);
 		rightSlave.setSafetyEnabled(false);
-		rightSlaveTwo.setSafetyEnabled(false);
+		rightSlave2.setSafetyEnabled(false);
     	leftMaster.setSafetyEnabled(false);
 		leftSlave.setSafetyEnabled(false);
-		leftSlaveTwo.setSafetyEnabled(false);
+		leftSlave2.setSafetyEnabled(false);
 
 		/* Set Neutral Mode */
 		leftMaster.setNeutralMode(NeutralMode.Brake);
@@ -56,8 +56,8 @@ public class Drivetrain extends Subsystem {
 		leftSlave.setNeutralMode(NeutralMode.Brake);
 		rightSlave.setNeutralMode(NeutralMode.Brake);
 		if (sixSim) {
-			leftSlaveTwo.setNeutralMode(NeutralMode.Brake);
-			rightSlaveTwo.setNeutralMode(NeutralMode.Brake);
+			leftSlave2.setNeutralMode(NeutralMode.Brake);
+			rightSlave2.setNeutralMode(NeutralMode.Brake);
 		}
 		
 		/* Configure the left Talon's selected sensor to a Quad Encoder*/
@@ -74,8 +74,8 @@ public class Drivetrain extends Subsystem {
 		rightSlave.setInverted(false);
 
 		if (sixSim) {
-			leftSlaveTwo.setInverted(true);
-			rightSlaveTwo.setInverted(false);
+			leftSlave2.setInverted(true);
+			rightSlave2.setInverted(false);
 		}
 
 		/**
@@ -121,29 +121,29 @@ public class Drivetrain extends Subsystem {
 		leftSlave.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 
 		if (sixSim) {
-			rightSlaveTwo.config_kP(0,P);
-			rightSlaveTwo.config_kI(0,I);
-			rightSlaveTwo.config_kD(0,D);
-			rightSlaveTwo.config_kF(0,K, Presets.timeoutMS);
-			//rightSlaveTwo.config_IntegralZone(0,IZ, Presets.timeoutMS);
-			rightSlaveTwo.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
-			rightSlaveTwo.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
+			rightSlave2.config_kP(0,P);
+			rightSlave2.config_kI(0,I);
+			rightSlave2.config_kD(0,D);
+			rightSlave2.config_kF(0,K, Presets.timeoutMS);
+			//rightSlave2.config_IntegralZone(0,IZ, Presets.timeoutMS);
+			rightSlave2.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+			rightSlave2.configAllowableClosedloopError(0, CLE, Presets.timeoutMS);
 
-			leftSlaveTwo.config_kP(0,P);
-			leftSlaveTwo.config_kI(0,I);
-			leftSlaveTwo.config_kD(0,D);
-			leftSlaveTwo.config_kF(0,K, Presets.timeoutMS);
-			//leftSlaveTwo.config_IntegralZone(0,IZ, Presets.timeoutMS);
-			leftSlaveTwo.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
-			leftSlaveTwo.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
+			leftSlave2.config_kP(0,P);
+			leftSlave2.config_kI(0,I);
+			leftSlave2.config_kD(0,D);
+			leftSlave2.config_kF(0,K, Presets.timeoutMS);
+			//leftSlave2.config_IntegralZone(0,IZ, Presets.timeoutMS);
+			leftSlave2.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+			leftSlave2.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 		}
 
 		rightSlave.follow(rightMaster);
 		leftSlave.follow(leftMaster);
 
 		if (sixSim) {
-			rightSlaveTwo.follow(rightMaster);
-			leftSlaveTwo.follow(leftMaster);
+			rightSlave2.follow(rightMaster);
+			leftSlave2.follow(leftMaster);
 		}
 
 		/* Table Data Setup */
@@ -219,21 +219,21 @@ public class Drivetrain extends Subsystem {
 		leftSlave.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 
 		if (sixSim) {
-			rightSlaveTwo.config_kP(0,P);
-			rightSlaveTwo.config_kI(0,I);
-			rightSlaveTwo.config_kD(0,D);
-			rightSlaveTwo.config_kF(0,K, Presets.timeoutMS);
-			//rightSlaveTwo.config_IntegralZone(0,IZ, Presets.timeoutMS);
-			rightSlaveTwo.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
-			rightSlaveTwo.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
+			rightSlave2.config_kP(0,P);
+			rightSlave2.config_kI(0,I);
+			rightSlave2.config_kD(0,D);
+			rightSlave2.config_kF(0,K, Presets.timeoutMS);
+			//rightSlave2.config_IntegralZone(0,IZ, Presets.timeoutMS);
+			rightSlave2.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+			rightSlave2.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 
-			leftSlaveTwo.config_kP(0,P);
-			leftSlaveTwo.config_kI(0,I);
-			leftSlaveTwo.config_kD(0,D);
-			leftSlaveTwo.config_kF(0,K, Presets.timeoutMS);
-			//leftSlaveTwo.config_IntegralZone(0,IZ, Presets.timeoutMS);
-			leftSlaveTwo.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
-			leftSlaveTwo.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
+			leftSlave2.config_kP(0,P);
+			leftSlave2.config_kI(0,I);
+			leftSlave2.config_kD(0,D);
+			leftSlave2.config_kF(0,K, Presets.timeoutMS);
+			//leftSlave2.config_IntegralZone(0,IZ, Presets.timeoutMS);
+			leftSlave2.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+			leftSlave2.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 		}
 	}
 

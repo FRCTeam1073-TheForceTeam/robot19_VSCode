@@ -23,8 +23,6 @@ public class OI {
 	public JoystickButton duckOut;
 	public JoystickButton lidarUp;
 	public JoystickButton foldIn;
-	public JoystickButton hatchUp;
-	public JoystickButton hatchDown;
 	public JoystickButton precisionMode;
 	
     public OI() {
@@ -52,9 +50,8 @@ public class OI {
 		foldIn = operatorControl.x;
 		//Insert Do Thing
 
-		
-
-
+		precisionMode = operatorControl.b;
+		//Insert Do Thing
 
 		operatorCancel = operatorControl.a;
 	}
