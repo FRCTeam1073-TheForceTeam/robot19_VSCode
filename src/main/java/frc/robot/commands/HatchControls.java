@@ -57,8 +57,8 @@ public class HatchControls extends Command {
 	/** Called Repeatedly */
 	protected void execute() {
 		/* Controller Data */
-		//left bumper
-		lift = Robot.oi.operatorControl.getRawAxis(2);
+		//left y axis
+		lift = Robot.oi.operatorControl.getRawAxis(1);
 		//left x axis
 		collect = Robot.oi.operatorControl.getRawAxis(0);
 		/* Outputs Checked Controller Data to Motors */

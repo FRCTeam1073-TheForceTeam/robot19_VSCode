@@ -57,8 +57,8 @@ public class ClimbControls extends Command {
 	/** Called Repeatedly */
 	protected void execute() {
 		/* Controller Data */
-		//right bumper
-		forward = Robot.oi.operatorControl.getRawAxis(3);
+		//right y axis
+		forward = Robot.oi.operatorControl.getRawAxis(5);
 		
 		/* Outputs Checked Controller Data to Motors */
 		tankClimb(deadZoneCheck(forward));
