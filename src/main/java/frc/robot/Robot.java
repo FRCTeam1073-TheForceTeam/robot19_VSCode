@@ -16,6 +16,7 @@ import frc.robot.commands.SystemTest;
 import frc.robot.commands.AutonomousTools.AutoTest;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feedback;
+import frc.robot.subsystems.*;
 import frc.robot.subsystems.GearBox;
 import frc.robot.subsystems.Lidar;
 import frc.robot.subsystems.NetworkTable;
@@ -39,6 +40,7 @@ public class Robot extends TimedRobot {
 	public static GearBox gearbox;
 	public static Vision vision;
 	public static Lidar lidar;
+	public static Hatch hatch;
 	public static String FMS;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
 	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
@@ -81,6 +83,8 @@ public class Robot extends TimedRobot {
 		vision = new Vision();
 
 		lidar = new Lidar();
+		
+		hatch = new Hatch();
 
 		oi = new OI();
 
