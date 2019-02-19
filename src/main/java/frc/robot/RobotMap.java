@@ -4,6 +4,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -41,7 +43,12 @@ public class RobotMap {
 	public static Solenoid high;
 	public static Solenoid low;
 	public static BuiltInAccelerometer accelerometer;
-  
+	public static Solenoid finger;
+	public static Solenoid hatchExtender;
+	public static WPI_TalonSRX hatchIntake;
+	public static WPI_TalonSRX hatchFlipper;
+	public static DigitalInput flipperLimitSwitchUp;
+	public static DigitalInput flipperLimitSwitchDown;
   	public static void init() {
 		headingGyro = new ADXRS450_Gyro();
 		accelerometer = new BuiltInAccelerometer();
@@ -53,6 +60,8 @@ public class RobotMap {
 		leftSlave = new WPI_VictorSPX(9);
 		leftMaster = new WPI_TalonSRX(8);
 
+		hatchFlipper=new WPI_TalonSRX(7);
+		hatchIntake=new WPI_TalonSRX(5);
 		lidar = new WPI_TalonSRX(15);
 
 		hatchCollect = new WPI_TalonSRX(5);
@@ -67,5 +76,7 @@ public class RobotMap {
 
 		high = new Solenoid (1, 7);
 		low = new Solenoid (1, 5);
+		// finger = new Solenoid(2, 7);
+		// hatchExtender = new Solenoid(2, 5);
 	}
 }
