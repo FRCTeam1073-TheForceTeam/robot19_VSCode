@@ -12,15 +12,17 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.SystemTest;
 import frc.robot.commands.AutonomousTools.AutoTest;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Feedback;
+import frc.robot.subsystems.*;
 import frc.robot.subsystems.GearBox;
 import frc.robot.subsystems.HatchManipulator;
 import frc.robot.subsystems.Lidar;
 import frc.robot.subsystems.NetworkTable;
 import frc.robot.subsystems.Pnuematic;
 import frc.robot.subsystems.Vision;
-import frc.robot.commands.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,10 +37,12 @@ public class Robot extends TimedRobot {
 	public static NetworkTable networktable;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
-	public static HatchManipulator hatch;
-	public static GearBox gearbox;
+  public static HatchManipulator hatch;
+  public static Feedback feedback;
+  public static GearBox gearbox;
 	public static Vision vision;
 	public static Lidar lidar;
+	public static Hatch hatch;
 	public static String FMS;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
 	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
@@ -57,7 +61,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    	System.out.println("Robot Initializing");
+    	debugPrint("Robot Initializing");
 		
 		RobotMap.init();
 		
@@ -65,25 +69,28 @@ public class Robot extends TimedRobot {
 		shiftDisable = false;
 		notClear = false;
 
-		RobotMap.leftMaster.configFactoryDefault();
-		RobotMap.rightMaster.configFactoryDefault();
-
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
-
+    
 		networktable = new NetworkTable();
 		
-		drivetrain = new Drivetrain();
+    hatch = new HatchManipulator();
+		
+    drivetrain = new Drivetrain();
+		
+    pnuematic = new Pnuematic();
+    
+    feedback = new Feedback();
+    
+    gearbox = new GearBox();
+		
+    vision = new Vision();
+		
+    lidar = new Lidar();
+		
+    hatch = new Hatch();
 
-		pnuematic = new Pnuematic();
-		hatch = new HatchManipulator();
-		gearbox = new GearBox();
-
-		vision = new Vision();
-
-		lidar = new Lidar();
-
-		oi = new OI();
+    oi = new OI();
 
 		FMS = "";
 
@@ -146,10 +153,10 @@ public class Robot extends TimedRobot {
    * You can use it to reset subsystems before shutting down.
    */
 	public void disabledInit() {
-		System.out.println("At " + ((System.currentTimeMillis() - initialBootTime) * 1000) + ", robot19.robot says \n" 
+		debugPrint("At " + ((System.currentTimeMillis() - initialBootTime) * 1000) + ", robot19.robot says \n" 
 			+ "\" WE ARE DISABLED WHAT THE HECK?\"");
 		
-		System.out.println(RobotMap.headingGyro.getAngle());
+		debugPrint(RobotMap.headingGyro.getAngle());
 		
 		networktable.refresh();
 		
@@ -167,7 +174,7 @@ public class Robot extends TimedRobot {
 		networktable.table.getEntry("DebugMode").setBoolean(false);
 		debugMode = false;
 
-		System.out.println("Auto Setting Up");
+		debugPrint("Auto Setting Up");
 		RobotMap.headingGyro.reset();
 		autoStartTime = System.currentTimeMillis();
 		
@@ -175,7 +182,7 @@ public class Robot extends TimedRobot {
 
 		Scheduler.getInstance().run();
 		
-		System.out.println("Auto Starting");
+		debugPrint("Auto Starting");
 		if (autonomousCommand != null) autonomousCommand.start();
 	}
 
@@ -207,8 +214,36 @@ public class Robot extends TimedRobot {
 
 	/** This function is called periodically during test mode */
 	public void testPeriodic() {
-		System.out.println("Test Mode.");
+		debugPrint("Test Mode.");
 
 		Scheduler.getInstance().run();
+	}
+
+	/** Enables or disables logging */
+	private static boolean logging = false;
+
+	/** Used instead of Console Prints */
+	public static void debugPrint(String str) {
+		if (logging) System.out.println(str);
+	}
+	/** Used instead of Console Prints */
+	public static void debugPrint(Object obj) {
+		if (logging) System.out.println(obj);
+	}
+	/** Used instead of Console Prints */
+	public static void debugPrint(int num) {
+		if (logging) System.out.println(num);
+	}
+	/** Used instead of Console Prints */
+	public static void debugPrint(double num) {
+		if (logging) System.out.println(num);
+	}
+	/** Used instead of Console Prints */
+	public static void debugPrint(float num) {
+		if (logging) System.out.println(num);
+	}
+	/** Used instead of Console Prints */
+	public static void debugPrint(boolean bool) {
+		if (logging) System.out.println(bool);
 	}
 }

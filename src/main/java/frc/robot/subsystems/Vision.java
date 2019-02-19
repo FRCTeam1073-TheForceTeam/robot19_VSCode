@@ -7,7 +7,7 @@ public class Vision {
 	public double xDelta, xWidth, yDelta, yWidth, blockCount, width;
 	
 	public Vision() {
-		System.out.println("\"Where we droppin' boys?\"");
+		Robot.debugPrint("\"Where we droppin' boys?\"");
 	}
 
 	/** Checks if vision sees anything */
