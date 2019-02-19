@@ -29,11 +29,12 @@ public class Robot extends TimedRobot {
 	public static NetworkTable networktable;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
-	public static Feedback feedback;
-	public static GearBox gearbox;
+  	public static Feedback feedback;
+  	public static GearBox gearbox;
 	public static Vision vision;
 	public static Cargo cargo;
 	public static Lidar lidar;
+	public static Hatch hatch;
 	public static String FMS;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
 	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
@@ -41,7 +42,7 @@ public class Robot extends TimedRobot {
 	public static boolean debugMode, shiftDisable;
 	public static Command debugRunner;
 	public Command autonomousCommand;
-	  
+
 	protected Robot() {
 		super(0.03); //cycle time
 	}
@@ -62,22 +63,24 @@ public class Robot extends TimedRobot {
 
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
-
+    
 		networktable = new NetworkTable();
+				
+    drivetrain = new Drivetrain();
 		
-		drivetrain = new Drivetrain();
+    pnuematic = new Pnuematic();
+    
+    feedback = new Feedback();
+    
+    gearbox = new GearBox();
+		
+    vision = new Vision();
+		
+    lidar = new Lidar();
+		
+    hatch = new Hatch();
 
-		pnuematic = new Pnuematic();
-
-		feedback = new Feedback();
-
-		gearbox = new GearBox();
-
-		vision = new Vision();
-
-		lidar = new Lidar();
-
-		oi = new OI();
+    oi = new OI();
 
 		FMS = "";
 
