@@ -68,7 +68,7 @@ public class AdvancedTurn extends Command {
 	
 	protected void initialize() {
 		initialDegrees = RobotMap.headingGyro.getAngle();
-		System.out.println("LOG: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
+		Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
 				+ "\"Initial Gyro point: " + initialDegrees + "\"");
 		
 		if (direction.equals("point")) direction = turnPoint();
@@ -79,7 +79,7 @@ public class AdvancedTurn extends Command {
 	
 	private String turnPoint() {
 		point = true;
-		System.out.println("LOG: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
+		Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
 				+ "\"turnPoint: Point " + initialDegrees 
 				+ "\t Math " + (finalDegrees - initialDegrees % 360) + "\"");
 		if (finalDegrees - initialDegrees % 360 > 0) return "right";
@@ -115,7 +115,7 @@ public class AdvancedTurn extends Command {
 	
 	protected void end() {
 		Robot.drivetrain.zero();
-		System.out.println("LOG: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
+		Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
 				+ "\"Final Gyro point: " + currentDegrees + "\"");
 	}
 }
