@@ -18,7 +18,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feedback;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.GearBox;
-import frc.robot.subsystems.HatchManipulator;
+import frc.robot.subsystems.Hatch;
 import frc.robot.subsystems.Lidar;
 import frc.robot.subsystems.NetworkTable;
 import frc.robot.subsystems.Pnuematic;
@@ -37,7 +37,6 @@ public class Robot extends TimedRobot {
 	public static NetworkTable networktable;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
-  public static HatchManipulator hatch;
   public static Feedback feedback;
   public static GearBox gearbox;
 	public static Vision vision;
@@ -73,8 +72,6 @@ public class Robot extends TimedRobot {
 		RobotMap.headingGyro.calibrate();
     
 		networktable = new NetworkTable();
-		
-    hatch = new HatchManipulator();
 		
     drivetrain = new Drivetrain();
 		
