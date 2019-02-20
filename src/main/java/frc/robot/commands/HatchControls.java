@@ -39,7 +39,6 @@ public class HatchControls extends Command {
 	/** Just a delay */
 	private double executes = 0;
 
-
 	/**
 	 * This is the climber movement controls
 	 * for the teleoperated period of a match.
