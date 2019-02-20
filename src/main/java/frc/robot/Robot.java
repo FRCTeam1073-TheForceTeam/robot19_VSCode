@@ -23,6 +23,7 @@ import frc.robot.subsystems.Lidar;
 import frc.robot.subsystems.NetworkTable;
 import frc.robot.subsystems.Pnuematic;
 import frc.robot.subsystems.Vision;
+import frc.robot.Bling;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,11 +35,12 @@ import frc.robot.subsystems.Vision;
 public class Robot extends TimedRobot {
 	public double initialBootTime, teleopStartTime, autoStartTime;
 	public static OI oi;
+	public static Bling bling;
 	public static NetworkTable networktable;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
   public static HatchManipulator hatch;
-  public static Feedback feedback;
+  public static Feedback feedback; 
   public static GearBox gearbox;
 	public static Vision vision;
 	public static Lidar lidar;
@@ -74,6 +76,9 @@ public class Robot extends TimedRobot {
     
 		networktable = new NetworkTable();
 		
+		bling = new Bling();
+		bling.sendRobotInit();
+
     hatch = new HatchManipulator();
 		
     drivetrain = new Drivetrain();

@@ -10,6 +10,7 @@ package frc.robot;
 /**
  * Add your docs here.
  * Should be Called BlinkyLights but whatever
+ * Nick typed this mostly
  */
  import edu.wpi.first.networktables.NetworkTable;
 
@@ -76,19 +77,38 @@ package frc.robot;
         public void sendAdvancedTurn() {
                 setPattern("Solid", "Aqua", "All", "Fast", 0, 100);
                 send();
+        }/*
+        public void VisionerCuberTrackerer() {
                 setPattern("RainbowHalves", "Red", "All", "Fast", 0, 100);
                 send();
         }
         /*public void sendAutoTest() { (these don't work maybe)
                 setPattern("ColorWipe", "Purple", "All", "Fast", 0, 100);
                 send();
-        }*/
+        }
         public void sendisfinished() {
+                setPattern("Solid", "Green", "All", "Medium", 0, 100);
+                send();
+        }*/
+        public void sendSystemTest() {
                 setPattern("Alternates", "Blue", "All", "Medium", 0, 100);
                 send();
         }
-        public void sendSystemTest() {
-                setPattern("Solid", "Green", "All", "Medium", 0, 100);
+        public void sendFlipUp() {
+                setPattern("Solid", "Orange", "All", "Medium", 0, 100);
                 send();
         }
+        public void sendFlipDown() {
+               setPattern("Solid", "Yellow", "All", "Medium", 0, 100);
+               send(); 
+        }
+        public void sendOff() {
+                disableLeds();
+                send();
+        }
+        public void sendRobotInit() {
+                setPattern("RainbowHalves", "Rainbow", "All", "Medium", 0, 100);
+                send();
+        }
+
 }

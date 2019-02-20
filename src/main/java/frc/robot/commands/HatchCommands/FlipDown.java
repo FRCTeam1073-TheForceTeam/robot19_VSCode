@@ -19,6 +19,8 @@ public class FlipDown extends Command {
   @Override
   protected void initialize() {
     Robot.hatch.setFlipper(0);
+  
+    Robot.bling.sendFlipDown();
   }
 
   // Called repeatedly when this Command is scheduled to run
