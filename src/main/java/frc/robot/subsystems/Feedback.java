@@ -26,7 +26,6 @@ public class Feedback extends Subsystem {
             Robot.oi.driverControl.rumble(percentRumble(accl.getX()), 0);
             Robot.oi.driverControl.rumble(0, percentRumble(accl.getX()));
         }
-        
         //Getting hit from the left
         if (accl.getX() > .2) {
             Robot.oi.driverControl.rumble(percentRumble(accl.getX()), 0);
