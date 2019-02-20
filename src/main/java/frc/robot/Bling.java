@@ -10,7 +10,7 @@ package frc.robot;
 /**
  * Add your docs here.
  * Should be Called BlinkyLights but whatever
- * Nick typed this mostly
+* @author Nick
  */
  import edu.wpi.first.networktables.NetworkTable;
 
