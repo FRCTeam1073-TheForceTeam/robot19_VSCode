@@ -37,7 +37,7 @@ public class Feedback extends Subsystem {
             Robot.oi.driverControl.rumble(0, percentRumble(accl.getX()));
             Robot.oi.operatorControl.rumble(0, percentRumble(accl.getX()));
         }
-        //Getting hit from the back or front (equation in absolute value)
+        //Getting hit from the back or front
         else if (Math.abs(accl.getY()) > .2) {
             Robot.oi.driverControl.rumbleTime(percentRumble(accl.getY()), 10);
             Robot.oi.operatorControl.rumbleTime(percentRumble(accl.getY()), 10);
@@ -47,7 +47,7 @@ public class Feedback extends Subsystem {
             Robot.oi.driverControl.rumbleTime(0, 0);
             Robot.oi.operatorControl.rumbleTime(0, 0);
         }
-
+        //Got velocity?
         System.out.println(accl.getZ());
     }
 
