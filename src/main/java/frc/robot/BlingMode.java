@@ -9,6 +9,7 @@ package frc.robot;
 
 /**
  * Add your docs here.
+ * Should be Called BlinkyLightMode but still whatever 
  */
 public enum BlingMode {
     ROBOT_INT,
