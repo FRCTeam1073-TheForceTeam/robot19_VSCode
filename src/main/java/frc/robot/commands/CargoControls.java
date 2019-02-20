@@ -25,7 +25,7 @@ public class CargoControls extends Command {
   @Override
   protected void execute() {
     if(Robot.oi.operatorControl.getRightTrigger() >= .6){
-      if(){
+      if(!){
         
       }
     }

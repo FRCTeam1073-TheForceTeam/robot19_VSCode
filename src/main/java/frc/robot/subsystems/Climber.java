@@ -49,7 +49,6 @@ public class Climber extends Subsystem {
 
     public void periodic() {
 		climbEncoder = rightClimber.getSelectedSensorPosition();
-		
 	}
 
 	

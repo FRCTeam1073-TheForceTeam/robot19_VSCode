@@ -47,8 +47,11 @@ public class RobotMap {
 	public static Solenoid hatchExtender;
 	public static WPI_TalonSRX hatchIntake;
 	public static WPI_TalonSRX hatchFlipper;
-	public static DigitalInput flipperLimitSwitchUp;
-	public static DigitalInput flipperLimitSwitchDown;
+	public static DigitalInput hatchFlipLimitSwitchUp;
+	public static DigitalInput hatchFlipLimitSwitchDown;
+	public static DigitalInput cargoFlipLimitSwitchUp;
+	public static DigitalInput cargoFlipLimitSwitchDown;
+
   	public static void init() {
 		headingGyro = new ADXRS450_Gyro();
 		accelerometer = new BuiltInAccelerometer();

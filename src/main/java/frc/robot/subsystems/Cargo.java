@@ -7,10 +7,15 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Presets;
 import frc.robot.RobotMap;
 import frc.robot.commands.*;
 
@@ -21,8 +26,53 @@ public class Cargo extends Subsystem {
   
   public final WPI_TalonSRX cargoCollect = RobotMap.cargoCollect;
 	public final WPI_TalonSRX cargoLift = RobotMap.cargoLift;
-  public final WPI_VictorSPX cargoLift2 = RobotMap.cargoLift2;
+	public final WPI_VictorSPX cargoLift2 = RobotMap.cargoLift2;
+	
+	public DigitalInput switchDown = RobotMap.cargoFlipLimitSwitchDown;
+	public DigitalInput switchUp = RobotMap.cargoFlipLimitSwitchUp;
 
+  private double lift;
+	private double collect;
+	private boolean liftTop;
+	private boolean liftBottom;
+
+  public Cargo(){
+    /* Reset all motors */
+		cargoLift.configFactoryDefault();
+		cargoCollect.configFactoryDefault();
+
+    cargoLift.setSafetyEnabled(false);
+		cargoCollect.setSafetyEnabled(false);
+
+		/* Set Neutral Mode */
+		cargoLift.setNeutralMode(NeutralMode.Brake);
+		cargoCollect.setNeutralMode(NeutralMode.Brake);
+		
+		/* Configure the left Talon's selected sensor to a Quad Encoder*/
+		cargoLift.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
+		
+		/* Configure the right Talon's selected sensor to a Quad Encoder*/
+		cargoCollect.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
+		
+		/* Configure output and sensor direction */
+		cargoLift.setInverted(false);
+		cargoCollect.setInverted(false);
+
+		/**
+		 * Max out the peak output (for all modes).  
+		 * However you can limit the output of a given PID object with configClosedLoopPeakOutput().
+		 */
+		cargoLift.configPeakOutputForward(1.0, Presets.timeoutMS);
+		cargoCollect.configPeakOutputReverse(-1.0, Presets.timeoutMS);
+  }
+
+  public void periodic(){
+    lift = cargoLift.getSelectedSensorPosition();
+		collect = cargoCollect.getSelectedSensorPosition();
+
+		liftTop = ;
+		liftBottom = ;
+  }
 
   @Override
   public void initDefaultCommand() {
