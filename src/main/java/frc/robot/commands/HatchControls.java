@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-public class HatchControls extends Command {
 
 /**
  * This is the climber movement controls
