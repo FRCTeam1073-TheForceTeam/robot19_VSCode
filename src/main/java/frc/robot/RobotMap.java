@@ -30,6 +30,7 @@ public class RobotMap {
 	public static Solenoid high;
 	public static Solenoid low;
 	public static BuiltInAccelerometer accelerometer;
+	public static WPI_TalonSRX lidarMotor;
   
   	public static void init() {
 		headingGyro = new ADXRS450_Gyro();
@@ -42,5 +43,7 @@ public class RobotMap {
 
 		high = new Solenoid (1, 7);
 		low = new Solenoid (1, 5);
+
+		lidarMotor = new WPI_TalonSRX(15);
 	}
 }

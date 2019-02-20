@@ -9,7 +9,7 @@ public class Lidar {
 	public double degrees, distance;
 	
 	public Lidar() {
-		System.out.println("\"Where we droppin' boys?\"");
+		System.out.println("\" \"");
 	}
 	
 	/** Pulls variables from Network Tables */
