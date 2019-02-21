@@ -36,6 +36,13 @@ public class Cargo extends Subsystem {
 	private boolean liftTop;
 	private boolean liftBottom;
 
+	private double P = .7;
+	private double I = 0.004;
+	private double D = 0;
+	private double K = 0;
+	private double PO = 1;
+	private int CLE = 0;
+
   public Cargo(){
     /* Reset all motors */
 		cargoLift.configFactoryDefault();
@@ -48,10 +55,10 @@ public class Cargo extends Subsystem {
 		cargoLift.setNeutralMode(NeutralMode.Brake);
 		cargoCollect.setNeutralMode(NeutralMode.Brake);
 		
-		/* Configure the left Talon's selected sensor to a Quad Encoder*/
+		/* Configure the lift Talon's selected sensor to a Quad Encoder*/
 		cargoLift.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
 		
-		/* Configure the right Talon's selected sensor to a Quad Encoder*/
+		/* Configure the collector Talon's selected sensor to a Quad Encoder*/
 		cargoCollect.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
 		
 		/* Configure output and sensor direction */
@@ -64,15 +71,63 @@ public class Cargo extends Subsystem {
 		 */
 		cargoLift.configPeakOutputForward(1.0, Presets.timeoutMS);
 		cargoCollect.configPeakOutputReverse(-1.0, Presets.timeoutMS);
-  }
+
+		/* FPID Gains for velocity servo */
+
+		cargoLift.config_kP(0,P);
+		cargoLift.config_kI(0,I);
+		cargoLift.config_kD(0,D);
+		cargoLift.config_kF(0,K, Presets.timeoutMS);
+		cargoLift.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+		cargoLift.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
+	
+		cargoCollect.config_kP(0,P);
+		cargoCollect.config_kI(0,I);
+		cargoCollect.config_kD(0,D);
+		cargoCollect.config_kF(0,K, Presets.timeoutMS);
+		cargoCollect.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+		cargoCollect.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
+	}
+	
 
   public void periodic(){
     lift = cargoLift.getSelectedSensorPosition();
 		collect = cargoCollect.getSelectedSensorPosition();
 
-		liftTop = ;
-		liftBottom = ;
+		liftTop = switchUp.get();
+		liftBottom = switchDown.get();
   }
+
+	public boolean getLimitTop(){
+		return liftTop;
+	}
+
+	public boolean getLimitBottom(){
+		return liftBottom;
+	}
+
+	public void liftDrive(double speed) {
+		cargoLift.set(ControlMode.PercentOutput, speed);
+	}
+
+	public void collectorSpin(double speed){
+		cargoCollect.set(ControlMode.PercentOutput, speed);
+	}
+
+	public void velocity(double left, double right) {
+		cargoLift.set(ControlMode.Velocity, left);
+		cargoCollect.set(ControlMode.Velocity, right);
+	}
+
+	public void distance(double left, double right) {
+		cargoLift.set(ControlMode.Position, left);
+		cargoCollect.set(ControlMode.Position, right);
+	}
+
+	public void zero() {
+		cargoLift.set(ControlMode.Velocity, 0);
+		cargoCollect.set(ControlMode.Velocity, 0);
+	}
 
   @Override
   public void initDefaultCommand() {

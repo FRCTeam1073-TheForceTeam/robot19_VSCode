@@ -12,6 +12,9 @@ import frc.robot.Robot;
 import frc.robot.OI;
 
 public class CargoControls extends Command {
+
+  public double deadzone = .6;
+
   public CargoControls() {
     requires(Robot.cargo);
   }
@@ -24,14 +27,23 @@ public class CargoControls extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.oi.operatorControl.getRightTrigger() >= .6){
-      if(!){
-        
+    if(Robot.oi.operatorControl.getRightTrigger() >= deadzone){
+      if(!Robot.cargo.getLimitTop()){
+        Robot.cargo.liftDrive(1);
+      }
+      if(Robot.cargo.getLimitTop()){
+        Robot.cargo.collectorSpin(1);
       }
     }
-    else if(){
-        
+    else if(Robot.oi.operatorControl.getLeftTrigger() >= deadzone){
+      if(!Robot.cargo.getLimitBottom()){
+        Robot.cargo.liftDrive(-1);
+      }
+      if(Robot.cargo.getLimitBottom()){
+        Robot.cargo.collectorSpin(-1);
+      }
     }
+    //AHHHHHHH ELSE STATEMENT HERE FOR MAKING NEUTRAL DEFAULT
   }
 
   // Make this return true when this Command no longer needs to run execute()

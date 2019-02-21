@@ -63,8 +63,8 @@ public class RobotMap {
 		leftSlave = new WPI_VictorSPX(9);
 		leftMaster = new WPI_TalonSRX(8);
 
-		hatchFlipper=new WPI_TalonSRX(7);
-		hatchIntake=new WPI_TalonSRX(5);
+		hatchFlipper = new WPI_TalonSRX(7);
+		hatchIntake = new WPI_TalonSRX(5);
 		lidar = new WPI_TalonSRX(15);
 
 		hatchCollect = new WPI_TalonSRX(5);
@@ -81,5 +81,12 @@ public class RobotMap {
 		low = new Solenoid (1, 5);
 		// finger = new Solenoid(2, 7);
 		// hatchExtender = new Solenoid(2, 5);
+
+		/**HERE'S WHERE THE LIMIT SWITCHES WILL GO
+		hatchFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
+		hatchFlipLimitSwitchDown = new DigitalInput(WHATEVER THE ID IS);
+		cargoFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
+		cargoFlipLimitSwitchDown = new DigitaInput(WHATEVER THE ID IS);
+		*/
 	}
 }
