@@ -73,6 +73,31 @@ public class Hatch extends Subsystem {
 		Robot.networktable.table.getEntry("changePO").getDouble(PO) != PO ||
 		(int)Robot.networktable.table.getEntry("changeCLE").getDouble(CLE) != CLE) PIDChange();*/
 	}
+	public void setFlipper(Integer value) {
+		//NATHANIEL please fill this out with the correct integers for the fingers!!
+	}
+	
+	public void fingerLower() {
+		//NATHANIEL please fill this out with the value for "Fingers"!
+	}
+
+	public void fingerRaise() {
+		//NATHANIEL please fill this out with the correct value for "Fingers"!
+	}
+	
+	public boolean getLimitSwitchState() {
+		return false;
+		//Can return whatever NATHANIEL would like. NATHANIEL please fill this out with the apropos
+		//NATHANIEL fill this out with the correct value!!
+	}
+
+	public void hatchExtend() {
+		//NATHANIEL please add in what you please here
+	}
+
+	public void hatchRetract() {
+		//NATHANIEL add in your own thing here
+	}
 
 	public void liftCollect(double lift, double collect) {
 		hatchLift.set(ControlMode.PercentOutput, lift);
