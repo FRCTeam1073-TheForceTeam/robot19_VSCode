@@ -45,8 +45,6 @@ public class RobotMap {
 	public static BuiltInAccelerometer accelerometer;
 	public static Solenoid finger;
 	public static Solenoid hatchExtender;
-	public static WPI_TalonSRX hatchIntake;
-	public static WPI_TalonSRX hatchFlipper;
 	public static DigitalInput flipperLimitSwitchUp;
 	public static DigitalInput flipperLimitSwitchDown;
   	public static void init() {
@@ -60,8 +58,6 @@ public class RobotMap {
 		leftSlave = new WPI_VictorSPX(9);
 		leftMaster = new WPI_TalonSRX(8);
 
-		hatchFlipper=new WPI_TalonSRX(7);
-		hatchIntake=new WPI_TalonSRX(5);
 		lidar = new WPI_TalonSRX(15);
 
 		hatchCollect = new WPI_TalonSRX(5);
