@@ -25,7 +25,7 @@ import frc.robot.Robot;
 public class HatchControls extends Command {
 	
 	/** Controller Dead Zone */
-	private double deadzone;
+	private double deadzone=0.05;
 
 	/** Controller Data: Left Y */
 	private double lift;
@@ -56,25 +56,36 @@ public class HatchControls extends Command {
 	 * @see /subsystems/Climber.java
 	 * @category Drive Command
 	 */
-
+	public boolean pidMode=false;
 	public HatchControls() {
 		requires(Robot.drivetrain);
 	}
 
 	/** Called Repeatedly */
 	protected void execute() {
-		if(Robot.oi.operatorControl.leftBumper.get()){
-			Robot.hatch.setFlipperUp();
-		}else if(Robot.oi.operatorControl.select.get()){
-			Robot.hatch.setFlipperDown();
+		pidMode=Robot.oi.operatorControl.y.get();
+		if(pidMode){
+			if(Robot.oi.operatorControl.leftBumper.get()){
+				Robot.hatch.setFlipperUp();
+			}else if(Robot.oi.operatorControl.start.get()){
+				Robot.hatch.setFlipperDown();
+			}else{
+				Robot.hatch.setFlipperCenter();
+			}
+			if(Robot.oi.operatorControl.x.get()){
+				Robot.hatch.collectorIntake();
+			}else{
+				Robot.hatch.collectorZero();
+			}
 		}else{
-			Robot.hatch.setFlipperCenter();
+			lift=deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1));
+			Robot.hatch.setFlipperPower(lift);
 		}
-		if(Robot.oi.operatorControl.x.get()){
-			Robot.hatch.collectorIntake();
-		}else{
-			Robot.hatch.collectorZero();
-		}
+}
+
+	private double deadZoneCheck(double val) {
+		if (Math.abs(val) < deadzone) return 0;
+		return val;
 	}
 
 	/** 
