@@ -82,8 +82,8 @@ public class Hatch extends Subsystem {
 	
 	public boolean getLimitSwitchState() {
 		return false;
-		//Can return whatever NATHANIEL would like. NATHANIEL please fill this out with the apropos
-		//NATHANIEL fill this out with the correct value!!
+		//Can return whatever NATHANIEL would like. NATHANIEL please fill this out with the apropos value
+	
 	}
 
 	public void hatchExtend() {
