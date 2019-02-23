@@ -20,6 +20,8 @@ public class OI {
 	public JoystickButton operatorCancel;
 	public JoystickButton cargoIn;
 	public JoystickButton cargoOut;
+	public JoystickButton hatchUp;
+	public JoystickButton hatchDown;
 	public JoystickButton duckOut;
 	public JoystickButton lidarUp;
 	public JoystickButton foldIn;
@@ -37,6 +39,12 @@ public class OI {
 
 
 		duckOut = operatorControl.rightBumper;
+		//Insert Do Thing
+
+		hatchUp = operatorControl.leftBumper;
+		//Insert Do Thing
+
+		hatchDown = operatorControl.select;
 		//Insert Do Thing
 
 		lidarUp = operatorControl.y;

@@ -49,26 +49,20 @@ public class RobotMap {
 
 	public static Solenoid finger;
 	public static Solenoid hatchExtender;
-	public static WPI_TalonSRX hatchIntake;
-	public static WPI_TalonSRX hatchFlipper;
 	public static DigitalInput hatchFlipLimitSwitchUp;
 	public static DigitalInput hatchFlipLimitSwitchDown;
 	public static DigitalInput cargoFlipLimitSwitchUp;
 	public static DigitalInput cargoFlipLimitSwitchDown;
 
   	public static void init() {
-		headingGyro = new ADXRS450_Gyro();
-		accelerometer = new BuiltInAccelerometer();
 
-		rightSlave2 = new WPI_VictorSPX(3);
-		rightSlave = new WPI_VictorSPX(2);
-		rightMaster = new WPI_TalonSRX(4);
-		leftSlave2 = new WPI_VictorSPX(7);
-		leftSlave = new WPI_VictorSPX(9);
 		leftMaster = new WPI_TalonSRX(8);
+		leftSlave = new WPI_VictorSPX(9);
+		leftSlave2 = new WPI_VictorSPX(7);
 
 		rightMaster = new WPI_TalonSRX(4);
 		rightSlave = new WPI_VictorSPX(2);
+		rightSlave2 = new WPI_VictorSPX(3);
 
 		headingGyro = new ADXRS450_Gyro();
 		accelerometer = new BuiltInAccelerometer();
@@ -81,9 +75,9 @@ public class RobotMap {
 		rightClimber = new WPI_TalonSRX(10);
 		leftClimber = new WPI_VictorSPX(11);
 
-		cargoLift2 = new WPI_VictorSPX(12);
-		cargoLift = new WPI_TalonSRX(13);
 		cargoCollect = new WPI_TalonSRX(14);
+		cargoLift = new WPI_TalonSRX(13);
+		cargoLift2 = new WPI_VictorSPX(12);
 
 		high = new Solenoid (1, 7);
 		low = new Solenoid (1, 5);
