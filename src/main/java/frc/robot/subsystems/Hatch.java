@@ -104,14 +104,18 @@ public class Hatch extends Subsystem {
 	}
 
 	public void setFlipper(double value) {
-		hatchLift.set(ControlMode.Position,value);
+		hatchLift.set(ControlMode.Position, value);
+	}
+
+	public void setFlipperPower(double value) {
+		hatchLift.set(ControlMode.PercentOutput, value);
 	}
 
 	public void setCollector(double value) {
-		hatchCollect.set(ControlMode.PercentOutput,value);
+		hatchCollect.set(ControlMode.PercentOutput, value);
 	}
 
-	public void collectorIntake(){
+	public void collectorIntake() {
 		setCollector(collectorPower);
 	}
 

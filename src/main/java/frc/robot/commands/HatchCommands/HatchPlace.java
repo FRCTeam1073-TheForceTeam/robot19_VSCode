@@ -15,10 +15,9 @@ public class HatchPlace extends CommandGroup {
    * Add your docs here.
    */
   public HatchPlace() {
-    addSequential(new HatchExtend());
-    addSequential(new WaitCommand(0.5));
     addSequential(new FingerLower());
-    addSequential(new WaitCommand(0.5));
+    addSequential(new HatchExtend());
+    addSequential(new WaitCommand(1));
     addSequential(new HatchRetract());
   }
 }
