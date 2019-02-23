@@ -1,6 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.HatchCommands.FingerRaise;
+import frc.robot.commands.HatchCommands.HatchPlace;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -22,6 +24,8 @@ public class OI {
 	public JoystickButton cargoOut;
 	public JoystickButton hatchUp;
 	public JoystickButton hatchDown;
+	public JoystickButton hatchSpin;
+	public JoystickButton hatchWheels;
 	public JoystickButton duckOut;
 	public JoystickButton lidarUp;
 	public JoystickButton foldIn;
@@ -38,24 +42,25 @@ public class OI {
 		driverCancel = driverControl.a;
 
 
-		duckOut = operatorControl.rightBumper;
+		//hatchUp = operatorControl.leftBumper;
+
+		//duckOut = operatorControl.rightBumper;
+
+		foldIn = operatorControl.start;
 		//Insert Do Thing
 
-		hatchUp = operatorControl.leftBumper;
-		//Insert Do Thing
+		//hatchDown = operatorControl.select;
 
-		hatchDown = operatorControl.select;
-		//Insert Do Thing
+		//hatchWheels = operatorControl.x;
 
 		lidarUp = operatorControl.y;
-		//Insert Do Thing
-
-		foldIn = operatorControl.x;
 		//Insert Do Thing
 
 		precisionMode = operatorControl.b;
 		//Insert Do Thing
 
 		operatorCancel = operatorControl.a;
+
+
 	}
 }
