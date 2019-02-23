@@ -70,23 +70,18 @@ public class Cargo extends Subsystem {
 		 * However you can limit the output of a given PID object with configClosedLoopPeakOutput().
 		 */
 		cargoLift.configPeakOutputForward(1.0, Presets.timeoutMS);
+		cargoCollect.configPeakOutputForward(1.0, Presets.timeoutMS);
+
+		cargoLift.configPeakOutputReverse(-1.0, Presets.timeoutMS);
 		cargoCollect.configPeakOutputReverse(-1.0, Presets.timeoutMS);
 
 		/* FPID Gains for velocity servo */
-
 		cargoLift.config_kP(0,P);
 		cargoLift.config_kI(0,I);
 		cargoLift.config_kD(0,D);
 		cargoLift.config_kF(0,K, Presets.timeoutMS);
 		cargoLift.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
 		cargoLift.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
-	
-		cargoCollect.config_kP(0,P);
-		cargoCollect.config_kI(0,I);
-		cargoCollect.config_kD(0,D);
-		cargoCollect.config_kF(0,K, Presets.timeoutMS);
-		cargoCollect.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
-		cargoCollect.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 	}
 	
 
@@ -97,6 +92,10 @@ public class Cargo extends Subsystem {
 		liftTop = switchUp.get();
 		liftBottom = switchDown.get();
   }
+
+	public double getEncoder(){
+		return cargoLift.getSelectedSensorPosition();
+	}
 
 	public boolean getLimitTop(){
 		return liftTop;
@@ -131,6 +130,6 @@ public class Cargo extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new CargoControls());
+    setDefaultCommand(new CargoControls(Presets.deadzone));
   }
 }

@@ -34,12 +34,7 @@ public class OI {
 		highGearHold = driverControl.rightBumper;
 		
 		driverCancel = driverControl.a;
-		
-		// cargoIn = 
 
-		// cargoOut = 
-
-		// Both above are triggers and i hate it
 
 		duckOut = operatorControl.rightBumper;
 		//Insert Do Thing
