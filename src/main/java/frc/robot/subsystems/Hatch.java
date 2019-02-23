@@ -63,18 +63,19 @@ public class Hatch extends Subsystem {
 		hatchLift.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
 		hatchLift.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 
-		// hatchCollect.config_kP(0,P);
-		// hatchCollect.config_kI(0,I);
-		// hatchCollect.config_kD(0,D);
-		// hatchCollect.config_kF(0,K, Presets.timeoutMS);
-		// //rightMaster.config_IntegralZone(0,IZ, Presets.timeoutMS);
-		// hatchCollect.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
-		// hatchCollect.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
+		hatchCollect.config_kP(0,P);
+		hatchCollect.config_kI(0,I);
+		hatchCollect.config_kD(0,D);
+		hatchCollect.config_kF(0,K, Presets.timeoutMS);
+		//hatchCollect.config_IntegralZone(0,IZ, Presets.timeoutMS);
+		hatchCollect.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
+		hatchCollect.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
 
 		/**
 		 * Max out the peak output (for all modes).  
 		 * However you can limit the output of a given PID object with configClosedLoopPeakOutput().
 		 */
+
 		hatchLift.configPeakOutputForward(1.0, Presets.timeoutMS);
 		hatchLift.configPeakOutputReverse(-1.0, Presets.timeoutMS);
 
@@ -136,12 +137,10 @@ public class Hatch extends Subsystem {
 
 	public void fingerLower() {
 		Robot.pnuematic.fingerLower();
-		//NATHANIEL please fill this out with the value for "Fingers"!
 	}
 
 	public void fingerRaise() {
 		Robot.pnuematic.fingerRaise();
-		//NATHANIEL please fill this out with the correct value for "Fingers"!
 	}
 	
 	// public boolean[] getLimitSwitchState() {
@@ -150,12 +149,10 @@ public class Hatch extends Subsystem {
 
 	public void hatchExtend() {
 		Robot.pnuematic.hatchExtend();
-		//NATHANIEL please add in what you please here
 	}
 
 	public void hatchRetract() {
 		Robot.pnuematic.hatchRetract();
-		//NATHANIEL add in your own thing here
 	}
 
 	public void liftCollect(double lift, double collect) {
