@@ -30,19 +30,23 @@ public class RobotMap {
 	public static WPI_VictorSPX leftSlave;
 	public static WPI_VictorSPX leftSlave2;
 
+	public static WPI_VictorSPX leftClimber;
 	public static WPI_TalonSRX rightClimber;
+
 	public static WPI_TalonSRX lidar;
+
 	public static WPI_TalonSRX hatchCollect;
 	public static WPI_TalonSRX hatchLift;
-	public static WPI_TalonSRX cargoLift;
+
 	public static WPI_TalonSRX cargoCollect;
-	
-	public static WPI_VictorSPX leftClimber;
+	public static WPI_TalonSRX cargoLift;
 	public static WPI_VictorSPX cargoLift2;
 
 	public static Solenoid high;
 	public static Solenoid low;
+
 	public static BuiltInAccelerometer accelerometer;
+
 	public static Solenoid finger;
 	public static Solenoid hatchExtender;
 	public static WPI_TalonSRX hatchIntake;
@@ -63,8 +67,12 @@ public class RobotMap {
 		leftSlave = new WPI_VictorSPX(9);
 		leftMaster = new WPI_TalonSRX(8);
 
-		hatchFlipper = new WPI_TalonSRX(7);
-		hatchIntake = new WPI_TalonSRX(5);
+		rightMaster = new WPI_TalonSRX(4);
+		rightSlave = new WPI_VictorSPX(2);
+
+		headingGyro = new ADXRS450_Gyro();
+		accelerometer = new BuiltInAccelerometer();
+
 		lidar = new WPI_TalonSRX(15);
 
 		hatchCollect = new WPI_TalonSRX(5);
