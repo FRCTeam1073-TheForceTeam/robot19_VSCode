@@ -1,6 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.HatchCommands.FingerRaise;
+import frc.robot.commands.HatchCommands.HatchPlace;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -17,7 +19,7 @@ public class OI {
 	public JoystickButton lowGearHold;
 	public JoystickButton highGearHold;
 	public JoystickButton motorTest;
-	
+	public JoystickButton hatchPlace;
     public OI() {
     	
     	driverControl = new XboxController(0);
@@ -28,5 +30,9 @@ public class OI {
     	
     	driverCancel = driverControl.a;
 		operatorCancel = operatorControl.a;
+
+		hatchPlace=operatorControl.rightBumper;
+		hatchPlace.whenPressed(new FingerRaise());
+		hatchPlace.whenReleased(new HatchPlace());
 	}
 }

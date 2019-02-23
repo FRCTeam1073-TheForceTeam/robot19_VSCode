@@ -56,50 +56,26 @@ public class HatchControls extends Command {
 	 * @see /subsystems/Climber.java
 	 * @category Drive Command
 	 */
-	public HatchControls(double deadzone) {
+
+	public HatchControls() {
 		requires(Robot.drivetrain);
-		this.deadzone = deadzone;
 	}
 
 	/** Called Repeatedly */
 	protected void execute() {
-		/* Controller Data */
-		//left y axis
-		lift = Robot.oi.operatorControl.getRawAxis(1);
-		//left x axis
-		collect = Robot.oi.operatorControl.getRawAxis(0);
-		/* Outputs Checked Controller Data to Motors */
-		tankHatch((deadZoneCheck(lift)), (deadZoneCheck(collect)));
+		if(Robot.oi.operatorControl.leftBumper.get()){
+			Robot.hatch.setFlipperUp();
+		}else if(Robot.oi.operatorControl.start.get()){
+			Robot.hatch.setFlipperDown();
+		}else{
+			Robot.hatch.setFlipperCenter();
+		}
+		if(Robot.oi.operatorControl.x.get()){
+			Robot.hatch.collectorIntake();
+		}else{
+			Robot.hatch.collectorZero();
+		}
 	}
-
-	/**
-   	 * Tank climb method for differential drive platform.
-   	 *
-   	 * @param fwd The climber's speed along the X axis [-1.0..1.0]. Forward is positive.
-   	 */
-	public void tankHatch(double UpDown, double Spin) {
-		
-		Robot.hatch.liftCollect(limit(UpDown), limit(Spin));
-
-	}
-
-	/** 
-	 * @param val Input to check against dead zone
-	 * @return If within dead zone return 0, Else return val
-	 */
-	private double deadZoneCheck(double val) {
-		if (Math.abs(val) < deadzone) return 0;
-		return val;
-
-	}
-
-  	/**
-   	 * Limit motor values to the -1.0 to +1.0 range.
-   	 */
-  	private double limit(double value) {
-    	if (Math.abs(value) > 1.0) return Math.copySign(1, value);
-    	return value;
-  	}
 
 	/** 
 	 * This command should never finish as it 
