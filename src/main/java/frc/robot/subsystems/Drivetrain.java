@@ -165,6 +165,9 @@ public class Drivetrain extends Subsystem {
   public void periodic() {
 		leftEncoder = leftMaster.getSelectedSensorPosition();
 		rightEncoder = rightMaster.getSelectedSensorPosition();
+		Robot.networktable.table.getEntry("Gyro").setString("Gyro: " + RobotMap.headingGyro.getAngle());
+		Robot.networktable.table.getEntry("RawGyroValue").setDouble(RobotMap.headingGyro.getAngle());
+		Robot.networktable.table.getEntry("RawAccel").setDoubleArray(new double[]{RobotMap.accelerometer.getX(),RobotMap.accelerometer.getY(),RobotMap.accelerometer.getZ()});
 
 		/*if (Robot.networktable.table.getEntry("changeP").getDouble(P) != P ||
 		Robot.networktable.table.getEntry("changeI").getDouble(I) != I ||

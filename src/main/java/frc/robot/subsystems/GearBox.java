@@ -48,6 +48,5 @@ public class GearBox extends Subsystem {
     if (pnuematic.isHighGear()) gear = "high";
     else if (pnuematic.isLowGear()) gear = "low";
     Robot.networktable.table.getEntry("GearBoxReadout").setString("\tLeft velocity: " + dec.format(leftVelocity) + "\tRight velocity: " + dec.format(rightVelocity) + "\tSpeed: " + dec.format(speed / 141.6) + "\tGear: " + gear);
-    Robot.networktable.table.getEntry("Gyro").setString("Gyro: " + RobotMap.headingGyro.getAngle());
   }
 }
