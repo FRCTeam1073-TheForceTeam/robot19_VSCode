@@ -65,7 +65,7 @@ public class RobotMap {
 		cargoLift = new WPI_TalonSRX(13);
 		cargoCollect = new WPI_TalonSRX(14);
 
-		high = new Solenoid (1, 7);
-		low = new Solenoid (1, 5);
+		high = new Solenoid(0, 7);
+		low = new Solenoid(0, 6);
 	}
 }

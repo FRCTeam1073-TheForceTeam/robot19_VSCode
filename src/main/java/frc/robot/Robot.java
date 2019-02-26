@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
 	public static Vision vision;
 	public static Lidar lidar;
 	public static Hatch hatch;
+	public static Climber climber;
 	public static String FMS;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
 	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
@@ -83,6 +84,8 @@ public class Robot extends TimedRobot {
 		vision = new Vision();
 
 		lidar = new Lidar();
+
+		climber = new Climber();
 		
 		hatch = new Hatch();
 

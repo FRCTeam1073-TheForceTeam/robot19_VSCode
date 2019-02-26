@@ -4,15 +4,15 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This is the climber movement controls
+ * This is the hatch movement controls
  * for the teleoperated period of a match.
  * It is also the default command for 
- * the Climber.java subsystem.
+ * the hatch.java subsystem.
  * 
  * This command does not finish.
  * 
  * @author Cam
- * @see /subsystems/Climber.java
+ * @see /subsystems/hatch.java
  * @category Climb Command
  */
 public class HatchControls extends Command {
@@ -34,10 +34,10 @@ public class HatchControls extends Command {
 
 
 	/**
-	 * This is the climber movement controls
+	 * This is the hatch movement controls
 	 * for the teleoperated period of a match.
 	 * It is also the default command for
-	 * the climber.java subsystem.
+	 * the hatch.java subsystem.
 	 * 
 	 * This command requires the drivetrain subsystem
 	 * so as to give it priority over other commands 
@@ -46,11 +46,11 @@ public class HatchControls extends Command {
 	 * This command does not finish.
 	 * 
 	 * @author Cam
-	 * @see /subsystems/Climber.java
+	 * @see /subsystems/hatch.java
 	 * @category Drive Command
 	 */
 	public HatchControls(double deadzone) {
-		requires(Robot.drivetrain);
+		requires(Robot.hatch);
 		this.deadzone = deadzone;
 	}
 
@@ -68,7 +68,7 @@ public class HatchControls extends Command {
 	/**
    	 * Tank climb method for differential drive platform.
    	 *
-   	 * @param fwd The climber's speed along the X axis [-1.0..1.0]. Forward is positive.
+   	 * @param fwd The hatch's speed along the X axis [-1.0..1.0]. Forward is positive.
    	 */
 	public void tankHatch(double UpDown, double Spin) {
 		

@@ -44,7 +44,7 @@ public class Climber extends Subsystem {
     
     @Override
     public void initDefaultCommand() {
-    	setDefaultCommand(new ClimbControls(Presets.deadzone));
+    	setDefaultCommand(new ClimbControls(.1));
 	}
 
     public void periodic() {
@@ -52,11 +52,9 @@ public class Climber extends Subsystem {
 		
 	}
 
-	
-
 	public void tank(double left, double right) {
-		rightClimber.set(ControlMode.PercentOutput, left);
-		leftClimber.set(ControlMode.PercentOutput, right);
+		leftClimber.set(ControlMode.PercentOutput, left);
+		rightClimber.set(ControlMode.PercentOutput, right);
 	}
 
 }
