@@ -48,6 +48,7 @@ public class RobotMap {
 
 	public static Solenoid finger;
 	public static Solenoid hatchExtender;
+	public static Solenoid hatchRetractor;
 	public static DigitalInput hatchFlipLimitSwitchUp;
 	public static DigitalInput hatchFlipLimitSwitchDown;
 	public static DigitalInput cargoFlipLimitSwitchUp;
@@ -81,10 +82,11 @@ public class RobotMap {
 		cargoLift = new WPI_TalonSRX(13);
 		cargoLift2 = new WPI_VictorSPX(12);
 
-		high = new Solenoid(0, 7);
-		low = new Solenoid(0, 6);
-		finger = new Solenoid(0, 5);
-		hatchExtender = new Solenoid(0, 4);
+		high = new Solenoid(7);
+		low = new Solenoid(6);
+		hatchExtender = new Solenoid(5);
+		hatchRetractor = new Solenoid(4);
+		finger = new Solenoid(0);
 
 		/**HERE'S WHERE THE LIMIT SWITCHES WILL GO
 		hatchFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
