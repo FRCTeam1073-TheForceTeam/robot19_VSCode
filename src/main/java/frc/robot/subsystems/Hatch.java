@@ -86,7 +86,7 @@ public class Hatch extends Subsystem {
     
     @Override
     public void initDefaultCommand() {
-    	setDefaultCommand(new HatchControls());
+    	setDefaultCommand(new HatchControls(Presets.deadzone));
 	}
 
     public void periodic() {
