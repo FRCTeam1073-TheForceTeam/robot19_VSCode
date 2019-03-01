@@ -62,7 +62,7 @@ public class Pnuematic extends Subsystem {
     return hatchExtender.get();
   }
 
-  public void hatchExtend(){
+  public void hatchExtend() {
     hatchExtender.set(true);
   }
   

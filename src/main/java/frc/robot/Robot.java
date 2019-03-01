@@ -14,15 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SystemTest;
 import frc.robot.commands.AutonomousTools.AutoTest;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Feedback;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.GearBox;
-import frc.robot.subsystems.Hatch;
-import frc.robot.subsystems.Lidar;
-import frc.robot.subsystems.NetworkTable;
-import frc.robot.subsystems.Pnuematic;
-import frc.robot.subsystems.Vision;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,9 +29,10 @@ public class Robot extends TimedRobot {
 	public static NetworkTable networktable;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
-  public static Feedback feedback;
-  public static GearBox gearbox;
+  	public static Feedback feedback;
+  	public static GearBox gearbox;
 	public static Vision vision;
+	public static Cargo cargo;
 	public static Lidar lidar;
 	public static Hatch hatch;
 	public static Climber climber;

@@ -40,8 +40,7 @@ public class RobotMap {
 
 	public static WPI_TalonSRX cargoCollect;
 	public static WPI_TalonSRX cargoLift;
-	public static WPI_VictorSPX cargoLiftTwo;
-	
+	public static WPI_VictorSPX cargoLift2;
 
 	public static Solenoid high;
 	public static Solenoid low;
@@ -50,11 +49,12 @@ public class RobotMap {
 
 	public static Solenoid finger;
 	public static Solenoid hatchExtender;
+	public static DigitalInput hatchFlipLimitSwitchUp;
+	public static DigitalInput hatchFlipLimitSwitchDown;
+	public static DigitalInput cargoFlipLimitSwitchUp;
+	public static DigitalInput cargoFlipLimitSwitchDown;
 
-	public static DigitalInput flipperLimitSwitchUp;
-	public static DigitalInput flipperLimitSwitchDown;
-
-	public static void init() {
+  	public static void init() {
 
 		leftMaster = new WPI_TalonSRX(8);
 		leftSlave = new WPI_VictorSPX(9);
@@ -77,11 +77,20 @@ public class RobotMap {
 
 		cargoCollect = new WPI_TalonSRX(14);
 		cargoLift = new WPI_TalonSRX(13);
-		cargoLiftTwo = new WPI_VictorSPX(12);
+		cargoLift2 = new WPI_VictorSPX(12);
 
 		high = new Solenoid(0, 7);
 		low = new Solenoid(0, 6);
 		finger = new Solenoid(0, 5);
 		hatchExtender = new Solenoid(2, 4);
+		// finger = new Solenoid(2, 7);
+		// hatchExtender = new Solenoid(2, 5);
+
+		/**HERE'S WHERE THE LIMIT SWITCHES WILL GO
+		hatchFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
+		hatchFlipLimitSwitchDown = new DigitalInput(WHATEVER THE ID IS);
+		cargoFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
+		cargoFlipLimitSwitchDown = new DigitaInput(WHATEVER THE ID IS);
+		*/
 	}
 }
