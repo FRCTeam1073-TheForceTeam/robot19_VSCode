@@ -76,11 +76,12 @@ public class HatchControls extends Command {
 			Robot.hatch.collectorZero();
 		}
 	}
+
 	/**
 	 * Makes everything easy to modify.
 	 * PID position control for motor
 	 */
-	private void pidHatch(){
+	private void pidHatch() {
 		if (Robot.oi.operatorControl.leftBumper.get()) {
 			Robot.hatch.setFlipperUp();
 		} else if (Robot.oi.operatorControl.start.get()) {

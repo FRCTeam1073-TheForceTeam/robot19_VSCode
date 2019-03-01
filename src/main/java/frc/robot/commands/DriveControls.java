@@ -53,9 +53,6 @@ public class DriveControls extends Command {
 		this.deadzone = deadzone;
 	}
 
-	protected void initialize() {
-	}
-
 	/** Called Repeatedly */
 	protected void execute() {
 		/* Controller Data */

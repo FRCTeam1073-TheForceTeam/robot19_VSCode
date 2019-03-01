@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.OI;
 
 public class CargoControls extends Command {
 
@@ -29,55 +28,49 @@ public class CargoControls extends Command {
    * This command does not finish.
    * 
    * @author Jack
-   * @category Drive Command
+   * @category Cargo Command
    */
 
   public CargoControls(double deadzone) {
     requires(Robot.cargo);
     this.deadzone = deadzone;
 
-    //This value is a guess and must be tested/replaced
     maxError = 100;
   }
 
-  // Called repeatedly when this Command is scheduled to run
+  /** Called Repeatedly */
   @Override
   protected void execute() {
-
-    //Determines state of robot, and drives motor if corresponding button is pressed
-    //and the corresponding limit switch is not activated
-    if(triggerPast("right")){
-      if(!Robot.cargo.getLimitTop()){
-        Robot.cargo.liftDrive(1);
-      }
-      if(Robot.cargo.getLimitTop()){
-        Robot.cargo.collectorSpin(1);
-      }
+    /* Determines state of robot, and drives motor if corresponding button is pressed
+    and the corresponding limit switch is not activated */
+    if (triggerPast("right")) {
+      if (!Robot.cargo.getLimitTop())Robot.cargo.liftDrive(1);
+      else if (Robot.cargo.getLimitTop()) Robot.cargo.collectorSpin(1);
     }
-    else if(triggerPast("right")){
-      if(!Robot.cargo.getLimitBottom()){
-        Robot.cargo.liftDrive(-1);
-      }
-      if(Robot.cargo.getLimitBottom()){
-        Robot.cargo.collectorSpin(-1);
-      }
+    else if (triggerPast("right")) {
+      if (!Robot.cargo.getLimitBottom()) Robot.cargo.liftDrive(-1);
+      else if (Robot.cargo.getLimitBottom()) Robot.cargo.collectorSpin(-1);
     }
-
-    //Rudimentary neutral-reset, error corrects by virtue but it's very rough
+    /* Rudimentary neutral-reset, error corrects by virtue but it's very rough */
     else if(!triggerPast("left") && !triggerPast("right")){
       if(Robot.cargo.getEncoder() < (0 - maxError)) Robot.cargo.liftDrive(1);
       if(Robot.cargo.getEncoder() > (0 + maxError)) Robot.cargo.liftDrive(-1);
     }
   }
 
-  //Returns whether the requested side's trigger is past the deadzone and is therefore "pressed"
+  /** @return side whether the requested side's trigger is past the deadzone and is therefore "pressed" */
   private boolean triggerPast(String side){
     if(side.equals("right")) return Robot.oi.operatorControl.getRightTrigger() >= .5 + deadzone;
     if(side.equals("left")) return Robot.oi.operatorControl.getLeftTrigger() >= .5 + deadzone;
     return false;
   }
 
-  //As a default driving command, this will never need to end
+  /** 
+	 * This command should never finish as it 
+	 * must remain active for the duration of
+	 * any teleoperated period, and is only run
+	 * during the teleoperated period.
+	 */
   @Override
   protected boolean isFinished() {
     return false;
