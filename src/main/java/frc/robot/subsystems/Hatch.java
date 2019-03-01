@@ -14,12 +14,15 @@ import frc.robot.RobotMap;
 import frc.robot.commands.*;
 
 public class Hatch extends Subsystem {
-    
+  
 	public final WPI_TalonSRX hatchLift = RobotMap.hatchLift;
 	public final WPI_TalonSRX hatchCollect = RobotMap.hatchCollect;
 
 	public final DigitalInput limitUp = RobotMap.flipperLimitSwitchUp;
 	public final DigitalInput limitDown = RobotMap.flipperLimitSwitchDown;
+
+	public final DigitalInput collectIn = RobotMap.collectorInSensor;
+	public final DigitalInput duckIn = RobotMap.duckInSensor;
 
 	private double lift;
 	private double collect;
@@ -38,7 +41,7 @@ public class Hatch extends Subsystem {
 		hatchLift.configFactoryDefault();
 		hatchCollect.configFactoryDefault();
 
-    	hatchLift.setSafetyEnabled(false);
+  	hatchLift.setSafetyEnabled(false);
 		hatchCollect.setSafetyEnabled(false);
 		/* Set Neutral Mode */
 		hatchLift.setNeutralMode(NeutralMode.Brake);
@@ -54,24 +57,24 @@ public class Hatch extends Subsystem {
 		hatchCollect.setInverted(false);
 
 		/* FPID Gains for a lot of things. */
-		hatchLift.config_kP(0,P);
-		hatchLift.config_kI(0,I);
-		hatchLift.config_kD(0,D);
-		hatchLift.config_kF(0,K, Presets.timeoutMS);
-		//rightMaster.config_IntegralZone(0,IZ, Presets.timeoutMS);
-		hatchLift.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
-		hatchLift.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
+		hatchLift.config_kP(0, P);
+		hatchLift.config_kI(0, I);
+		hatchLift.config_kD(0, D);
+		hatchLift.config_kF(0, K, Presets.timeoutMS);
+		//rightMaster.config_IntegralZone(0, IZ, Presets.timeoutMS);
+		hatchLift.configClosedLoopPeakOutput(0, PO, Presets.timeoutMS);
+		hatchLift.configAllowableClosedloopError(0, CLE, Presets.timeoutMS);
 
-		hatchCollect.config_kP(0,P);
-		hatchCollect.config_kI(0,I);
-		hatchCollect.config_kD(0,D);
-		hatchCollect.config_kF(0,K, Presets.timeoutMS);
-		//hatchCollect.config_IntegralZone(0,IZ, Presets.timeoutMS);
-		hatchCollect.configClosedLoopPeakOutput(0,PO, Presets.timeoutMS);
-		hatchCollect.configAllowableClosedloopError(0,CLE, Presets.timeoutMS);
+		hatchCollect.config_kP(0, P);
+		hatchCollect.config_kI(0, I);
+		hatchCollect.config_kD(0, D);
+		hatchCollect.config_kF(0, K, Presets.timeoutMS);
+		//hatchCollect.config_IntegralZone(0, IZ, Presets.timeoutMS);
+		hatchCollect.configClosedLoopPeakOutput(0, PO, Presets.timeoutMS);
+		hatchCollect.configAllowableClosedloopError(0, CLE, Presets.timeoutMS);
 
 		/**
-		 * Max out the peak output (for all modes).  
+		 * Max out the peak output (for all modes). 
 		 * However you can limit the output of a given PID object with configClosedLoopPeakOutput().
 		 */
 
@@ -82,18 +85,18 @@ public class Hatch extends Subsystem {
 		hatchCollect.configPeakOutputReverse(-1.0, Presets.timeoutMS);
 
 	}
-    
-    @Override
-    public void initDefaultCommand() {
-    	setDefaultCommand(new HatchControls());
+  
+  @Override
+  public void initDefaultCommand() {
+  	setDefaultCommand(new HatchControls());
 	}
 
-    public void periodic() {
+  public void periodic() {
 		lift = hatchLift.getSelectedSensorPosition();
 		collect = hatchCollect.getSelectedSensorPosition();
 		// boolean[] state = getLimitSwitchState();
 		// double velocity = hatchLift.getSelectedSensorVelocity();
-		/*if (Robot.networktable.table.getEntry("changeP").getDouble(P)  != P ||
+		/*if (Robot.networktable.table.getEntry("changeP").getDouble(P) != P ||
 		Robot.networktable.table.getEntry("changeI").getDouble(I) != I ||
 		Robot.networktable.table.getEntry("changeD").getDouble(D) != D ||
 		Robot.networktable.table.getEntry("changeK").getDouble(K) != K ||
@@ -103,27 +106,35 @@ public class Hatch extends Subsystem {
 	}
 
 	public void setFlipper(double value) {
-		hatchLift.set(ControlMode.Position, value);
+		hatchLift.set(ControlMode.PercentOutput, value);
 	}
 
-	public void setFlipperPower(double value) {
-		hatchLift.set(ControlMode.PercentOutput, value);
+	public void setFlipperPosition(double value) {
+		hatchLift.set(ControlMode.Position, value);
 	}
 
 	public void setCollector(double value) {
 		hatchCollect.set(ControlMode.PercentOutput, value);
 	}
 
+	public void setCollectorPosition(double value) {
+		hatchCollect.set(ControlMode.Position, value);
+	}
+
+	public void setCollectorVelocity(double value) {
+		hatchCollect.set(ControlMode.Velocity, value);
+	}
+
 	public void collectorIntake() {
 		setCollector(collectorPower);
 	}
 
-	public void collectorPurge(){
+	public void collectorPurge() {
 		setCollector(-collectorPower);
 	}
 
-	public void collectorZero(){
-		setCollector(0);
+	public void collectorZero() {
+		setCollectorVelocity(0);
 	}
 	
 	public void setFlipperUp() {
@@ -135,7 +146,7 @@ public class Hatch extends Subsystem {
 	}
 
 	public void setFlipperDown() {
-		setFlipper(DIST*2);
+		setFlipper(DIST * 2);
 	}
 
 	public void fingerLower() {
@@ -145,10 +156,6 @@ public class Hatch extends Subsystem {
 	public void fingerRaise() {
 		Robot.pnuematic.fingerRaise();
 	}
-	
-	// public boolean[] getLimitSwitchState() {
-	// 	// return new boolean[]{limitDown.get(),limitUp.get()};
-	// }
 
 	public void hatchExtend() {
 		Robot.pnuematic.hatchExtend();

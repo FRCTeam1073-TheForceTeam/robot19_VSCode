@@ -52,6 +52,9 @@ public class RobotMap {
 	public static DigitalInput flipperLimitSwitchUp;
 	public static DigitalInput flipperLimitSwitchDown;
 
+	public static DigitalInput collectorInSensor;
+	public static DigitalInput duckInSensor;
+
 	public static void init() {
 
 		leftMaster = new WPI_TalonSRX(8);
@@ -79,6 +82,9 @@ public class RobotMap {
 
 		high = new Solenoid (1, 7);
 		low = new Solenoid (1, 5);
+
+//		collectorInSensor = new DigitalInput(2)
+//		duckInSensor = new DigitalInput(2)
 		// finger = new Solenoid(2, 7);
 		// hatchExtender = new Solenoid(2, 5);
 	}

@@ -11,16 +11,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This is the climber movement controls
- * for the teleoperated period of a match.
- * It is also the default command for 
- * the Climber.java subsystem.
- * 
- * This command does not finish.
- * 
- * @author Cam
- * @see /subsystems/Climber.java
- * @category Climb Command
+ * Controls for hatch manipulation.
+ * PID and non-PID, to make sure the robot doesn't break anything (including itself).
+ * Deadzones, because frankly, why not?
+ * Checked with operator (Jack), and controls are compatible with rest of operator OI.
+ * @author BenWertz
  */
 public class HatchControls extends Command {
 	
@@ -56,32 +51,41 @@ public class HatchControls extends Command {
 	 * @see /subsystems/Climber.java
 	 * @category Drive Command
 	 */
-	public boolean pidMode=false;
 	public HatchControls() {
 		requires(Robot.drivetrain);
 	}
 
 	/** Called Repeatedly */
 	protected void execute() {
-		pidMode=Robot.oi.operatorControl.y.get();
-		if(pidMode){
-			if(Robot.oi.operatorControl.leftBumper.get()){
-				Robot.hatch.setFlipperUp();
-			}else if(Robot.oi.operatorControl.start.get()){
-				Robot.hatch.setFlipperDown();
-			}else{
-				Robot.hatch.setFlipperCenter();
-			}
-			if(Robot.oi.operatorControl.x.get()){
-				Robot.hatch.collectorIntake();
-			}else{
-				Robot.hatch.collectorZero();
-			}
-		}else{
-			lift=deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1));
-			Robot.hatch.setFlipperPower(lift);
+		controls(Robot.oi.operatorControl.y.get());
+	}
+
+	public void controls(boolean pidMode) {
+		if (pidMode) pidHatch();
+		else Robot.hatch.setFlipper(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
+		basicCollector();
+	}
+
+	private void basicCollector(){
+		if (Robot.oi.operatorControl.x.get()) {
+			Robot.hatch.collectorIntake();
+		} else {
+			Robot.hatch.collectorZero();
 		}
-}
+	}
+	/**
+	 * Makes everything easy to modify.
+	 * PID position control for motor
+	 */
+	private void pidHatch(){
+		if (Robot.oi.operatorControl.leftBumper.get()) {
+			Robot.hatch.setFlipperUp();
+		} else if (Robot.oi.operatorControl.start.get()) {
+			Robot.hatch.setFlipperDown();
+		} else {
+			Robot.hatch.setFlipperCenter();
+		}
+	}
 
 	private double deadZoneCheck(double val) {
 		if (Math.abs(val) < deadzone) return 0;
