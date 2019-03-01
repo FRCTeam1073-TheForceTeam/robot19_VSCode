@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -54,7 +53,10 @@ public class RobotMap {
 	public static DigitalInput cargoFlipLimitSwitchUp;
 	public static DigitalInput cargoFlipLimitSwitchDown;
 
-  	public static void init() {
+	public static DigitalInput collectorInSensor;
+	public static DigitalInput duckInSensor;
+
+	public static void init() {
 
 		leftMaster = new WPI_TalonSRX(8);
 		leftSlave = new WPI_VictorSPX(9);
@@ -82,9 +84,7 @@ public class RobotMap {
 		high = new Solenoid(0, 7);
 		low = new Solenoid(0, 6);
 		finger = new Solenoid(0, 5);
-		hatchExtender = new Solenoid(2, 4);
-		// finger = new Solenoid(2, 7);
-		// hatchExtender = new Solenoid(2, 5);
+		hatchExtender = new Solenoid(0, 4);
 
 		/**HERE'S WHERE THE LIMIT SWITCHES WILL GO
 		hatchFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);

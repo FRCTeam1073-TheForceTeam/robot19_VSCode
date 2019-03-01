@@ -19,7 +19,7 @@ public class NetworkTable extends Subsystem {
 
   
   public static NetworkTableInstance inst;
-  public static DriverStation ds = DriverStation.getInstance();
+  public DriverStation ds = DriverStation.getInstance();
   public edu.wpi.first.networktables.NetworkTable table;
 
   public NetworkTable() {
