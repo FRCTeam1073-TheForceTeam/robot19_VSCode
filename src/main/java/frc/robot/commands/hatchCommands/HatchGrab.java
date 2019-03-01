@@ -5,20 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.autonomous;
+package frc.robot.commands.hatchCommands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class AutoStartCargo extends CommandGroup {
+public class HatchGrab extends CommandGroup {
   /**
-   * Start of a sandstorm auto chain.
-   * This will run off the hab and place a hatch panel on the cargo ship,
-   * then go to the loading station.
-   * 
-   * @author Jack
-   * @category Autonomous
+   * Add your docs here.
    */
-  public AutoStartCargo() {
-    
+  public HatchGrab() {
+    addSequential(new FingerLower());
+    addSequential(new WaitCommand(.2));
+    addSequential(new HatchExtend());
+    addSequential(new WaitCommand(1));
+    addSequential(new FingerRaise());
+    addSequential(new WaitCommand(.2));
+    addSequential(new HatchRetract());
   }
 }

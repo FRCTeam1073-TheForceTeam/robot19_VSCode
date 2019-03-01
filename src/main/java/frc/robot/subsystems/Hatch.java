@@ -4,22 +4,21 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Presets;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.*;
+import frc.robot.commands.hatchCommands.*;
 
 public class Hatch extends Subsystem {
   
 	public final WPI_TalonSRX hatchLift = RobotMap.hatchLift;
 	public final WPI_TalonSRX hatchCollect = RobotMap.hatchCollect;
 
-	public final DigitalInput limitUp = RobotMap.flipperLimitSwitchUp;
-	public final DigitalInput limitDown = RobotMap.flipperLimitSwitchDown;
+	public final DigitalInput limitUp = RobotMap.hatchFlipLimitSwitchUp;
+	public final DigitalInput limitDown = RobotMap.hatchFlipLimitSwitchDown;
 
 	public final DigitalInput collectIn = RobotMap.collectorInSensor;
 	public final DigitalInput duckIn = RobotMap.duckInSensor;
