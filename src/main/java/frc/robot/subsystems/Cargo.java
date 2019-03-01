@@ -85,7 +85,7 @@ public class Cargo extends Subsystem {
 	}
 	
 
-  public void periodic(){
+  public void periodic() {
     lift = cargoLift.getSelectedSensorPosition();
 		collect = cargoCollect.getSelectedSensorPosition();
 
@@ -93,15 +93,15 @@ public class Cargo extends Subsystem {
 		liftBottom = switchDown.get();
   }
 
-	public double getEncoder(){
+	public double getEncoder() {
 		return cargoLift.getSelectedSensorPosition();
 	}
 
-	public boolean getLimitTop(){
+	public boolean getLimitTop() {
 		return liftTop;
 	}
 
-	public boolean getLimitBottom(){
+	public boolean getLimitBottom() {
 		return liftBottom;
 	}
 
@@ -109,7 +109,7 @@ public class Cargo extends Subsystem {
 		cargoLift.set(ControlMode.PercentOutput, speed);
 	}
 
-	public void collectorSpin(double speed){
+	public void collectorSpin(double speed) {
 		cargoCollect.set(ControlMode.PercentOutput, speed);
 	}
 
