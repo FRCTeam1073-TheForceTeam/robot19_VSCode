@@ -1,4 +1,4 @@
-package frc.robot.commands.AutonomousTools;
+package frc.robot.commands.autonomousTools;
 
 import frc.robot.*;
 import edu.wpi.first.wpilibj.command.Command;
@@ -60,7 +60,7 @@ public class AdvancederDrive extends Command {
 		
 		if (direction.equals("forward")) this.direction = 1;
 		else if (direction.equals("backward")) this.direction = -1;
-		else System.out.println("WARN: robot19.commands.AutonomousTools.AdvancederDrive says\n"
+		else Robot.debugPrint("WARN: robot19.commands.AutonomousTools.AdvancederDrive says\n"
 				+ "\"Invalid string!\n"
 				+ "Must be: \"forward\" or \"backward\"\n"
 				+ "Your input: " + direction + "\"");
@@ -101,7 +101,7 @@ public class AdvancederDrive extends Command {
 	
 	/** Checks percent of the distance traveled */
 	private double distanceCheck() {
-		System.out.println("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
+		Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
 				+ "\"distanceCheck: TD " + (int)(Math.abs(currentLeft - initialLeft) + Math.abs(currentRight - initialRight) / (2 * distance)) + "\t CL" + (int)currentLeft + "\t CR" + (int)currentRight + "\"");
 		if (Math.abs(currentLeft - initialLeft) <= 2) return Math.abs(currentRight - initialRight);
 		if (Math.abs(currentRight - initialRight) <= 2) return Math.abs(currentLeft - initialLeft);
@@ -111,7 +111,7 @@ public class AdvancederDrive extends Command {
 	/** Modifier to stop the robot if lidar sees a robot */
 	private double lidarCheck() {
 		if (Robot.notClear) {
-			System.out.println("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
+			Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
 					+ "\"Lidar sees a robot!\"");
 			return 0;
 		}
@@ -120,7 +120,7 @@ public class AdvancederDrive extends Command {
 
 	/** Modifier to realign the robot if it drifts from a straight path */
 	private double gyroCheck(String side) {
-		System.out.println("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
+		Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
 				+ "\"gyroCheck: CD " + currentDegrees + "\t ID " + initialDegrees + "\"");
 		if (direction == 1 && side.equals("left") && currentDegrees > initialDegrees + deadzone) return adjustSpeed;
 		if (direction == 1 && side.equals("right") && currentDegrees < initialDegrees - deadzone) return adjustSpeed;
@@ -143,7 +143,7 @@ public class AdvancederDrive extends Command {
 	}	
 
 	protected void end() {
-		System.out.println("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
+		Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
 		+ "\"Command Finished with PC: " + distanceCheck() + "\"");
 		Robot.drivetrain.zero();
 	}

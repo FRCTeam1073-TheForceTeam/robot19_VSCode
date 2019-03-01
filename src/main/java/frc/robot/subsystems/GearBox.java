@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import java.text.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -36,7 +35,7 @@ public class GearBox extends Subsystem {
   }
 
   public void shiftCheck() {
-    if (speed >= 400 && !Robot.oi.lowGearHold.get()) pnuematic.setHighGear();
+    if (speed >= 550 && !Robot.oi.lowGearHold.get()) pnuematic.setHighGear();
     else if (Robot.oi.highGearHold.get()) pnuematic.setHighGear();
     else pnuematic.setLowGear();
   }
@@ -44,10 +43,9 @@ public class GearBox extends Subsystem {
   public void update() {
     leftVelocity = Robot.drivetrain.leftMaster.getSelectedSensorVelocity();
     rightVelocity = Robot.drivetrain.rightMaster.getSelectedSensorVelocity();
-    speed = (Math.abs(leftVelocity) + Math.abs(rightVelocity)) / 2;
+    speed = (Math.abs(leftVelocity));
     if (pnuematic.isHighGear()) gear = "high";
     else if (pnuematic.isLowGear()) gear = "low";
     Robot.networktable.table.getEntry("GearBoxReadout").setString("\tLeft velocity: " + dec.format(leftVelocity) + "\tRight velocity: " + dec.format(rightVelocity) + "\tSpeed: " + dec.format(speed / 141.6) + "\tGear: " + gear);
-    Robot.networktable.table.getEntry("Gyro").setString("Gyro: " + RobotMap.headingGyro.getAngle());
   }
 }

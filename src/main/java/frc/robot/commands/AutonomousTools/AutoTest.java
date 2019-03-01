@@ -1,10 +1,10 @@
-package frc.robot.commands.AutonomousTools;
+package frc.robot.commands.autonomousTools;
 
-import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoTest extends CommandGroup {
 
     public AutoTest() {
+        addSequential(new AdvancederDrive(50, "forward", 1500));
    	}
 }
