@@ -32,7 +32,6 @@ public class DriveControls extends Command {
 	/** Just a delay */
 	private double executes = 0;
 
-
 	/**
 	 * This is the driver movement controls
 	 * for the teleoperated period of a match.

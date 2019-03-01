@@ -13,7 +13,7 @@ import frc.robot.commands.DriveControls;
 
 public class Drivetrain extends Subsystem {
   
-  public final WPI_TalonSRX rightMaster = RobotMap.rightMaster;
+  	public final WPI_TalonSRX rightMaster = RobotMap.rightMaster;
 	public final WPI_VictorSPX rightSlave = RobotMap.rightSlave;
 	public final WPI_VictorSPX rightSlaveTwo = RobotMap.rightSlaveTwo;
   	public final WPI_TalonSRX leftMaster = RobotMap.leftMaster;
@@ -43,12 +43,12 @@ public class Drivetrain extends Subsystem {
 			leftSlaveTwo.configFactoryDefault();
 		}
 
-  	rightMaster.setSafetyEnabled(false);
+  		rightMaster.setSafetyEnabled(false);
 		rightSlave.setSafetyEnabled(false);
-		rightSlaveTwo.setSafetyEnabled(false);
-  	leftMaster.setSafetyEnabled(false);
+		if (sixSim) rightSlaveTwo.setSafetyEnabled(false);
+  		leftMaster.setSafetyEnabled(false);
 		leftSlave.setSafetyEnabled(false);
-		leftSlaveTwo.setSafetyEnabled(false);
+		if (sixSim) leftSlaveTwo.setSafetyEnabled(false);
 
 		/* Set Neutral Mode */
 		leftMaster.setNeutralMode(NeutralMode.Brake);
@@ -69,16 +69,14 @@ public class Drivetrain extends Subsystem {
 		/* Configure output and sensor direction */
 		leftMaster.setInverted(true);
 		rightMaster.setInverted(false);
-
 		leftSlave.setInverted(true);
 		rightSlave.setInverted(false);
-
 		if (sixSim) {
 			leftSlaveTwo.setInverted(true);
 			rightSlaveTwo.setInverted(false);
 		}
 
-		/**
+		/* 
 		 * Max out the peak output (for all modes). 
 		 * However you can limit the output of a given PID object with configClosedLoopPeakOutput().
 		 */
