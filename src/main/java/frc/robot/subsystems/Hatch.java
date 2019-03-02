@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Presets;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.hatchCommands.*;
+import frc.robot.commands.HatchCommands.*;
 
 public class Hatch extends Subsystem {
   
