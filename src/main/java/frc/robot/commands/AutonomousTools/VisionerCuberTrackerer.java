@@ -1,4 +1,4 @@
-package frc.robot.commands.AutonomousTools;
+package frc.robot.commands.autonomousTools;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;

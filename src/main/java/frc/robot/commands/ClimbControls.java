@@ -50,7 +50,7 @@ public class ClimbControls extends Command {
 	 * @category Drive Command
 	 */
 	public ClimbControls(double deadzone) {
-		requires(Robot.drivetrain);
+		requires(Robot.climber);
 		this.deadzone = deadzone;
 	}
 
@@ -71,7 +71,7 @@ public class ClimbControls extends Command {
    	 */
 	public void tankClimb(double fwd) {
 		
-		Robot.drivetrain.tank(limit(fwd), limit(fwd));
+		Robot.climber.tank(limit(fwd), limit(fwd));
 
 	}
 
