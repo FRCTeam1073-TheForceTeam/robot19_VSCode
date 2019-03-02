@@ -60,7 +60,7 @@ public class DriveControls extends Command {
 		rotational = Robot.oi.driverControl.getRawAxis(4);
 		
 		/* Outputs Checked Controller Data to Motors */
-		arcaderDrive(limit(deadZoneCheck(forward)), -limit(deadZoneCheck(rotational)));
+		arcaderDrive(limit(deadZoneCheck(forward)), limit(deadZoneCheck(rotational)));
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class DriveControls extends Command {
 				rightMotorOutput = fwd - rot;
 			}
 		}
-		output(leftMotorOutput, rightMotorOutput, "");
+		output(leftMotorOutput, rightMotorOutput, "Slow Mode Check");
 	}
 	
 	private void output(double left, double right, String mode) {
@@ -114,6 +114,12 @@ public class DriveControls extends Command {
 				Robot.drivetrain.tank(limit(left), (limit(right)), 600);
 				executes = 0;
 			}
+		}
+		else if (mode.equals("Slow Mode Check")) {
+			double multiplier = 1;
+			Robot.debugPrint(Robot.oi.driverControl.getRightTrigger());
+			if (Robot.oi.driverControl.getRightTrigger() > .25) multiplier = 1.25 - Robot.oi.driverControl.getRightTrigger();
+			Robot.drivetrain.tank(limit(multiplier * left), (limit(multiplier * right)));	
 		}
 		else if (mode.equals("PID")) Robot.drivetrain.velocity(speedModifier(limit(left)), speedModifier(limit(right)));
 		else Robot.drivetrain.tank(limit(left), (limit(right)));

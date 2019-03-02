@@ -30,7 +30,7 @@ public class Drivetrain extends Subsystem {
 	private double PO = 1;
 	private int CLE = 0;
 
-	public boolean sixSim = true;
+	public boolean sixSim = false;
   
 	public Drivetrain() {
 		/* Reset all motors */
