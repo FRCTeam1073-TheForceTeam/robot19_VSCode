@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.Set;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -10,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Presets;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.hatchCommands.*;
+import frc.robot.commands.HatchControls;
 
 public class Hatch extends Subsystem {
   
@@ -20,13 +22,16 @@ public class Hatch extends Subsystem {
 	public final DigitalInput limitUp = RobotMap.hatchFlipLimitSwitchUp;
 	public final DigitalInput limitDown = RobotMap.hatchFlipLimitSwitchDown;
 
-	public final DigitalInput collectIn = RobotMap.collectorInSensor;
-	public final DigitalInput duckIn = RobotMap.duckInSensor;
+	public final DigitalInput collectInSensor = RobotMap.collectorInSensor;
+	public final DigitalInput duckInSensor = RobotMap.duckInSensor;
 
 	private double lift;
 	private double collect;
-	private final double DIST=100;
+	private final double ANGLE_UP=0;
+	private final double ANGLE_CENTER=100;
+	private final double ANGLE_DOWN=200;
 	public final double collectorPower=0.5;
+	private double collectorValue=0;
 	private double P = .7;
 	private double I = 0.004;
 	private double D = 0;
@@ -40,7 +45,7 @@ public class Hatch extends Subsystem {
 		hatchLift.configFactoryDefault();
 		hatchCollect.configFactoryDefault();
 
-  	hatchLift.setSafetyEnabled(false);
+  		hatchLift.setSafetyEnabled(false);
 		hatchCollect.setSafetyEnabled(false);
 		/* Set Neutral Mode */
 		hatchLift.setNeutralMode(NeutralMode.Brake);
@@ -93,6 +98,28 @@ public class Hatch extends Subsystem {
   public void periodic() {
 		lift = hatchLift.getSelectedSensorPosition();
 		collect = hatchCollect.getSelectedSensorPosition();
+		boolean collectorIn=collectInSensor.get();
+		boolean duckIn=duckInSensor.get();
+		Robot.networktable.table.getEntry("CollectorInSensorRaw").setBoolean(collectorIn);
+		Robot.networktable.table.getEntry("DuckInSensorRaw").setBoolean(duckIn);
+		if(collectorIn) {
+			Robot.networktable.table.getEntry("CollectorInSensor").setString("Hatch Collector: Loaded!");
+		} else {
+			Robot.networktable.table.getEntry("CollectorInSensor").setString("Hatch Collector: Empty!");
+		}
+		if(duckIn) {
+			Robot.networktable.table.getEntry("DuckInSensor").setString("Duck: Loaded!");
+		} else {
+			Robot.networktable.table.getEntry("DuckInSensor").setString("Duck: Empty!");
+		}
+		if(collectorIn) {
+			collectorValue=Math.max(0,collectorValue);
+		}
+		if(collectorValue==0) {
+			setCollectorBase(collectorValue);
+		} else {
+			collectorZero();
+		}
 		// boolean[] state = getLimitSwitchState();
 		// double velocity = hatchLift.getSelectedSensorVelocity();
 		/*if (Robot.networktable.table.getEntry("changeP").getDouble(P) != P ||
@@ -112,8 +139,12 @@ public class Hatch extends Subsystem {
 		hatchLift.set(ControlMode.Position, value);
 	}
 
-	public void setCollector(double value) {
+	public void setCollectorBase(double value) {
 		hatchCollect.set(ControlMode.PercentOutput, value);
+	}
+
+	public void setCollector(double value) {
+		collectorValue=value;
 	}
 
 	public void setCollectorPosition(double value) {
@@ -137,15 +168,15 @@ public class Hatch extends Subsystem {
 	}
 	
 	public void setFlipperUp() {
-		setFlipper(0);
+		setFlipperPosition(ANGLE_UP);
 	}
 
 	public void setFlipperCenter() {
-		setFlipper(DIST);
+		setFlipperPosition(ANGLE_CENTER);
 	}
 
 	public void setFlipperDown() {
-		setFlipper(DIST * 2);
+		setFlipperPosition(ANGLE_DOWN);
 	}
 
 	public void fingerLower() {

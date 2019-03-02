@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.autonomous;
+package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
