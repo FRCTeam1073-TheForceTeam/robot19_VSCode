@@ -5,28 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.hatchCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * This is the climber movement controls
- * for the teleoperated period of a match.
- * It is also the default command for 
- * the Climber.java subsystem.
- * 
- * This command does not finish.
- * 
- * @author Cam
- * @see /subsystems/Climber.java
- * @category Climb Command
+ * Controls for hatch manipulation.
+ * PID and non-PID, to make sure the robot doesn't break anything (including itself).
+ * Deadzones, because frankly, why not?
+ * Checked with operator (Jack), and controls are compatible with rest of operator OI.
+ * @author BenWertz
  */
 public class HatchControls extends Command {
 	
-	/** Controller Dead Zone */
-	private double deadzone;
-
 	/** Controller Data: Left Y */
 	private double lift;
 	private double collect;
@@ -39,12 +31,16 @@ public class HatchControls extends Command {
 	/** Just a delay */
 	private double executes = 0;
 
+	public boolean pidMode = false;
+
+	private double deadzone;
+
 
 	/**
-	 * This is the climber movement controls
+	 * This is the hatch movement controls
 	 * for the teleoperated period of a match.
 	 * It is also the default command for
-	 * the climber.java subsystem.
+	 * the hatch.java subsystem.
 	 * 
 	 * This command requires the drivetrain subsystem
 	 * so as to give it priority over other commands 
@@ -53,53 +49,52 @@ public class HatchControls extends Command {
 	 * This command does not finish.
 	 * 
 	 * @author Cam
-	 * @see /subsystems/Climber.java
+	 * @see /subsystems/hatch.java
 	 * @category Drive Command
 	 */
+	
 	public HatchControls(double deadzone) {
-		requires(Robot.drivetrain);
+		requires(Robot.hatch);
 		this.deadzone = deadzone;
 	}
 
 	/** Called Repeatedly */
 	protected void execute() {
-		/* Controller Data */
-		//left y axis
-		lift = Robot.oi.operatorControl.getRawAxis(1);
-		//left x axis
-		collect = Robot.oi.operatorControl.getRawAxis(0);
-		/* Outputs Checked Controller Data to Motors */
-		tankHatch((deadZoneCheck(lift)), (deadZoneCheck(collect)));
+		controls(Robot.oi.operatorControl.y.get());
+	}
+
+	public void controls(boolean pidMode) {
+		if (pidMode) pidHatch();
+		else Robot.hatch.setFlipper(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
+		basicCollector();
+	}
+
+	private void basicCollector(){
+		if (Robot.oi.operatorControl.x.get()) {
+			Robot.hatch.collectorIntake();
+		} else {
+			Robot.hatch.collectorZero();
+		}
 	}
 
 	/**
-   	 * Tank climb method for differential drive platform.
-   	 *
-   	 * @param fwd The climber's speed along the X axis [-1.0..1.0]. Forward is positive.
-   	 */
-	public void tankHatch(double UpDown, double Spin) {
-		
-		Robot.hatch.liftCollect(limit(UpDown), limit(Spin));
-
+	 * Makes everything easy to modify.
+	 * PID position control for motor
+	 */
+	private void pidHatch() {
+		if (Robot.oi.operatorControl.leftBumper.get()) {
+			Robot.hatch.setFlipperUp();
+		} else if (Robot.oi.operatorControl.start.get()) {
+			Robot.hatch.setFlipperDown();
+		} else {
+			Robot.hatch.setFlipperCenter();
+		}
 	}
 
-	/** 
-	 * @param val Input to check against dead zone
-	 * @return If within dead zone return 0, Else return val
-	 */
 	private double deadZoneCheck(double val) {
 		if (Math.abs(val) < deadzone) return 0;
 		return val;
-
 	}
-
-  	/**
-   	 * Limit motor values to the -1.0 to +1.0 range.
-   	 */
-  	private double limit(double value) {
-    	if (Math.abs(value) > 1.0) return Math.copySign(1, value);
-    	return value;
-  	}
 
 	/** 
 	 * This command should never finish as it 

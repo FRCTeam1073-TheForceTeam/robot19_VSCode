@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -40,8 +39,7 @@ public class RobotMap {
 
 	public static WPI_TalonSRX cargoCollect;
 	public static WPI_TalonSRX cargoLift;
-	public static WPI_VictorSPX cargoLiftTwo;
-	
+	public static WPI_VictorSPX cargoLift2;
 
 	public static Solenoid high;
 	public static Solenoid low;
@@ -50,9 +48,14 @@ public class RobotMap {
 
 	public static Solenoid finger;
 	public static Solenoid hatchExtender;
+	public static Solenoid hatchRetractor;
+	public static DigitalInput hatchFlipLimitSwitchUp;
+	public static DigitalInput hatchFlipLimitSwitchDown;
+	public static DigitalInput cargoFlipLimitSwitchUp;
+	public static DigitalInput cargoFlipLimitSwitchDown;
 
-	public static DigitalInput flipperLimitSwitchUp;
-	public static DigitalInput flipperLimitSwitchDown;
+	public static DigitalInput collectorInSensor;
+	public static DigitalInput duckInSensor;
 
 	public static void init() {
 
@@ -77,11 +80,19 @@ public class RobotMap {
 
 		cargoCollect = new WPI_TalonSRX(14);
 		cargoLift = new WPI_TalonSRX(13);
-		cargoLiftTwo = new WPI_VictorSPX(12);
+		cargoLift2 = new WPI_VictorSPX(12);
 
-		high = new Solenoid (1, 7);
-		low = new Solenoid (1, 5);
-		// finger = new Solenoid(2, 7);
-		// hatchExtender = new Solenoid(2, 5);
+		high = new Solenoid(7);
+		low = new Solenoid(6);
+		hatchExtender = new Solenoid(5);
+		hatchRetractor = new Solenoid(4);
+		finger = new Solenoid(0);
+
+		/**HERE'S WHERE THE LIMIT SWITCHES WILL GO
+		hatchFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
+		hatchFlipLimitSwitchDown = new DigitalInput(WHATEVER THE ID IS);
+		cargoFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
+		cargoFlipLimitSwitchDown = new DigitaInput(WHATEVER THE ID IS);
+		*/
 	}
 }
