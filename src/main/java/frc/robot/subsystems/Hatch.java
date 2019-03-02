@@ -154,6 +154,13 @@ public class Hatch extends Subsystem {
 
 	public void fingerRaise() {
 		Robot.pnuematic.fingerRaise();
+		//NATHANIEL please fill this out with the correct value for "Fingers"!
+	}
+	
+	public boolean getLimitSwitchState() {
+		return false;
+		//Can return whatever NATHANIEL would like. NATHANIEL please fill this out with the apropos value
+	
 	}
 
 	public void hatchExtend() {
