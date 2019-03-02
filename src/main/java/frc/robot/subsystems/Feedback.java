@@ -47,7 +47,7 @@ public class Feedback extends Subsystem {
             Robot.oi.operatorControl.rumbleTime(0, 0);
         }
         //Got velocity?
-        System.out.println(accl.getZ());
+        //System.out.println(accl.getZ());
     }
 
     private double percentRumble(double val) {

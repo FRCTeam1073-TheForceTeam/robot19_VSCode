@@ -58,20 +58,24 @@ public class DriveControls extends Command {
 		/* Controller Data */
 		forward = Robot.oi.driverControl.getRawAxis(1);
 		rotational = Robot.oi.driverControl.getRawAxis(4);
-		double value=1;
-		if(Robot.oi.driverControl.leftBumper.get()){
-			value-=0.25;
+		forward = deadZoneCheck(forward);
+		rotational = deadZoneCheck(rotational);
+		forward = powerModifier(forward);
+		rotational = powerModifier(rotational);
+		if(Robot.oi.driverControl.leftBumper.get()) {
+			forward*=0.5;
+			rotational*=0.25;
+		} else if(Robot.oi.driverControl.rightBumper.get()) {
+			forward*=0.25;
+			rotational*=0.25;
 		}
-		if(Robot.oi.driverControl.rightBumper.get()){
-			value-=0.25;
+		
+		if(Robot.oi.driverControl.x.get()) {
+			forward*=-1;
+			rotational*=-1;
 		}
-		if(Robot.oi.driverControl.x.get()){
-			value*=-1;
-		}
-		forward*=value;
-		rotational*=value;
 		/* Outputs Checked Controller Data to Motors */
-		arcadeishDrive(limit(deadZoneCheck(forward)), -limit(deadZoneCheck(rotational)));
+		arcadeishDrive(limit(forward), -limit(rotational));
 	}
 
 	/**
@@ -110,8 +114,8 @@ public class DriveControls extends Command {
    	 * @param rot The robot's rotation rate around the Z axis [-1.0..1.0]. Clockwise is positive.
    	 */
 		public void arcadeishDrive(double fwd, double rot) {
-			double leftMotorOutput = fwd+rot;
-			double rightMotorOutput = fwd-rot;
+			double leftMotorOutput = fwd-rot;
+			double rightMotorOutput = fwd+rot;
 			output(leftMotorOutput, rightMotorOutput, "");
 		}
 		
@@ -157,12 +161,15 @@ public class DriveControls extends Command {
 		return Math.copySign(Math.pow(Math.abs(val), 3) * 1300, val);
 	}
 
+	private double powerModifier(double val) {
+		return Math.pow(Math.abs(val), 3)*Math.signum(val);
+	}
+
   	/**
    	 * Limit motor values to the -1.0 to +1.0 range.
    	 */
   	private double limit(double value) {
-    	if (Math.abs(value) > 1.0) return Math.copySign(1, value);
-    	return value;
+		return Math.max(-1,Math.min(1,value));
   	}
 
 	/** 

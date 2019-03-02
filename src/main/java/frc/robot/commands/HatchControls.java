@@ -69,7 +69,7 @@ public class HatchControls extends Command {
 		basicCollector();
 	}
 
-	private void basicCollector(){
+	private void basicCollector() {
 		if (Robot.oi.operatorControl.x.get()) {
 			Robot.hatch.collectorIntake();
 		} else {

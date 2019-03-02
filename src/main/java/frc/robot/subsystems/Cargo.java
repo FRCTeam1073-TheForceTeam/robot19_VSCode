@@ -43,7 +43,7 @@ public class Cargo extends Subsystem {
 	private double PO = 1;
 	private int CLE = 0;
 
-  public Cargo(){
+  public Cargo() {
     /* Reset all motors */
 		cargoLift.configFactoryDefault();
 		cargoCollect.configFactoryDefault();
