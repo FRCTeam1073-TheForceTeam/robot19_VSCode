@@ -65,7 +65,7 @@ public class HatchControls extends Command {
 
 	public void controls(boolean pidMode) {
 		if (pidMode) pidHatch();
-		else Robot.hatch.setFlipper(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
+		else Robot.hatch.setFlipper(deadZoneCheck(Robot.oi.getOperatorY1Hatch()));
 		basicCollector();
 	}
 
@@ -82,7 +82,7 @@ public class HatchControls extends Command {
 	 * PID position control for motor
 	 */
 	private void pidHatch() {
-		if (Robot.oi.operatorControl.leftBumper.get()) {
+		if (Robot.oi.getLeftBumperCargo()) {
 			Robot.hatch.setFlipperUp();
 		} else if (Robot.oi.operatorControl.start.get()) {
 			Robot.hatch.setFlipperDown();
