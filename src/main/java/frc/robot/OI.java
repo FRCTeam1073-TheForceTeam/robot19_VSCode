@@ -42,4 +42,34 @@ public class OI {
 		climberOverride = operatorControl.start;
 		climberOverride.whenPressed(new ClimbOverride());
 	}
+	public boolean getLeftBumperCargo() {
+		return (operatorControl.leftBumper.get() && Robot.operatorMode.equals("Cargo"));
+	}
+	public boolean getLeftBumperHatch() {
+		return (operatorControl.leftBumper.get() && Robot.operatorMode.equals("Hatch"));
+	}
+	public boolean getLeftBumperClimb() {
+		return (operatorControl.leftBumper.get() && Robot.operatorMode.equals("Climb"));
+	}
+	public boolean getRightBumperCargo() {
+		return (operatorControl.rightBumper.get() && Robot.operatorMode.equals("Cargo"));
+	}
+	public boolean getRightBumperHatch() {
+		return (operatorControl.rightBumper.get() && Robot.operatorMode.equals("Hatch"));
+	}
+	public boolean getRightBumperClimb() {
+		return (operatorControl.rightBumper.get() && Robot.operatorMode.equals("Climb"));
+	}
+	public double getOperatorY1Cargo() {
+		if(Robot.operatorMode.equals("Cargo")) return (operatorControl.getY1());
+		return 0;
+	}
+	public double getOperatorY1Hatch() {
+		if(Robot.operatorMode.equals("Hatch")) return (operatorControl.getY1());
+		return 0;
+	}
+	public double getOperatorY1Climb() {
+		if(Robot.operatorMode.equals("Climb")) return (operatorControl.getY1());
+		return 0;
+	}
 }

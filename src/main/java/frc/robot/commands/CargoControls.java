@@ -44,11 +44,11 @@ public class CargoControls extends Command {
     /* Determines mode of robot, and drives motor if joystick is tilted
     and the corresponding limit switch is not activated */
     if (Robot.operatorMode == "Cargo") {
-      if (Robot.oi.operatorControl.getY1() > deadzone && !Robot.cargo.getLimitTop()) 
-        Robot.cargo.liftDrive(Robot.oi.operatorControl.getY1());
+      if (Robot.oi.getOperatorY1Cargo() > deadzone && !Robot.cargo.getLimitTop()) 
+        Robot.cargo.liftDrive(Robot.oi.getOperatorY1Cargo());
       
-      else if (Robot.oi.operatorControl.getY1() < -deadzone && !Robot.cargo.getLimitBottom()) 
-        Robot.cargo.liftDrive(Robot.oi.operatorControl.getY1());
+      else if (Robot.oi.getOperatorY1Cargo() < -deadzone && !Robot.cargo.getLimitBottom()) 
+        Robot.cargo.liftDrive(Robot.oi.getOperatorY1Cargo());
       
       /* Rudimentary neutral-reset, error corrects by virtue but it's very rough */
       else {
