@@ -68,7 +68,7 @@ public class Hatch extends Subsystem {
 		Robot.networktable.table.getEntry("changePO").getDouble(PO) != PO ||
 		(int)Robot.networktable.table.getEntry("changeCLE").getDouble(CLE) != CLE) PIDChange();*/
 	}
-	public void setFlipper(double value) {
+	public void setFlipper(Integer value) {
 		//NATHANIEL please fill this out with the correct integers for the fingers!!
 	}
 	
@@ -83,6 +83,7 @@ public class Hatch extends Subsystem {
 	public boolean getLimitSwitchState() {
 		return false;
 		//Can return whatever NATHANIEL would like. NATHANIEL please fill this out with the apropos value
+	
 	}
 
 	public void hatchExtend() {
