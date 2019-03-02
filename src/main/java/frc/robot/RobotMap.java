@@ -63,9 +63,9 @@ public class RobotMap {
 		leftSlave = new WPI_VictorSPX(9);
 		leftSlaveTwo = new WPI_VictorSPX(7);
 
-		rightMaster = new WPI_TalonSRX(4);
+		rightMaster = new WPI_TalonSRX(3);
 		rightSlave = new WPI_VictorSPX(2);
-		rightSlaveTwo = new WPI_VictorSPX(3);
+		rightSlaveTwo = new WPI_VictorSPX(4);
 
 		headingGyro = new ADXRS450_Gyro();
 		accelerometer = new BuiltInAccelerometer();

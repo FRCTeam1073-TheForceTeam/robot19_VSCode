@@ -96,6 +96,7 @@ public class Hatch extends Subsystem {
   public void periodic() {
 		lift = hatchLift.getSelectedSensorPosition();
 		collect = hatchCollect.getSelectedSensorPosition();
+		if(true)return;
 		boolean collectorIn=collectInSensor.get();
 		if(collectorIn){
 			collectorValue=Math.max(0,collectorValue);
