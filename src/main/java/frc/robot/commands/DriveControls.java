@@ -58,9 +58,17 @@ public class DriveControls extends Command {
 		/* Controller Data */
 		forward = Robot.oi.driverControl.getRawAxis(1);
 		rotational = Robot.oi.driverControl.getRawAxis(4);
-		
+		double value=1;
+		if(Robot.oi.driverControl.leftBumper.get()){
+			value-=0.2;
+		}
+		if(Robot.oi.driverControl.rightBumper.get()){
+			value-=0.2;
+		}
+		forward*=value;
+		rotational*=value;
 		/* Outputs Checked Controller Data to Motors */
-		arcaderDrive(limit(deadZoneCheck(forward)), -limit(deadZoneCheck(rotational)));
+		arcadeishDrive(limit(deadZoneCheck(forward)), -limit(deadZoneCheck(rotational)));
 	}
 
 	/**
@@ -91,7 +99,19 @@ public class DriveControls extends Command {
 		}
 		output(leftMotorOutput, rightMotorOutput, "");
 	}
-	
+
+	/**
+   	 * Arcade drive method for differential drive platform.
+   	 *
+   	 * @param fwd The robot's speed along the X axis [-1.0..1.0]. Forward is positive.
+   	 * @param rot The robot's rotation rate around the Z axis [-1.0..1.0]. Clockwise is positive.
+   	 */
+		public void arcadeishDrive(double fwd, double rot) {
+			double leftMotorOutput = fwd+rot;
+			double rightMotorOutput = fwd-rot;
+			output(leftMotorOutput, rightMotorOutput, "");
+		}
+		
 	private void output(double left, double right, String mode) {
 		if (mode.equals("Zeroing")) {
 			if (forward == 0 && rotational == 0) {
