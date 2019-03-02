@@ -5,20 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatchCommands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class HatchPlace extends CommandGroup {
+public class operatorLeftAction extends CommandGroup {
   /**
-   * Add your docs here.
+   * Performs the action for the left bumper for the current mode
+   * 
+   * 
    */
-  public HatchPlace() {
-    addSequential(new FingerLower());
-    addSequential(new WaitCommand(.2));
-    addSequential(new HatchExtend());
-    addSequential(new WaitCommand(1));
-    addSequential(new HatchRetract());
+  public operatorLeftAction() {
+
   }
 }

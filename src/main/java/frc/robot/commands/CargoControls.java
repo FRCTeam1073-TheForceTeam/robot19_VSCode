@@ -41,28 +41,21 @@ public class CargoControls extends Command {
   /** Called Repeatedly */
   @Override
   protected void execute() {
-    /* Determines state of robot, and drives motor if corresponding button is pressed
+    /* Determines mode of robot, and drives motor if joystick is tilted
     and the corresponding limit switch is not activated */
-    if (triggerPast("right")) {
-      if (!Robot.cargo.getLimitTop())Robot.cargo.liftDrive(1);
-      else if (Robot.cargo.getLimitTop()) Robot.cargo.collectorSpin(1);
+    if (Robot.operatorMode == "Cargo") {
+      if (Robot.oi.operatorControl.getY1() > deadzone && !Robot.cargo.getLimitTop()) 
+        Robot.cargo.liftDrive(Robot.oi.operatorControl.getY1());
+      
+      else if (Robot.oi.operatorControl.getY1() < -deadzone && !Robot.cargo.getLimitBottom()) 
+        Robot.cargo.liftDrive(Robot.oi.operatorControl.getY1());
+      
+      /* Rudimentary neutral-reset, error corrects by virtue but it's very rough */
+      else {
+        if(Robot.cargo.getEncoder() < (0 - maxError)) Robot.cargo.liftDrive(1);
+        if(Robot.cargo.getEncoder() > (0 + maxError)) Robot.cargo.liftDrive(-1);
+      }
     }
-    else if (triggerPast("right")) {
-      if (!Robot.cargo.getLimitBottom()) Robot.cargo.liftDrive(-1);
-      else if (Robot.cargo.getLimitBottom()) Robot.cargo.collectorSpin(-1);
-    }
-    /* Rudimentary neutral-reset, error corrects by virtue but it's very rough */
-    else if(!triggerPast("left") && !triggerPast("right")){
-      if(Robot.cargo.getEncoder() < (0 - maxError)) Robot.cargo.liftDrive(1);
-      if(Robot.cargo.getEncoder() > (0 + maxError)) Robot.cargo.liftDrive(-1);
-    }
-  }
-
-  /** @return side whether the requested side's trigger is past the deadzone and is therefore "pressed" */
-  private boolean triggerPast(String side){
-    if(side.equals("right")) return Robot.oi.operatorControl.getRightTrigger() >= .5 + deadzone;
-    if(side.equals("left")) return Robot.oi.operatorControl.getLeftTrigger() >= .5 + deadzone;
-    return false;
   }
 
   /** 

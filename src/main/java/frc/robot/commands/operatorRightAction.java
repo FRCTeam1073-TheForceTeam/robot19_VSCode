@@ -5,20 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatchCommands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class HatchPlace extends CommandGroup {
+public class operatorRightAction extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public HatchPlace() {
-    addSequential(new FingerLower());
-    addSequential(new WaitCommand(.2));
-    addSequential(new HatchExtend());
-    addSequential(new WaitCommand(1));
-    addSequential(new HatchRetract());
+  public operatorRightAction() {
+
   }
 }

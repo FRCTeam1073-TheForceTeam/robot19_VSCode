@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
 	public static Lidar lidar;
 	public static Hatch hatch;
 	public static Climber climber;
-	public static String FMS;
+	public static String FMS, operatorMode;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
 	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
 	public static boolean notClear;
@@ -80,12 +80,14 @@ public class Robot extends TimedRobot {
 		lidar = new Lidar();
 
 		climber = new Climber();
-		
-    hatch = new Hatch();
+			
+		hatch = new Hatch();
 
-    oi = new OI();
+    	oi = new OI();
 
 		FMS = "";
+
+		operatorMode = "Hatch";
 
 		/* Position Objects */
 		left = new AutoObject(1);

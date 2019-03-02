@@ -5,20 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatchCommands;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.Robot;
 
-public class HatchPlace extends CommandGroup {
+public class ClimbOverride extends InstantCommand {
   /**
-   * Add your docs here.
+   * Sets the operator mode to the climbing mode
+   * 
+   * @author Jack McEvoy
    */
-  public HatchPlace() {
-    addSequential(new FingerLower());
-    addSequential(new WaitCommand(.2));
-    addSequential(new HatchExtend());
-    addSequential(new WaitCommand(1));
-    addSequential(new HatchRetract());
+  public ClimbOverride() {
+    super();
   }
+
+  // Called once when the command executes
+  @Override
+  protected void initialize() {
+    Robot.operatorMode = "Climb";
+  }
+
 }
