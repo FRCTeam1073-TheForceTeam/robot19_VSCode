@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.Set;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -97,12 +99,25 @@ public class Hatch extends Subsystem {
 		lift = hatchLift.getSelectedSensorPosition();
 		collect = hatchCollect.getSelectedSensorPosition();
 		boolean collectorIn=collectInSensor.get();
-		if(collectorIn){
+		boolean duckIn=duckInSensor.get();
+		Robot.networktable.table.getEntry("CollectorInSensorRaw").setBoolean(collectorIn);
+		Robot.networktable.table.getEntry("DuckInSensorRaw").setBoolean(duckIn);
+		if(collectorIn) {
+			Robot.networktable.table.getEntry("CollectorInSensor").setString("Hatch Collector: Loaded!");
+		} else {
+			Robot.networktable.table.getEntry("CollectorInSensor").setString("Hatch Collector: Empty!");
+		}
+		if(duckIn) {
+			Robot.networktable.table.getEntry("DuckInSensor").setString("Duck: Loaded!");
+		} else {
+			Robot.networktable.table.getEntry("DuckInSensor").setString("Duck: Empty!");
+		}
+		if(collectorIn) {
 			collectorValue=Math.max(0,collectorValue);
 		}
-		if(collectorValue==0){
+		if(collectorValue==0) {
 			setCollectorBase(collectorValue);
-		}else{
+		} else {
 			collectorZero();
 		}
 		// boolean[] state = getLimitSwitchState();
@@ -128,7 +143,7 @@ public class Hatch extends Subsystem {
 		hatchCollect.set(ControlMode.PercentOutput, value);
 	}
 
-	public void setCollector(double value){
+	public void setCollector(double value) {
 		collectorValue=value;
 	}
 
