@@ -88,6 +88,8 @@ public class RobotMap {
 		hatchRetractor = new Solenoid(4);
 		finger = new Solenoid(0);
 
+		collectorInSensor = new DigitalInput(1/*Wherever*/);
+		duckInSensor = new DigitalInput(2/*Wherever*/);
 		/**HERE'S WHERE THE LIMIT SWITCHES WILL GO
 		hatchFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
 		hatchFlipLimitSwitchDown = new DigitalInput(WHATEVER THE ID IS);
