@@ -54,7 +54,7 @@ public class RobotMap {
 	public static DigitalInput cargoFlipLimitSwitchUp;
 	public static DigitalInput cargoFlipLimitSwitchDown;
 
-	public static DigitalInput collectorInSensor;
+	public static DigitalInput hatchCollectorInSensor;
 	public static DigitalInput duckInSensor;
 
 	public static void init() {
@@ -88,6 +88,8 @@ public class RobotMap {
 		hatchRetractor = new Solenoid(4);
 		finger = new Solenoid(0);
 
+		hatchCollectorInSensor=new DigitalInput(1/*Whatever it's supposed to be*/);
+		duckInSensor=new DigitalInput(2/*Whatever it's supposed to be*/);
 		/**HERE'S WHERE THE LIMIT SWITCHES WILL GO
 		hatchFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
 		hatchFlipLimitSwitchDown = new DigitalInput(WHATEVER THE ID IS);

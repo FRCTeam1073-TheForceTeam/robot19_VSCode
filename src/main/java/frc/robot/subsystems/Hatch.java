@@ -20,7 +20,7 @@ public class Hatch extends Subsystem {
 	public final DigitalInput limitUp = RobotMap.hatchFlipLimitSwitchUp;
 	public final DigitalInput limitDown = RobotMap.hatchFlipLimitSwitchDown;
 
-	public final DigitalInput collectInSensor = RobotMap.collectorInSensor;
+	public final DigitalInput collectInSensor = RobotMap.hatchCollectorInSensor;
 	public final DigitalInput duckInSensor = RobotMap.duckInSensor;
 
 	private double lift;
@@ -96,7 +96,6 @@ public class Hatch extends Subsystem {
   public void periodic() {
 		lift = hatchLift.getSelectedSensorPosition();
 		collect = hatchCollect.getSelectedSensorPosition();
-		if(true)return;
 		boolean collectorIn=collectInSensor.get();
 		if(collectorIn){
 			collectorValue=Math.max(0,collectorValue);
