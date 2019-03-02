@@ -60,10 +60,13 @@ public class DriveControls extends Command {
 		rotational = Robot.oi.driverControl.getRawAxis(4);
 		double value=1;
 		if(Robot.oi.driverControl.leftBumper.get()){
-			value-=0.2;
+			value-=0.25;
 		}
 		if(Robot.oi.driverControl.rightBumper.get()){
-			value-=0.2;
+			value-=0.25;
+		}
+		if(Robot.oi.driverControl.x.get()){
+			value*=-1;
 		}
 		forward*=value;
 		rotational*=value;
