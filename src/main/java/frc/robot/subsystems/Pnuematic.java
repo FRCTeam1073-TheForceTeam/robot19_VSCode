@@ -32,13 +32,17 @@ public class Pnuematic extends Subsystem {
   }
 
   public void setHighGear() {
-		low.set(false);
-		high.set(true);
+    if(isShiftingOn){
+      low.set(false);
+      high.set(true);
+    }
   }
   
 	public void setLowGear() {
-	  low.set(true);
-    high.set(false); 
+    if(isShiftingOn){
+  	  low.set(true);
+      high.set(false);
+    }
   }
 
   public boolean isFingerExtended() {
