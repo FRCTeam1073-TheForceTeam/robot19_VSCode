@@ -18,7 +18,7 @@ import java.lang.Math;
  */
 public class GeoAssist {
 	//Field radius is in milimeters
-	public static final double fieldRadius = 18401.945;
+	public static final double fieldRadius = 18401.945/2;
 	
 
 
