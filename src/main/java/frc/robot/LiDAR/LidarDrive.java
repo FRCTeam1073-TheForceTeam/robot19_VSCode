@@ -16,10 +16,10 @@ import frc.robot.LiDAR.*;
  * @author AlexHill and CamH
  */
 public class LidarDrive {
-    public static final double initialLatitude = 48.138083;
-	public static final double initialLongitude = 11.561102;
-	public static final double SIMULATOR_MOVEMENT_SPEED = 0.000015; // ~0.05m - 0.1m per step
-	public static final double ARRIVAL_RADIUS_IN_KM = 0.05 / 1000;  // 0.05m
+    public static final double initialLatitude = Robot.networktable.table.getEntry("XCoord").getDouble(0);
+	public static final double initialLongitude = Robot.networktable.table.getEntry("YCoord").getDouble(0);
+	public static final double speed = Robot.networktable.table.getEntry("robotVelocity").getDouble(0); // ~0.05m - 0.1m per step
+	public static final double radius = 18401.945/2;  // 9200.9725 mm
 
 	public Location currentLocation = new Location("currentLocation", initialLatitude, initialLongitude);
     
@@ -33,7 +33,7 @@ public class LidarDrive {
     
 	public void move(){
     	Location nextWaypoint = simulatedRoute.waypoints[waypointCounter];
-    	if (GeoAssist.calcDistance(currentLocation, nextWaypoint) < ARRIVAL_RADIUS_IN_KM) {
+    	if (GeoAssist.calcDistance(currentLocation, nextWaypoint) < radius) {
     		waypointCounter++;
     		if (waypointCounter > simulatedRoute.waypoints.length-1) {
     			currentLocation = new Location("currentLocation", initialLatitude, initialLongitude);
@@ -43,9 +43,9 @@ public class LidarDrive {
     	}
     	System.out.println("Moving to " + nextWaypoint.geoLoca + ". Distance = " + GeoAssist.calcDistance(currentLocation, nextWaypoint) * 1000 + "m");
     	double angle = GeoAssist.calcAngle(currentLocation, nextWaypoint);
-    	double newLat = currentLocation.latitude + Math.sin(angle) * SIMULATOR_MOVEMENT_SPEED;
-    	double newLon = currentLocation.longitude + Math.cos(angle) * SIMULATOR_MOVEMENT_SPEED;
-    	currentLocation = new Location("currentLocation", newLat, newLon);
+    	double newLat = currentLocation.latitude + Math.sin(angle) * speed;
+    	double newLong = currentLocation.longitude + Math.cos(angle) * speed;
+    	currentLocation = new Location("currentLocation", newLat, newLong);
     }
 
     

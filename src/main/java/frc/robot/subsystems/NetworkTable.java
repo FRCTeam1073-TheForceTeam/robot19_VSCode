@@ -11,6 +11,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -35,6 +36,7 @@ public class NetworkTable extends Subsystem {
     table.getEntry("Voltage").setDouble(RobotController.getBatteryVoltage());
     table.getEntry("Time").setDouble(ds.getMatchTime());
     table.getEntry("isBrowned").setBoolean(RobotController.isBrownedOut());
+    table.getEntry("robotVelocity").setDouble((Math.sqrt(Math.pow(RobotMap.accelerometer.getX(), 2) + Math.pow(RobotMap.accelerometer.getY(), 2))));
   }
 
   public void refresh() {
