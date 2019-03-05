@@ -14,16 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SystemTest;
 import frc.robot.commands.AutonomousTools.AutoTest;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Feedback;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.GearBox;
-import frc.robot.subsystems.Hatch;
-import frc.robot.subsystems.Lidar;
-import frc.robot.subsystems.NetworkTable;
-import frc.robot.subsystems.Pnuematic;
-import frc.robot.subsystems.Vision;
-import frc.robot.Bling;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -39,12 +30,14 @@ public class Robot extends TimedRobot {
 	public static NetworkTable networktable;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
-	public static Feedback feedback;
-	public static GearBox gearbox;
+  	public static Feedback feedback;
+  	public static GearBox gearbox;
 	public static Vision vision;
+	public static Cargo cargo;
 	public static Lidar lidar;
 	public static Hatch hatch;
-	public static String FMS;
+	public static Climber climber;
+	public static String FMS, operatorMode;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
 	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
 	public static boolean notClear;
@@ -92,9 +85,27 @@ public class Robot extends TimedRobot {
 		
     hatch = new Hatch();
 
-    oi = new OI();
+		drivetrain = new Drivetrain();
+
+		pnuematic = new Pnuematic();
+
+		feedback = new Feedback();
+
+		gearbox = new GearBox();
+
+		vision = new Vision();
+
+		lidar = new Lidar();
+
+		climber = new Climber();
+			
+		hatch = new Hatch();
+
+    	oi = new OI();
 
 		FMS = "";
+
+		operatorMode = "Hatch";
 
 		/* Position Objects */
 		left = new AutoObject(1);

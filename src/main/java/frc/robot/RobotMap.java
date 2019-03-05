@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -30,38 +29,47 @@ public class RobotMap {
 	public static WPI_VictorSPX leftSlave;
 	public static WPI_VictorSPX leftSlaveTwo;
 
+	public static WPI_VictorSPX leftClimber;
 	public static WPI_TalonSRX rightClimber;
+
 	public static WPI_TalonSRX lidar;
+
 	public static WPI_TalonSRX hatchCollect;
 	public static WPI_TalonSRX hatchLift;
-	public static WPI_TalonSRX cargoLift;
+
 	public static WPI_TalonSRX cargoCollect;
-	
-	public static WPI_VictorSPX leftClimber;
-	public static WPI_VictorSPX cargoLiftTwo;
+	public static WPI_TalonSRX cargoLift;
+	public static WPI_VictorSPX cargoLift2;
 
 	public static Solenoid high;
 	public static Solenoid low;
+
 	public static BuiltInAccelerometer accelerometer;
+
 	public static Solenoid finger;
 	public static Solenoid hatchExtender;
-	public static WPI_TalonSRX hatchIntake;
-	public static WPI_TalonSRX hatchFlipper;
-	public static DigitalInput flipperLimitSwitchUp;
-	public static DigitalInput flipperLimitSwitchDown;
-  	public static void init() {
+	public static Solenoid hatchRetractor;
+	public static DigitalInput hatchFlipLimitSwitchUp;
+	public static DigitalInput hatchFlipLimitSwitchDown;
+	public static DigitalInput cargoFlipLimitSwitchUp;
+	public static DigitalInput cargoFlipLimitSwitchDown;
+
+	public static DigitalInput collectorInSensor;
+	public static DigitalInput duckInSensor;
+
+	public static void init() {
+
+		leftMaster = new WPI_TalonSRX(8);
+		leftSlave = new WPI_VictorSPX(9);
+		leftSlaveTwo = new WPI_VictorSPX(7);
+
+		rightMaster = new WPI_TalonSRX(4);
+		rightSlave = new WPI_VictorSPX(2);
+		rightSlaveTwo = new WPI_VictorSPX(3);
+
 		headingGyro = new ADXRS450_Gyro();
 		accelerometer = new BuiltInAccelerometer();
 
-		rightSlaveTwo = new WPI_VictorSPX(3);
-		rightSlave = new WPI_VictorSPX(2);
-		rightMaster = new WPI_TalonSRX(4);
-		leftSlaveTwo = new WPI_VictorSPX(7);
-		leftSlave = new WPI_VictorSPX(9);
-		leftMaster = new WPI_TalonSRX(8);
-
-		hatchFlipper=new WPI_TalonSRX(7);
-		hatchIntake=new WPI_TalonSRX(5);
 		lidar = new WPI_TalonSRX(15);
 
 		hatchCollect = new WPI_TalonSRX(5);
@@ -70,13 +78,23 @@ public class RobotMap {
 		rightClimber = new WPI_TalonSRX(10);
 		leftClimber = new WPI_VictorSPX(11);
 
-		cargoLiftTwo = new WPI_VictorSPX(12);
-		cargoLift = new WPI_TalonSRX(13);
 		cargoCollect = new WPI_TalonSRX(14);
+		cargoLift = new WPI_TalonSRX(13);
+		cargoLift2 = new WPI_VictorSPX(12);
 
-		high = new Solenoid (1, 7);
-		low = new Solenoid (1, 5);
-		// finger = new Solenoid(2, 7);
-		// hatchExtender = new Solenoid(2, 5);
+		high = new Solenoid(7);
+		low = new Solenoid(6);
+		hatchExtender = new Solenoid(5);
+		hatchRetractor = new Solenoid(4);
+		finger = new Solenoid(0);
+
+		collectorInSensor = new DigitalInput(1/*Wherever*/);
+		duckInSensor = new DigitalInput(2/*Wherever*/);
+		/**HERE'S WHERE THE LIMIT SWITCHES WILL GO
+		hatchFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
+		hatchFlipLimitSwitchDown = new DigitalInput(WHATEVER THE ID IS);
+		cargoFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
+		cargoFlipLimitSwitchDown = new DigitaInput(WHATEVER THE ID IS);
+		*/
 	}
 }

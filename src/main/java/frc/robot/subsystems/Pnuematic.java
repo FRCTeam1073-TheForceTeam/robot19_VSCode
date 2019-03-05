@@ -15,6 +15,7 @@ public class Pnuematic extends Subsystem {
   private final Solenoid low = RobotMap.low;
   private final Solenoid finger = RobotMap.finger;
   private final Solenoid hatchExtender = RobotMap.hatchExtender;
+  private final Solenoid hatchRetractor = RobotMap.hatchRetractor;
   private final boolean isShiftingOn=false;
   @Override
   public void initDefaultCommand() {
@@ -31,17 +32,11 @@ public class Pnuematic extends Subsystem {
   }
 
   public void setHighGear() {
-    if(!isShiftingOn){
-      return;
-    }
 		low.set(false);
 		high.set(true);
   }
   
 	public void setLowGear() {
-    if(!isShiftingOn){
-      return;
-    }
 	  low.set(true);
     high.set(false); 
   }
@@ -59,14 +54,17 @@ public class Pnuematic extends Subsystem {
   }
 
   public boolean isHatchExtended(){
-    return hatchExtender.get();
+    if (hatchExtender.get() && !hatchRetractor.get()) return true;
+    return false;
   }
 
-  public void hatchExtend(){
+  public void hatchExtend() {
     hatchExtender.set(true);
+    hatchRetractor.set(false);
   }
   
   public void hatchRetract(){
     hatchExtender.set(false);
+    hatchRetractor.set(true);
   }
 }
