@@ -8,15 +8,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OperatorMode;
 import frc.robot.Robot;
 
 public class CargoControls extends Command {
 
-  /* The deadzone value for the triggers */
+  /** The deadzone value for the triggers */
   public double deadzone;
 
-  /* The maximum error allowed for when it resets to neutral */
-  public double maxError;
+  public double lift, collect;
 
   /**
    * This is the cargo manipulator controls during tele-op.
@@ -27,36 +27,37 @@ public class CargoControls extends Command {
    * 
    * This command does not finish.
    * 
-   * @author Jack
+   * @author Nathaiel, Jack, Ben
    * @category Cargo Command
    */
 
   public CargoControls(double deadzone) {
     requires(Robot.cargo);
     this.deadzone = deadzone;
-
-    maxError = 100;
   }
 
   /** Called Repeatedly */
   @Override
   protected void execute() {
-    /* Determines mode of robot, and drives motor if joystick is tilted
-    and the corresponding limit switch is not activated */
-    if (Robot.operatorMode == "Cargo") {
-      if (Robot.oi.operatorControl.getY1() > deadzone && !Robot.cargo.getLimitTop()) 
-        Robot.cargo.liftDrive(Robot.oi.operatorControl.getY1());
-      
-      else if (Robot.oi.operatorControl.getY1() < -deadzone && !Robot.cargo.getLimitBottom()) 
-        Robot.cargo.liftDrive(Robot.oi.operatorControl.getY1());
-      
-      /* Rudimentary neutral-reset, error corrects by virtue but it's very rough */
-      else {
-        if(Robot.cargo.getEncoder() < (0 - maxError)) Robot.cargo.liftDrive(1);
-        if(Robot.cargo.getEncoder() > (0 + maxError)) Robot.cargo.liftDrive(-1);
-      }
+    if (Robot.operatorMode.equals(OperatorMode.CARGO)) {
+      Robot.cargo.lift(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
+      if (deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) > 0 || deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()) > 0) 
+			Robot.cargo.collector(deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) - deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()));
+			else Robot.cargo.collector(0);
+    } else {
+      Robot.cargo.lift(0);
+      Robot.cargo.collector(0);
     }
   }
+
+  /** 
+	 * @param val Input to check against dead zone
+	 * @return If within dead zone return 0, Else return val
+	 */
+	private double deadZoneCheck(double val) {
+		if (Math.abs(val) < deadzone) return 0;
+		return val;
+	}
 
   /** 
 	 * This command should never finish as it 

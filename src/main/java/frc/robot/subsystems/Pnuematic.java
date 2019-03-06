@@ -11,12 +11,13 @@ public class Pnuematic extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   
-	private final Solenoid high = RobotMap.high;
+  private final Solenoid high = RobotMap.high;
   private final Solenoid low = RobotMap.low;
-  private final Solenoid finger = RobotMap.finger;
+  private final Solenoid fingerUp = RobotMap.fingerUp;
+  private final Solenoid fingerDown = RobotMap.fingerDown;
   private final Solenoid hatchExtender = RobotMap.hatchExtender;
   private final Solenoid hatchRetractor = RobotMap.hatchRetractor;
-  private final boolean isShiftingOn=false;
+  
   @Override
   public void initDefaultCommand() {
   }
@@ -42,15 +43,17 @@ public class Pnuematic extends Subsystem {
   }
 
   public boolean isFingerExtended() {
-    return finger.get();
+    return fingerUp.get()&&(!fingerDown.get());
   }
 
   public void fingerRaise(){
-    finger.set(true);
+    fingerUp.set(true);
+    fingerDown.set(false);
   }
 
   public void fingerLower(){
-    finger.set(false);
+    fingerUp.set(false);
+    fingerDown.set(true);
   }
 
   public boolean isHatchExtended(){
