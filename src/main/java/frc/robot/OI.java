@@ -9,6 +9,7 @@ import frc.robot.commands.HatchCommands.*;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+
 	/** User Controllers */
 	public XboxController driverControl, operatorControl;
 
