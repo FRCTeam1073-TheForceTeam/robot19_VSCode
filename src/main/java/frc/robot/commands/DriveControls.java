@@ -60,7 +60,7 @@ public class DriveControls extends Command {
 		rotational = Robot.oi.driverControl.getRawAxis(4);
 		
 		/* Outputs Checked Controller Data to Motors */
-		arcaderDrive(limit(deadZoneCheck(forward)), -limit(deadZoneCheck(rotational)));
+		arcaderDrive(limit(deadZoneCheck(forward)), limit(deadZoneCheck(rotational)));
 	}
 
 	/**
