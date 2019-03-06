@@ -5,17 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.HatchCommands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class operatorLeftAction extends CommandGroup {
+public class DuckDebug extends CommandGroup {
   /**
-   * Performs the action for the left bumper for the current mode
-   * 
-   * 
+   * Add your docs here.
    */
-  public operatorLeftAction() {
-
+  public DuckDebug() {
+    addSequential(new HatchExtend());
+    addSequential(new WaitCommand(0.2));
+    addSequential(new HatchRetract());
   }
 }

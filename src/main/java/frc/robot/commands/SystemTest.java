@@ -19,7 +19,6 @@ import frc.robot.RobotMap;
  */
 public class SystemTest extends Command {
   public SystemTest() {
-    // Use requires() here to declare subsystem dependencies
     requires(Robot.drivetrain);
   }
 

@@ -34,6 +34,7 @@ public class Climber extends Subsystem {
 		
 		/* Configure the left Talon's selected sensor to a Quad Encoder*/
 		rightClimber.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
+		leftClimber.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
 		
 		/* Configure output and sensor direction */
 		rightClimber.setInverted(false);
@@ -44,16 +45,15 @@ public class Climber extends Subsystem {
     
     @Override
     public void initDefaultCommand() {
-    	setDefaultCommand(new ClimbControls(.1));
+    	setDefaultCommand(new ClimbControls(Presets.deadzone));
 	}
 
     public void periodic() {
 		climbEncoder = rightClimber.getSelectedSensorPosition();
 	}
 
-	public void tank(double left, double right) {
-		leftClimber.set(ControlMode.PercentOutput, left);
-		rightClimber.set(ControlMode.PercentOutput, right);
+	public void tank(double val) {
+		leftClimber.set(ControlMode.PercentOutput, val);
+		rightClimber.set(ControlMode.PercentOutput, val);
 	}
-
 }
