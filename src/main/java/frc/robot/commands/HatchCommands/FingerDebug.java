@@ -10,15 +10,13 @@ package frc.robot.commands.HatchCommands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class HatchPlace extends CommandGroup {
+public class FingerDebug extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public HatchPlace() {
-    addSequential(new HatchExtend());
-    addSequential(new WaitCommand(.5));
+  public FingerDebug() {
+    addSequential(new FingerRaise());
+    addSequential(new WaitCommand(0.5));
     addSequential(new FingerLower());
-    addSequential(new WaitCommand(.2));
-    addSequential(new HatchRetract());
   }
 }

@@ -31,16 +31,18 @@ public class OI {
 		highGearHold = driverControl.rightBumper;
 
 		operatorLeft = operatorControl.leftBumper;
-		operatorLeft.whenPressed(new operatorLeftAction());
 
 		operatorRight = operatorControl.rightBumper;
-		operatorRight.whenPressed(new operatorRightAction());
+
+		operatorLeft.whenPressed(new HatchGrab());
+		operatorRight.whenPressed(new HatchPlace());
 
 		modeSwitch = operatorControl.select;
-		modeSwitch.whenPressed(new ModeSwitch());
+		modeSwitch.whenPressed(new ModeSwitch(0));
 
 		climberOverride = operatorControl.start;
-		climberOverride.whenPressed(new ClimbOverride());
+		climberOverride.whenPressed(new ModeSwitch(1));
+		//operatorControl.b.whenPressed(new FingerDebug());
 	}
 	public boolean getLeftBumperCargo() {
 		return (operatorControl.leftBumper.get() && Robot.operatorMode.equals("Cargo"));

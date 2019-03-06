@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SystemTest;
 import frc.robot.commands.AutonomousTools.AutoTest;
 import frc.robot.subsystems.*;
+import frc.robot.commands.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,16 +28,17 @@ public class Robot extends TimedRobot {
 	public double initialBootTime, teleopStartTime, autoStartTime;
 	public static OI oi;
 	public static NetworkTable networktable;
+	public static OperatorMode operatorMode;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
   	public static Feedback feedback;
   	public static GearBox gearbox;
+	public static Climber climber;
 	public static Vision vision;
 	public static Cargo cargo;
 	public static Lidar lidar;
 	public static Hatch hatch;
-	public static Climber climber;
-	public static String FMS, operatorMode;
+	public static String FMS;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
 	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
 	public static boolean notClear;
@@ -57,7 +59,9 @@ public class Robot extends TimedRobot {
     	debugPrint("Robot Initializing");
 		
 		RobotMap.init();
-		
+
+		operatorMode = OperatorMode.HATCH;
+
 		debugMode = false;
 		shiftDisable = false;
 		notClear = false;
@@ -75,19 +79,20 @@ public class Robot extends TimedRobot {
 
 		gearbox = new GearBox();
 
+		climber = new Climber();
+
 		vision = new Vision();
 
 		lidar = new Lidar();
-
-		climber = new Climber();
 			
+		cargo = new Cargo();
+
 		hatch = new Hatch();
 
     	oi = new OI();
 
 		FMS = "";
 
-		operatorMode = "Hatch";
 
 		/* Position Objects */
 		left = new AutoObject(1);

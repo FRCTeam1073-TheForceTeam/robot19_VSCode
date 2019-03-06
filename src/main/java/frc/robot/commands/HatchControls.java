@@ -7,7 +7,9 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OperatorMode;
 import frc.robot.Robot;
 
 /**
@@ -48,7 +50,7 @@ public class HatchControls extends Command {
 	 * 
 	 * This command does not finish.
 	 * 
-	 * @author Cam
+	 * @author Nathaiel, Jack, Ben
 	 * @see /subsystems/hatch.java
 	 * @category Drive Command
 	 */
@@ -60,35 +62,22 @@ public class HatchControls extends Command {
 
 	/** Called Repeatedly */
 	protected void execute() {
-		controls(Robot.oi.operatorControl.y.get());
-	}
-
-	public void controls(boolean pidMode) {
-		if (pidMode) pidHatch();
-		else Robot.hatch.setFlipper(deadZoneCheck(Robot.oi.getOperatorY1Hatch()));
-		basicCollector();
-	}
-
-	private void basicCollector(){
-		if (Robot.oi.operatorControl.x.get()) {
-			Robot.hatch.collectorIntake();
+		if (Robot.operatorMode.equals(OperatorMode.HATCH)) {
+			flipper(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
+			if (deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) > 0 || deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()) > 0) 
+			Robot.hatch.setCollector(deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) - deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()));
+			else Robot.hatch.setCollector(0);
 		} else {
-			Robot.hatch.collectorZero();
+			flipper(0);
+			Robot.hatch.setCollector(0);
 		}
 	}
 
-	/**
-	 * Makes everything easy to modify.
-	 * PID position control for motor
-	 */
-	private void pidHatch() {
-		if (Robot.oi.getLeftBumperCargo()) {
-			Robot.hatch.setFlipperUp();
-		} else if (Robot.oi.operatorControl.start.get()) {
-			Robot.hatch.setFlipperDown();
-		} else {
-			Robot.hatch.setFlipperCenter();
-		}
+	public void flipper(double val) {
+		/*if (!Robot.hatch.topLim.get() && !Robot.hatch.bottomLim.get()) Robot.hatch.setFlipper(val);
+		else if (Robot.hatch.topLim.get() && val < 0) Robot.hatch.setFlipper(val);
+		else if (Robot.hatch.bottomLim.get() && val > 0) Robot.hatch.setFlipper(val);
+		else */Robot.hatch.setFlipper(val);
 	}
 
 	private double deadZoneCheck(double val) {
