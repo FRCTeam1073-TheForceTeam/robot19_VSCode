@@ -7,10 +7,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Presets;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ClimbControls;
-import frc.robot.commands.DriveControls;
 
 public class Climber extends Subsystem {
     

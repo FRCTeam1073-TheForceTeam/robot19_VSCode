@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OperatorMode;
 import frc.robot.Robot;
@@ -20,20 +19,6 @@ import frc.robot.Robot;
  * @author BenWertz
  */
 public class HatchControls extends Command {
-	
-	/** Controller Data: Left Y */
-	private double lift;
-	private double collect;
-	
-	/** Controller Data: Right X */
-	
-	/** Output for Motor Power */
-	private double HatchLiftOutput, HatchClimbOutput;
-
-	/** Just a delay */
-	private double executes = 0;
-
-	public boolean pidMode = false;
 
 	private double deadzone;
 

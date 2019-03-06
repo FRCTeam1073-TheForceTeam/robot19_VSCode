@@ -33,13 +33,6 @@ public class Cargo extends Subsystem {
 	private boolean liftTop;
 	private boolean liftBottom;
 
-	private double P = .7;
-	private double I = 0.004;
-	private double D = 0;
-	private double K = 0;
-	private double PO = 1;
-	private int CLE = 0;
-
   public Cargo(){
     /* Reset all motors */
 		cargoLift.configFactoryDefault();

@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ModeSwitch;
-import frc.robot.commands.HatchCommands.FingerDebug;
 import frc.robot.commands.HatchCommands.HatchGrab;
 import frc.robot.commands.HatchCommands.HatchPlace;
 

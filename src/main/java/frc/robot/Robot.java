@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SystemTest;
 import frc.robot.commands.AutonomousTools.AutoTest;
 import frc.robot.subsystems.*;
-import frc.robot.commands.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
