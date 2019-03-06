@@ -1,10 +1,11 @@
 package frc.robot.commands.AutonomousTools;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.LiDAR.LidarDrive;
 
 public class AutoTest extends CommandGroup {
 
     public AutoTest() {
-        addSequential(new AdvancederDrive(50, "forward", 1500));
+        addSequential(new LidarDrive("test", 600, 1500));
    	}
 }
