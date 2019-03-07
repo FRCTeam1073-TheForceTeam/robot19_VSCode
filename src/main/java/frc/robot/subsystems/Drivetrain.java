@@ -11,6 +11,9 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.DriveControls;
 
+/**
+ * @author Nathaniel
+ */
 public class Drivetrain extends Subsystem {
   
   	public final WPI_TalonSRX rightMaster = RobotMap.rightMaster;
@@ -32,6 +35,9 @@ public class Drivetrain extends Subsystem {
 
 	public boolean sixSim = false;
   
+	/**
+ 	 * @author Nathaniel
+ 	 */
 	public Drivetrain() {
 		/* Reset all motors */
 		rightMaster.configFactoryDefault();

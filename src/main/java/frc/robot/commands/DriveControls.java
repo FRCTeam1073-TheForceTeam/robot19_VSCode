@@ -92,6 +92,7 @@ public class DriveControls extends Command {
 		output(leftMotorOutput, rightMotorOutput, "Slow Mode Check");
 	}
 	
+	/** Affects the style of output to motors */
 	private void output(double left, double right, String mode) {
 		if (mode.equals("Zeroing")) {
 			if (forward == 0 && rotational == 0) {
@@ -135,6 +136,7 @@ public class DriveControls extends Command {
 		return val;
 	}
 
+	/** A velocity  */
 	private double speedModifier(double val) {
 		return Math.copySign(Math.pow(Math.abs(val), 3) * 1300, val);
 	}

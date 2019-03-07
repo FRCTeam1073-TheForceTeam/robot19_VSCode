@@ -21,10 +21,6 @@ public class ClimbControls extends Command {
 	/** Controller Dead Zone */
 	private double deadzone;
 
-	/** Controller Data: Left Y */
-	private double forward;
-
-
 	/**
 	 * This is the climber movement controls
 	 * for the teleoperated period of a match.
@@ -37,7 +33,7 @@ public class ClimbControls extends Command {
 	 * 
 	 * This command does not finish.
 	 * 
-	 * @author Nathaiel, Jack, Ben
+	 * @author Nathaiel
 	 * @see /subsystems/Climber.java
 	 * @category Drive Command
 	 */
