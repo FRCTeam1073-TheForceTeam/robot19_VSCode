@@ -10,6 +10,9 @@ import frc.robot.Presets;
 import frc.robot.RobotMap;
 import frc.robot.commands.ClimbControls;
 
+/**
+ * @author Nathaniel
+ */
 public class Climber extends Subsystem {
     
     public final WPI_TalonSRX rightClimber = RobotMap.rightClimber;
@@ -17,7 +20,9 @@ public class Climber extends Subsystem {
 	
 	public double climbEncoder;
 	
-    
+    /**
+ 	 * @author Nathaniel
+ 	 */
 	public Climber() {
 		/* Reset all motors */
 		rightClimber.configFactoryDefault();

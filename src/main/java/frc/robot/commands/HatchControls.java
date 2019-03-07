@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -16,12 +9,12 @@ import frc.robot.Robot;
  * PID and non-PID, to make sure the robot doesn't break anything (including itself).
  * Deadzones, because frankly, why not?
  * Checked with operator (Jack), and controls are compatible with rest of operator OI.
- * @author BenWertz
+ * @author Nathaniel
  */
 public class HatchControls extends Command {
 
+	/** Controller Dead Zone */
 	private double deadzone;
-
 
 	/**
 	 * This is the hatch movement controls
@@ -35,11 +28,10 @@ public class HatchControls extends Command {
 	 * 
 	 * This command does not finish.
 	 * 
-	 * @author Nathaiel, Jack, Ben
+	 * @author Nathaiel
 	 * @see /subsystems/hatch.java
 	 * @category Drive Command
 	 */
-	
 	public HatchControls(double deadzone) {
 		requires(Robot.hatch);
 		this.deadzone = deadzone;
@@ -58,6 +50,7 @@ public class HatchControls extends Command {
 		}
 	}
 
+	/** Sets flipper after checking limit switches */
 	public void flipper(double val) {
 		/*if (!Robot.hatch.topLim.get() && !Robot.hatch.bottomLim.get()) Robot.hatch.setFlipper(val);
 		else if (Robot.hatch.topLim.get() && val < 0) Robot.hatch.setFlipper(val);
@@ -65,6 +58,10 @@ public class HatchControls extends Command {
 		else */Robot.hatch.setFlipper(val);
 	}
 
+	/** 
+	 * @param val Input to check against dead zone
+	 * @return If within dead zone return 0, Else return val
+	 */
 	private double deadZoneCheck(double val) {
 		if (Math.abs(val) < deadzone) return 0;
 		return val;

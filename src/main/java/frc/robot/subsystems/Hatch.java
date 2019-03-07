@@ -11,6 +11,9 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.HatchControls;
 
+/**
+ * @author Nathaniel
+ */
 public class Hatch extends Subsystem {
   
 	public final WPI_TalonSRX hatchLift = RobotMap.hatchLift;
@@ -22,6 +25,9 @@ public class Hatch extends Subsystem {
 	public final DigitalInput collectInSensor = RobotMap.collectorInSensor;
 	public final DigitalInput duckInSensor = RobotMap.duckInSensor;
 
+	/**
+ 	 * @author Nathaniel
+ 	 */
 	public Hatch() {
 		/* Reset all motors */
 		hatchLift.configFactoryDefault();

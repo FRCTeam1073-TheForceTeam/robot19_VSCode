@@ -33,7 +33,7 @@ public class ClimbControls extends Command {
 	 * 
 	 * This command does not finish.
 	 * 
-	 * @author Nathaiel, Jack, Ben
+	 * @author Nathaiel
 	 * @see /subsystems/Climber.java
 	 * @category Drive Command
 	 */

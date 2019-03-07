@@ -5,11 +5,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * An example subsystem.  You can replace me with your own Subsystem.
+ * @author Nathaniel
  */
 public class Pnuematic extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
   
   private final Solenoid high = RobotMap.high;
   private final Solenoid low = RobotMap.low;

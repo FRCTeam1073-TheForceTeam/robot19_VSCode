@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -19,7 +12,7 @@ import frc.robot.RobotMap;
 import frc.robot.commands.CargoControls;
 
 /**
- * Add your docs here.
+ * @author Nathaniel
  */
 public class Cargo extends Subsystem {
   
@@ -33,7 +26,10 @@ public class Cargo extends Subsystem {
 	private boolean liftTop;
 	private boolean liftBottom;
 
-  public Cargo(){
+	/**
+ 	 * @author Nathaniel
+ 	 */
+  public Cargo() {
     /* Reset all motors */
 		cargoLift.configFactoryDefault();
 		cargoCollect.configFactoryDefault();
