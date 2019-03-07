@@ -26,7 +26,7 @@ public class CargoControls extends Command {
    * It is the default command of the cargo subsystem.
    * 
    * This command requires the cargo subsystem so that it
-   * take priority over other commands using the subsystem.
+   * takes priority over other commands using the subsystem.
    * 
    * This command does not finish.
    * 
