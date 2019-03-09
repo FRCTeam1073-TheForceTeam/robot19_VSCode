@@ -7,6 +7,8 @@
 
 package frc.robot.LiDAR;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -24,10 +26,10 @@ import frc.robot.subsystems.*;
  * @param radius uses metric system
  */
 public class LidarDrive extends Command {
-    public static final double initialLatitude = Robot.networktable.table.getEntry("XCoord").getDouble(0);
-	public static final double initialLongitude = Robot.networktable.table.getEntry("YCoord").getDouble(0);
-	public static final double speed = Robot.networktable.table.getEntry("robotVelocity").getDouble(0); // ~0.05m - 0.1m per step
-	public static final double radius = 18401.945/2;  // 9200.9725 mm (feild dimentions the GPS is following)
+    public static double initialLatitude = Robot.networktable.table.getEntry("XCoord").getDouble(0);
+	public static double initialLongitude = Robot.networktable.table.getEntry("YCoord").getDouble(0);
+	public static double speed = Robot.networktable.table.getEntry("robotVelocity").getDouble(0); // ~0.05m - 0.1m per step
+	public static double radius = 18401.945/2;  // 9200.9725 mm (feild dimentions the GPS is following)
     private String name = SmartDashboard.getString("Waypoint Name", "test");
 	private double xCoord = SmartDashboard.getNumber("X", 0);
     private double yCoord = SmartDashboard.getNumber("Y", 0);
@@ -39,7 +41,7 @@ public class LidarDrive extends Command {
 	public Location currentLocation = new Location("currentLocation", initialLatitude, initialLongitude);
     public int waypointCounter = 0;
     public Route destination;
-
+    
     
 	public LidarDrive(String name, double xCoord, double yCoord) {
         this.name = name;
@@ -73,22 +75,32 @@ public class LidarDrive extends Command {
         turnDegrees = Math.atan((xCoord-initialLatitude)/(yCoord-initialLongitude));
         driveDistance = Math.hypot((xCoord-initialLatitude),(yCoord-initialLongitude));
 
-        //determining turn direction
-        if((initGyro%360) - turnDegrees <= 0){
+        //turning to the point
+        if((initGyro%360) - turnDegrees <= -2){
             turnDirection = "left";
+            Robot.drivetrain.rightMaster.set(ControlMode.PercentOutput, 0.3);
+            Robot.drivetrain.leftMaster.set(ControlMode.PercentOutput, -0.3);
+            System.out.println("turning left");
 
         }
-        else if((initGyro%360) - turnDegrees >= 0){
+        else if((initGyro%360) - turnDegrees >= 2){
             turnDirection = "right";
+            Robot.drivetrain.rightMaster.set(ControlMode.PercentOutput, -0.3);
+            Robot.drivetrain.leftMaster.set(ControlMode.PercentOutput, 0.3);
+            System.out.println("turning right");
         }
         else{
-            turnDirection = "point";
+            turnDirection = "straight";
+            if(driveDistance <=110 || driveDistance >=110){
+                Robot.drivetrain.rightMaster.set(ControlMode.PercentOutput, 0.3);
+                Robot.drivetrain.leftMaster.set(ControlMode.PercentOutput, 0.3);
+                System.out.println("driving");
+                System.out.println("straight");
+            }
+
         }        
-
-        AdvancedTurn(turnDegrees,turnDirection,5000);
-        AdvancederDrive(driveDistance, driveDirection, 5000);
-
-
+        
+            
     }
 
     protected boolean isFinished() {
