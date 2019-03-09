@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OperatorMode;
 import frc.robot.Robot;
 
 /**
@@ -20,19 +21,6 @@ public class ClimbControls extends Command {
 	/** Controller Dead Zone */
 	private double deadzone;
 
-	/** Controller Data: Left Y */
-	private double forward;
-	
-	/** Controller Data: Right X */
-	private double rotational;
-
-	/** Output for Motor Power */
-	private double leftClimbOutput, rightClimbOutput;
-
-	/** Just a delay */
-	private double executes = 0;
-
-
 	/**
 	 * This is the climber movement controls
 	 * for the teleoperated period of a match.
@@ -45,7 +33,7 @@ public class ClimbControls extends Command {
 	 * 
 	 * This command does not finish.
 	 * 
-	 * @author Cam
+	 * @author Nathaiel
 	 * @see /subsystems/Climber.java
 	 * @category Drive Command
 	 */
@@ -56,23 +44,15 @@ public class ClimbControls extends Command {
 
 	/** Called Repeatedly */
 	protected void execute() {
-		/* Controller Data */
-		//right y axis
-		forward = Robot.oi.operatorControl.getRawAxis(5);
-		
 		/* Outputs Checked Controller Data to Motors */
-		tankClimb(deadZoneCheck(forward));
-	}
-
-	/**
-   	 * Tank climb method for differential drive platform.
-   	 *
-   	 * @param fwd The climber's speed along the X axis [-1.0..1.0]. Forward is positive.
-   	 */
-	public void tankClimb(double fwd) {
-		
-		Robot.climber.tank(limit(fwd), limit(fwd));
-
+		if (Robot.operatorMode.equals(OperatorMode.CLIMB)) {
+			Robot.climber.tank(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(5)));
+			Robot.hatch.setFlipper(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
+		}
+		else {
+			Robot.climber.tank(0);
+			Robot.hatch.setFlipper(0);
+		}
 	}
 
 	/** 
@@ -82,16 +62,7 @@ public class ClimbControls extends Command {
 	private double deadZoneCheck(double val) {
 		if (Math.abs(val) < deadzone) return 0;
 		return val;
-
 	}
-
-  	/**
-   	 * Limit motor values to the -1.0 to +1.0 range.
-   	 */
-  	private double limit(double value) {
-    	if (Math.abs(value) > 1.0) return Math.copySign(1, value);
-    	return value;
-  	}
 
 	/** 
 	 * This command should never finish as it 

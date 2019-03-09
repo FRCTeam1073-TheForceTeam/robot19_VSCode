@@ -13,12 +13,15 @@ import frc.robot.Robot;
 public class FlipUp extends Command {
   public FlipUp() {
     requires(Robot.hatch);
+  
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     Robot.hatch.setFlipper(0);
+  
+    Robot.bling.sendFlipUp();
   }
 
   // Called repeatedly when this Command is scheduled to run

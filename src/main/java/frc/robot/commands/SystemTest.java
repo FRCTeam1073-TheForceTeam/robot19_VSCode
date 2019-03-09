@@ -13,7 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-
+import frc.robot.Bling;
 /**
  * An example command.  You can replace me with your own command.
  */
@@ -56,6 +56,9 @@ public class SystemTest extends Command {
     else if (state.equals("gearbox")) {
       stepsLeft = 4;
     }
+    
+    // Bling start
+    Robot.bling.sendSystemTest();
   }
 
   // Called repeatedly when this Command is scheduled to run
