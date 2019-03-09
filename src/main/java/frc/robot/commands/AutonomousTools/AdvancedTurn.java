@@ -66,6 +66,7 @@ public class AdvancedTurn extends Command {
 		else this.timeout = 214748364.9999999;
 	}
 	
+	/** Run once at the start of the call */
 	protected void initialize() {
 		initialDegrees = RobotMap.headingGyro.getAngle();
 		Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
@@ -75,8 +76,11 @@ public class AdvancedTurn extends Command {
 		
 		/* Grabs a start time for timeout */
 		timeStart = System.currentTimeMillis();
+	
+		Robot.bling.sendAdvancedTurn();
 	}
 	
+	/** Makes a point based turn act like a degree based one */
 	private String turnPoint() {
 		point = true;
 		Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
@@ -87,21 +91,28 @@ public class AdvancedTurn extends Command {
 		return "empty";
 	}
 
+	/** Run repeatedly */
 	protected void execute() {
 		currentDegrees = RobotMap.headingGyro.getAngle();
 		Robot.drivetrain.tank(turnCheck("left") * turnSpeed(), turnCheck("right") * turnSpeed());
 	}
 	
+	/** Adjusts direction of motor speed */
 	private double turnCheck(String string) {
 		if (string.equals(direction)) return 1;
 		return -1;
 	}
 	
+	/** Adjusts motor speed */
 	private double turnSpeed() {
 		if (Math.abs(currentDegrees - initialDegrees) + slowDegrees >= finalDegrees) return slowSpeed;
 		return regularSpeed;
 	}
 
+	/** 
+	 * Finishes if either of the cancel buttons are pressed
+	 * or if either the timeout or degrees are traveled
+	 */
 	protected boolean isFinished() {
 		if (Robot.oi.driverCancel.get() == true || Robot.oi.operatorCancel.get() == true || System.currentTimeMillis() - timeStart >= timeout || 
 		(point && Math.abs(finalDegrees - currentDegrees % 360) <= 0) || 
