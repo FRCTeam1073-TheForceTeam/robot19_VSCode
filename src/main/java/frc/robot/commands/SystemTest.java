@@ -42,6 +42,8 @@ public class SystemTest extends Command {
     table.getEntry("DebugState" + rightMaster.getName() + "Low").setString("");
     table.getEntry("DebugState" + leftMaster.getName() + "High").setString("");
     table.getEntry("DebugState" + rightMaster.getName() + "High").setString("");
+    table.getEntry("DebugStateDuck").setString("");
+
     state = Robot.debugChooser.getSelected().getString();
 
     firstTime = true;
@@ -59,7 +61,15 @@ public class SystemTest extends Command {
     else if (state.equals("duck")) {
       stepsLeft = 1;
     }
-    
+    else if (state.equals("hatch")) {
+      stepsLeft = 1;
+    }
+    else if (state.equals("cargo")) {
+      stepsLeft = 1;
+    }
+    else if (state.equals("climber")) {
+      stepsLeft = 1;
+    }
     // Bling start
     Robot.bling.sendSystemTest();
   }
@@ -108,6 +118,30 @@ public class SystemTest extends Command {
         firstTime = true;
       }
     }
+    else if (state.equals("hatch")) {
+      if(stepsLeft == 1) hatchTest();
+      if(complete) {
+        stepsLeft--;
+        complete = false;
+        firstTime = true;
+      }
+    }
+    else if (state.equals("cargo")) {
+      if(stepsLeft == 1) cargoTest();
+      if(complete) {
+        stepsLeft--;
+        complete = false;
+        firstTime = true;
+      }
+    }
+    else if (state.equals("climber")) {
+      if(stepsLeft == 1) climberTest(1000);
+      if(complete) {
+        stepsLeft--;
+        complete = false;
+        firstTime = true;
+      }
+    }
   }
 
   private void motorTest(WPI_TalonSRX side, String gear, double duration) {
@@ -140,7 +174,7 @@ public class SystemTest extends Command {
   }
 
   private void duckTest(){
-    table.getEntry("DebugStateDuck").setString("Testing duck, WATCH FOR INCONSISTENCIES");
+    table.getEntry("DebugStateDuck").setString("Testing duck, WATCH MANUALLY FOR INCONSISTENCIES");
     for (int i = 0; i < 5; i++) {
       Robot.pnuematic.fingerRaise();
       Robot.pnuematic.fingerLower();
@@ -149,6 +183,33 @@ public class SystemTest extends Command {
     for (int i = 0; i < 5; i++) {
       Robot.pnuematic.hatchExtend();
       Robot.pnuematic.hatchRetract();
+    }
+    complete = true;
+  }
+
+  private void hatchTest() {
+    //Should go all the way up/down, make sure the encoders agree
+    //Then use Nathaniel's wheel code to make sure wheels work perfectly
+  }
+
+  private void cargoTest() {
+    //Should go all the way up/down, make sure the encoders agree
+    //Then use Nathaniel's wheel code to make sure wheels work perfectly
+  }
+
+  private void climberTest(double duration) {
+    if (firstTime) {
+      firstTime = false;
+      str = "loop stuck";
+      RobotMap.rightClimber.set(.5);
+      startTime = System.currentTimeMillis();
+    }
+    if (RobotMap.rightClimber.getSelectedSensorVelocity() > 1) str = "Working";
+    else str = "Failed";
+
+    if (System.currentTimeMillis() - startTime > duration) {
+      complete = true;
+      RobotMap.rightClimber.set(0);
     }
   }
 
