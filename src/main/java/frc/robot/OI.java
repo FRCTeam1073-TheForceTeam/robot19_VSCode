@@ -17,8 +17,8 @@ public class OI {
 	public JoystickButton driverCancel, lowGearHold, highGearHold;
 
 	/** Operator Controls */
-	public JoystickButton operatorCancel, operatorRight, operatorLeft, modeSwitch, climberOverride;
-	
+	public JoystickButton operatorCancel, operatorRight, operatorLeft, modeSwitch, climberOverride, globalSystemsTest;
+
     public OI() {
 		/* Controller Assignment */
     	driverControl = new XboxController(0);
@@ -42,6 +42,8 @@ public class OI {
 		climberOverride = operatorControl.start;
 		climberOverride.whenPressed(new ModeSwitch(1));
 
+		globalSystemsTest = operatorControl.x;
+		globalSystemsTest.whenPressed(new GlobalSystemsTest());
 		//operatorControl.b.whenPressed(new FingerDebug());
 	}
 }

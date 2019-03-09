@@ -9,7 +9,7 @@ public class DuckDebug extends CommandGroup {
    */
   public DuckDebug() {
     addSequential(new HatchExtend());
-    addSequential(new WaitCommand(0.2));
+    addSequential(new WaitCommand(0.5));
     addSequential(new HatchRetract());
   }
 }

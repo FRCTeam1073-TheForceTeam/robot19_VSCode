@@ -42,7 +42,7 @@ public class HatchControls extends Command {
 		if (Robot.operatorMode.equals(OperatorMode.HATCH)) {
 			flipper(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
 			if (deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) > 0 || deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()) > 0) 
-			Robot.hatch.setCollector(deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) - deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()));
+				Robot.hatch.setCollector(deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) - deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()));
 			else Robot.hatch.setCollector(0);
 		} else {
 			flipper(0);
