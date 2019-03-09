@@ -1,8 +1,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.*;
-import frc.robot.commands.HatchCommands.*;
+import frc.robot.commands.ModeSwitch;
+import frc.robot.commands.HatchCommands.HatchGrab;
+import frc.robot.commands.HatchCommands.HatchPlace;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -31,15 +32,16 @@ public class OI {
 		highGearHold = driverControl.rightBumper;
 
 		operatorLeft = operatorControl.leftBumper;
-		operatorLeft.whenPressed(new operatorLeftAction());
-
 		operatorRight = operatorControl.rightBumper;
-		operatorRight.whenPressed(new operatorRightAction());
-
+		operatorLeft.whenPressed(new HatchGrab());
+		operatorRight.whenPressed(new HatchPlace());
+		
 		modeSwitch = operatorControl.select;
-		modeSwitch.whenPressed(new ModeSwitch());
+		modeSwitch.whenPressed(new ModeSwitch(0));
 
 		climberOverride = operatorControl.start;
-		climberOverride.whenPressed(new ClimbOverride());
+		climberOverride.whenPressed(new ModeSwitch(1));
+
+		//operatorControl.b.whenPressed(new FingerDebug());
 	}
 }

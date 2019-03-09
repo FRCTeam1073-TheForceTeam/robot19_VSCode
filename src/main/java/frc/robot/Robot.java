@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -28,16 +21,17 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Bling bling;
 	public static NetworkTable networktable;
+	public static OperatorMode operatorMode;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
   	public static Feedback feedback;
-  	public static GearBox gearbox;
+	public static GearBox gearbox;
+	public static Climber climber;
 	public static Vision vision;
 	public static Cargo cargo;
 	public static Lidar lidar;
 	public static Hatch hatch;
-	public static Climber climber;
-	public static String FMS, operatorMode;
+	public static String FMS;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
 	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
 	public static boolean notClear;
@@ -58,6 +52,8 @@ public class Robot extends TimedRobot {
     	debugPrint("Robot Initializing");
 		
 		RobotMap.init();
+
+		operatorMode = OperatorMode.HATCH;
 		
 		debugMode = false;
 		shiftDisable = false;
@@ -93,19 +89,19 @@ public class Robot extends TimedRobot {
 
 		gearbox = new GearBox();
 
+		climber = new Climber();
+
 		vision = new Vision();
 
 		lidar = new Lidar();
 
-		climber = new Climber();
+		cargo = new Cargo();
 			
 		hatch = new Hatch();
 
     	oi = new OI();
 
 		FMS = "";
-
-		operatorMode = "Hatch";
 
 		/* Position Objects */
 		left = new AutoObject(1);
