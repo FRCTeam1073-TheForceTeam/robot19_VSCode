@@ -5,17 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+/**
+ * Add your docs here.
+ * Should be Called BlinkyLightMode but still whatever 
+ */
+public enum BlingMode {
+    ROBOT_INT,
+    ROBOT_ERROR,
+    
 
-public class operatorLeftAction extends CommandGroup {
-  /**
-   * Performs the action for the left bumper for the current mode
-   * 
-   * 
-   */
-  public operatorLeftAction() {
-
-  }
+    
+    OFF
 }
