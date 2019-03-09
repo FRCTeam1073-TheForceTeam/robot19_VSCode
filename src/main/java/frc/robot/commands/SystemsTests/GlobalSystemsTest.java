@@ -5,17 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.SystemsTests;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Robot;
 
-public class operatorLeftAction extends CommandGroup {
-  /**
-   * Performs the action for the left bumper for the current mode
-   * 
-   * 
-   */
-  public operatorLeftAction() {
-
+/**
+ * Global command for doing systems tests.
+ * Uses POV to select which subsystem to test.
+ * @author Ben
+ */
+public class GlobalSystemsTest extends CommandGroup {
+  public GlobalSystemsTest() {
+    switch(Robot.oi.operatorControl.getPOV()){
+      case 0:addSequential(new SystemTest());
+      case 270:addSequential(new HatchSystemsTest());
+    }
   }
 }

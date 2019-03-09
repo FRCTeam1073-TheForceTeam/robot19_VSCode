@@ -21,26 +21,6 @@ public class ClimbControls extends Command {
 	/** Controller Dead Zone */
 	private double deadzone;
 
-	/** Controller Data: Left Y */
-	private double forward;
-
-
-	/**
-	 * This is the climber movement controls
-	 * for the teleoperated period of a match.
-	 * It is also the default command for
-	 * the climber.java subsystem.
-	 * 
-	 * This command requires the drivetrain subsystem
-	 * so as to give it priority over other commands 
-	 * accessing the drivetrain.
-	 * 
-	 * This command does not finish.
-	 * 
-	 * @author Nathaiel, Jack, Ben
-	 * @see /subsystems/Climber.java
-	 * @category Drive Command
-	 */
 	public ClimbControls(double deadzone) {
 		requires(Robot.climber);
 		this.deadzone = deadzone;

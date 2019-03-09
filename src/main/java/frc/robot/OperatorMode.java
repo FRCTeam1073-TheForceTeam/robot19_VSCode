@@ -4,4 +4,4 @@ public enum OperatorMode {
     HATCH,
     CARGO,
     CLIMB
-} 
+}

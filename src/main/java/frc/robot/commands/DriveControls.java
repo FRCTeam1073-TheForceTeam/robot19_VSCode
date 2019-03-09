@@ -32,22 +32,6 @@ public class DriveControls extends Command {
 	/** Just a delay */
 	private double executes = 0;
 
-	/**
-	 * This is the driver movement controls
-	 * for the teleoperated period of a match.
-	 * It is also the default command for
-	 * the robotDrivetrain.java subsystem.
-	 * 
-	 * This command requires the drivetrain subsystem
-	 * so as to give it priority over other commands 
-	 * accessing the drivetrain.
-	 * 
-	 * This command does not finish.
-	 * 
-	 * @author Nathaniel
-	 * @see /subsystems/Drivetrain.java
-	 * @category Drive Command
-	 */
 	public DriveControls(double deadzone) {
 		requires(Robot.drivetrain);
 		this.deadzone = deadzone;
@@ -60,7 +44,7 @@ public class DriveControls extends Command {
 		rotational = Robot.oi.driverControl.getRawAxis(4);
 		
 		/* Outputs Checked Controller Data to Motors */
-		arcaderDrive(limit(deadZoneCheck(forward)), -limit(deadZoneCheck(rotational)));
+		arcaderDrive(limit(deadZoneCheck(forward)), limit(deadZoneCheck(rotational)));
 	}
 
 	/**
@@ -92,6 +76,7 @@ public class DriveControls extends Command {
 		output(leftMotorOutput, rightMotorOutput, "Slow Mode Check");
 	}
 	
+	/** Affects the style of output to motors */
 	private void output(double left, double right, String mode) {
 		if (mode.equals("Zeroing")) {
 			if (forward == 0 && rotational == 0) {
@@ -135,6 +120,7 @@ public class DriveControls extends Command {
 		return val;
 	}
 
+	/** A velocity  */
 	private double speedModifier(double val) {
 		return Math.copySign(Math.pow(Math.abs(val), 3) * 1300, val);
 	}

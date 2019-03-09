@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.SystemsTests;
 
 import java.text.DecimalFormat;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -7,6 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
+/**
+ * Drivetrain systems test.
+ * @author Nathaniel
+ */
 public class SystemTest extends Command {
   public SystemTest() {
     requires(Robot.drivetrain);

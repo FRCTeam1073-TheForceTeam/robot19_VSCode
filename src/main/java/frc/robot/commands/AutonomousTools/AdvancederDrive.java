@@ -69,6 +69,7 @@ public class AdvancederDrive extends Command {
 		else this.timeout = 95000000;
 	}
 
+	/** Run once at the start of the call */
 	protected void initialize() {
 		/* Grabs initial robot encoder positions */
 		initialLeft = Robot.drivetrain.leftEncoder;
@@ -81,6 +82,7 @@ public class AdvancederDrive extends Command {
 		timeStart = System.currentTimeMillis();
 	}
 
+	/** Run repeatedly */
 	protected void execute() {
 		/* Checks current heading */
 		currentDegrees = RobotMap.headingGyro.getAngle();
@@ -99,7 +101,7 @@ public class AdvancederDrive extends Command {
 		return normalSpeed;
 	}
 	
-	/** Checks percent of the distance traveled */
+	/** Checks percent of the distance traveled based on which encoders are working */
 	private double distanceCheck() {
 		Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
 				+ "\"distanceCheck: TD " + (int)(Math.abs(currentLeft - initialLeft) + Math.abs(currentRight - initialRight) / (2 * distance)) + "\t CL" + (int)currentLeft + "\t CR" + (int)currentRight + "\"");
@@ -129,8 +131,8 @@ public class AdvancederDrive extends Command {
 		return 1;
 	}
 	
-	/** Finishes 
-	 * if either of the cancel buttons are pressed
+	/** 
+	 * Finishes if either of the cancel buttons are pressed
 	 * or if either the timeout or distance is traveled
 	 */
 	protected boolean isFinished() {
@@ -142,6 +144,7 @@ public class AdvancederDrive extends Command {
 		return false;
 	}	
 
+	/** This runs after isFinished has returned true and it sets the drivetrain to zero mode */
 	protected void end() {
 		Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
 		+ "\"Command Finished with PC: " + distanceCheck() + "\"");

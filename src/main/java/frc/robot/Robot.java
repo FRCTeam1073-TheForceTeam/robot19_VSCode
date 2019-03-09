@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -15,7 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SystemTest;
 import frc.robot.commands.AutonomousTools.AutoTest;
 import frc.robot.subsystems.*;
-import frc.robot.commands.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,7 +24,7 @@ public class Robot extends TimedRobot {
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
   	public static Feedback feedback;
-  	public static GearBox gearbox;
+	public static GearBox gearbox;
 	public static Climber climber;
 	public static Vision vision;
 	public static Cargo cargo;
@@ -61,7 +53,7 @@ public class Robot extends TimedRobot {
 		RobotMap.init();
 
 		operatorMode = OperatorMode.HATCH;
-
+		
 		debugMode = false;
 		shiftDisable = false;
 		notClear = false;
@@ -84,15 +76,14 @@ public class Robot extends TimedRobot {
 		vision = new Vision();
 
 		lidar = new Lidar();
-			
-		cargo = new Cargo();
 
+		cargo = new Cargo();
+			
 		hatch = new Hatch();
 
     	oi = new OI();
 
 		FMS = "";
-
 
 		/* Position Objects */
 		left = new AutoObject(1);
