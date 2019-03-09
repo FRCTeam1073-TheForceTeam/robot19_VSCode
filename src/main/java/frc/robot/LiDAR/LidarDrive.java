@@ -36,6 +36,7 @@ public class LidarDrive extends Command {
     private double initGyro;
     private double turnDegrees;
     private double driveDistance;
+    private double currentHeading;
     private String driveDirection = "forward";
     private String turnDirection;
 	public Location currentLocation = new Location("currentLocation", initialLatitude, initialLongitude);
@@ -67,35 +68,35 @@ public class LidarDrive extends Command {
         }        
     }
     protected void execute() {
+        turnDegrees = Math.atan((xCoord-initialLatitude)/(yCoord-initialLongitude));
+        currentHeading = RobotMap.headingGyro.getAngle();
+        driveDistance = Math.hypot((xCoord-initialLatitude),(yCoord-initialLongitude)); 
 
         //continually getting its location and using it to calculate location
-        initialLatitude = Robot.networktable.table.getEntry("XCoord").getDouble(0);
-        initialLongitude = Robot.networktable.table.getEntry("YCoord").getDouble(0);
-        initGyro = Math.toRadians(RobotMap.headingGyro.getAngle());
-        turnDegrees = Math.atan((xCoord-initialLatitude)/(yCoord-initialLongitude));
-        driveDistance = Math.hypot((xCoord-initialLatitude),(yCoord-initialLongitude));
-
         //turning to the point
-        if((initGyro%360) - turnDegrees <= -2){
+        if( turnDegrees - Math.abs(currentHeading) <= 178){
             turnDirection = "left";
             Robot.drivetrain.rightMaster.set(ControlMode.PercentOutput, 0.3);
             Robot.drivetrain.leftMaster.set(ControlMode.PercentOutput, -0.3);
             System.out.println("turning left");
+            System.out.println(currentHeading);
 
         }
-        else if((initGyro%360) - turnDegrees >= 2){
+        else if(turnDegrees - Math.abs(currentHeading) >= 182){
             turnDirection = "right";
             Robot.drivetrain.rightMaster.set(ControlMode.PercentOutput, -0.3);
             Robot.drivetrain.leftMaster.set(ControlMode.PercentOutput, 0.3);
             System.out.println("turning right");
+            System.out.println(currentHeading);
         }
         else{
             turnDirection = "straight";
             if(driveDistance <=110 || driveDistance >=110){
                 Robot.drivetrain.rightMaster.set(ControlMode.PercentOutput, 0.3);
                 Robot.drivetrain.leftMaster.set(ControlMode.PercentOutput, 0.3);
-                System.out.println("driving");
+                
                 System.out.println("straight");
+                System.out.println(driveDistance);
             }
 
         }        
@@ -106,12 +107,7 @@ public class LidarDrive extends Command {
     protected boolean isFinished() {
 
         //gives a margain of error of about 10 cm in either direction, to be tuned later
-        if(driveDistance <=100 || driveDistance >=100){
-            return true;
-        }
-        else{
         return false;
-        }
     }
 
     protected void end() {

@@ -6,6 +6,6 @@ import frc.robot.LiDAR.LidarDrive;
 public class AutoTest extends CommandGroup {
 
     public AutoTest() {
-        addSequential(new LidarDrive("test", 600, 1500));
+        addSequential(new LidarDrive("test", 100, 100));
    	}
 }

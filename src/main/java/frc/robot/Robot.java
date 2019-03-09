@@ -67,20 +67,6 @@ public class Robot extends TimedRobot {
 		bling = new Bling();
 		bling.sendRobotInit();
 
-    drivetrain = new Drivetrain();
-		
-    pnuematic = new Pnuematic();
-    
-    feedback = new Feedback();
-    
-    gearbox = new GearBox();
-		
-    vision = new Vision();
-		
-    lidar = new Lidar();
-		
-    hatch = new Hatch();
-
 		drivetrain = new Drivetrain();
 
 		pnuematic = new Pnuematic();
@@ -201,7 +187,7 @@ public class Robot extends TimedRobot {
 	}
 
 	public void teleopInit() {
-		SmartDashboard.putData(new AutoTest());
+		
 		teleopStartTime = System.currentTimeMillis();
 		
 		networktable.refresh();
@@ -219,6 +205,7 @@ public class Robot extends TimedRobot {
 	
 	/** This function is called periodically during operator control */
 	public void teleopPeriodic() {
+		SmartDashboard.putData(new AutoTest());
 		
 		Scheduler.getInstance().run();
 	}
