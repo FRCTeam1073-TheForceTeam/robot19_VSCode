@@ -7,11 +7,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Presets;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ClimbControls;
-import frc.robot.commands.DriveControls;
 
+/**
+ * @author Nathaniel
+ */
 public class Climber extends Subsystem {
     
     public final WPI_TalonSRX rightClimber = RobotMap.rightClimber;
@@ -19,7 +20,9 @@ public class Climber extends Subsystem {
 	
 	public double climbEncoder;
 	
-    
+    /**
+ 	 * @author Nathaniel
+ 	 */
 	public Climber() {
 		/* Reset all motors */
 		rightClimber.configFactoryDefault();
@@ -34,6 +37,7 @@ public class Climber extends Subsystem {
 		
 		/* Configure the left Talon's selected sensor to a Quad Encoder*/
 		rightClimber.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
+		leftClimber.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
 		
 		/* Configure output and sensor direction */
 		rightClimber.setInverted(false);
@@ -44,16 +48,15 @@ public class Climber extends Subsystem {
     
     @Override
     public void initDefaultCommand() {
-    	setDefaultCommand(new ClimbControls(.1));
+    	setDefaultCommand(new ClimbControls(Presets.deadzone));
 	}
 
     public void periodic() {
 		climbEncoder = rightClimber.getSelectedSensorPosition();
 	}
 
-	public void tank(double left, double right) {
-		leftClimber.set(ControlMode.PercentOutput, left);
-		rightClimber.set(ControlMode.PercentOutput, right);
+	public void tank(double val) {
+		leftClimber.set(ControlMode.PercentOutput, val);
+		rightClimber.set(ControlMode.PercentOutput, val);
 	}
-
 }

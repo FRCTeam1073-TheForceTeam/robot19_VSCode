@@ -2,10 +2,18 @@ package frc.robot.subsystems;
 
 import frc.robot.*;
 
+/**
+ * @author Nathaniel
+ */
 public class Vision {
 	
 	public double xDelta, xWidth, yDelta, yWidth, blockCount, width;
-	
+
+	private double[] lines;
+
+	/**
+ 	 * @author Nathaniel
+ 	 */
 	public Vision() {
 		Robot.debugPrint("\"Where we droppin' boys?\"");
 	}
@@ -17,13 +25,12 @@ public class Vision {
 	}
 	
 	/** Pulls variables from Network Tables */
-	public void refresh() {
-		xDelta = Robot.networktable.table.getEntry("centerDistX").getDouble(0);
-		xWidth = Robot.networktable.table.getEntry("AverageWidth").getDouble(0);
-		yDelta = Robot.networktable.table.getEntry("centerDistY").getDouble(0);
-		yWidth = Robot.networktable.table.getEntry("AverageHeight").getDouble(0);
-		blockCount = Robot.networktable.table.getEntry("Blocks").getDouble(0);
-		
-		Robot.networktable.table.getEntry("VisionReadout").setString("BlockCount: " + blockCount + "\txDelta: " + xDelta + "\txWidth: " + xWidth + "\tyDelta: " + yDelta + "\tyWidth: " + yWidth);
+	public void refreshLines() {
+		lines = Robot.networktable.table.getEntry("cam_#_lineseg").getDoubleArray(new double[0]);
+	}
+
+	public double[] getLines() {
+		refreshLines();
+		return lines;
 	}
 }
