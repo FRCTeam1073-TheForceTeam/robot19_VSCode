@@ -56,6 +56,9 @@ public class SystemTest extends Command {
     else if (state.equals("gearbox")) {
       stepsLeft = 4;
     }
+    else if (state.equals("duck")) {
+      stepsLeft = 1;
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -91,7 +94,16 @@ public class SystemTest extends Command {
         complete = false;
         firstTime = true;
       }
-      stepsLeft--;
+      //stepsLeft--;
+      //^Shouldn't exist unless it should???
+    }
+    else if (state.equals("duck")) {
+      if(stepsLeft == 1) duckTest();
+      if(complete) {
+        stepsLeft--;
+        complete = false;
+        firstTime = true;
+      }
     }
   }
 
@@ -124,6 +136,18 @@ public class SystemTest extends Command {
     }
   }
 
+  private void duckTest(){
+    table.getEntry("DebugStateDuck").setString("Testing duck, WATCH FOR INCONSISTENCIES");
+    for (int i = 0; i < 5; i++) {
+      Robot.pnuematic.fingerRaise();
+      Robot.pnuematic.fingerLower();
+    }
+
+    for (int i = 0; i < 5; i++) {
+      Robot.pnuematic.hatchExtend();
+      Robot.pnuematic.hatchRetract();
+    }
+  }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

@@ -19,6 +19,20 @@ public class AutoStartCargo extends CommandGroup {
    * @category Autonomous
    */
   public AutoStartCargo() {
+    //Drive forward
+    //Turn right slightly, drive forward, turn left slightly to allign with front of cargo ship
+    //Drive forward
+    //Place hatch on cargo ship
+    //Drive backward slightly
+    //Turn left or right
+      //Left
+      //Drive forward until perpendicular to loading zone
+      //Turn left
+      //Drive forward until at loading station
     
+      //Right
+      //Drive forward until perpendicular to loading zone
+      //Turn right
+      //Drive forward until at loading station
   }
 }
