@@ -12,7 +12,7 @@ import frc.robot.Robot;
 import frc.robot.LiDAR.*;
 
 /**
- * Controls for LiDAR Localization
+ * Controls for LiDAR Localization/GPS
  * @author AlexHill and CamH
  */
 
