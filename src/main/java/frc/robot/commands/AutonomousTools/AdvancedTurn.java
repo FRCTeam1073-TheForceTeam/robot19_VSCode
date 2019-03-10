@@ -76,6 +76,8 @@ public class AdvancedTurn extends Command {
 		
 		/* Grabs a start time for timeout */
 		timeStart = System.currentTimeMillis();
+	
+		Robot.bling.sendAdvancedTurn();
 	}
 	
 	/** Makes a point based turn act like a degree based one */
