@@ -45,14 +45,8 @@ public class ClimbControls extends Command {
 	/** Called Repeatedly */
 	protected void execute() {
 		/* Outputs Checked Controller Data to Motors */
-		if (Robot.operatorMode.equals(OperatorMode.CLIMB)) {
-			Robot.climber.tank(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(5)));
-			Robot.hatch.setFlipper(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
-		}
-		else {
-			Robot.climber.tank(0);
-			Robot.hatch.setFlipper(0);
-		}
+		if (Robot.operatorMode.equals(OperatorMode.CLIMB)) Robot.climber.tank(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(5)));
+		else Robot.climber.tank(0);
 	}
 
 	/** 

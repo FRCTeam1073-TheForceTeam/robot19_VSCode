@@ -42,7 +42,7 @@ public class CargoControls extends Command {
   @Override
   protected void execute() {
     if (Robot.operatorMode.equals(OperatorMode.CARGO)) {
-      Robot.cargo.lift(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
+      Robot.cargo.lift(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)/3));
       if (deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) > 0 || deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()) > 0) 
 			Robot.cargo.collector(deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) - deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()));
 			else Robot.cargo.collector(0);

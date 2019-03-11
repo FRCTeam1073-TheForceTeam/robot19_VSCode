@@ -26,7 +26,7 @@ public class GearBox extends Subsystem {
   }
 
   public void shiftCheck() {
-    if (speed >= 550 && !Robot.oi.lowGearHold.get()) pnuematic.setHighGear();
+    if (speed >= 300 && !Robot.oi.lowGearHold.get()) pnuematic.setHighGear();
     else if (Robot.oi.highGearHold.get()) pnuematic.setHighGear();
     else pnuematic.setLowGear();
   }

@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
 		
 		RobotMap.init();
 
-		operatorMode = OperatorMode.HATCH;
+		operatorMode = OperatorMode.CLIMB;
 		
 		debugMode = false;
 		shiftDisable = false;
