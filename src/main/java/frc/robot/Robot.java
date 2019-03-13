@@ -19,6 +19,7 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
 	public double initialBootTime, teleopStartTime, autoStartTime;
 	public static OI oi;
+	public static Bling bling;
 	public static NetworkTable networktable;
 	public static OperatorMode operatorMode;
 	public static Drivetrain drivetrain;
@@ -62,6 +63,9 @@ public class Robot extends TimedRobot {
 		RobotMap.headingGyro.calibrate();
     
 		networktable = new NetworkTable();
+		
+		bling = new Bling();
+		bling.sendRobotInit();
 
 		drivetrain = new Drivetrain();
 
