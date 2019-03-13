@@ -10,7 +10,7 @@ public class Line {
         setup();
     }
 
-    public void setup() {
+    private void setup() {
         x1 = line[0];
         y1 = line[1];
         x2 = line[2];
@@ -20,35 +20,35 @@ public class Line {
         length = line[6];
     }
 
-    public double[] getLine() {
+    public double[] getRawLine() {
         return line;
     }
 
-    public double getX1() {
+    public double x1() {
         return x1;
     }
 
-    public double getY1() {
+    public double y1() {
         return y1;
     }
 
-    public double getX2() {
+    public double x2() {
         return x2;
     }
 
-    public double getY2() {
+    public double y2() {
         return y2;
     }
 
-    public double getTheta() {
+    public double theta() {
         return theta;
     }
 
-    public double getScore() {
+    public double score() {
         return score;
     }
 
-    public double getLength() {
+    public double length() {
         return length;
     }
 }

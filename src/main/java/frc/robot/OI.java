@@ -32,8 +32,8 @@ public class OI {
 
 		operatorLeft = operatorControl.leftBumper;
 		operatorRight = operatorControl.rightBumper;
-		operatorLeft.whenPressed(new HatchGrab());
-		operatorRight.whenPressed(new HatchPlace());
+		operatorLeft.whenPressed(new HatchGrabberUp());
+		operatorRight.whenPressed(new HatchGrabberDown());
 		
 		modeSwitch = operatorControl.select;
 		modeSwitch.whenPressed(new ModeSwitch(0));

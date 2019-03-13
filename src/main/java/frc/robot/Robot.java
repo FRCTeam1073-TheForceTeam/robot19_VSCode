@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
 		
 		RobotMap.init();
 
-		operatorMode = OperatorMode.HATCH;
+		operatorMode = OperatorMode.CLIMB;
 		
 		debugMode = false;
 		shiftDisable = false;
@@ -66,20 +66,6 @@ public class Robot extends TimedRobot {
 		
 		bling = new Bling();
 		bling.sendRobotInit();
-
-    drivetrain = new Drivetrain();
-		
-    pnuematic = new Pnuematic();
-    
-    feedback = new Feedback();
-    
-    gearbox = new GearBox();
-		
-    vision = new Vision();
-		
-    lidar = new Lidar();
-		
-    hatch = new Hatch();
 
 		drivetrain = new Drivetrain();
 
