@@ -51,6 +51,7 @@ public class RobotMap {
 	public static Solenoid hatchRetractor;
 	public static DigitalInput hatchFlipLimitSwitchUp;
 	public static DigitalInput hatchFlipLimitSwitchDown;
+	public static DigitalInput hatchFlipLimitSwitchMid;
 	public static DigitalInput cargoFlipLimitSwitchUp;
 	public static DigitalInput cargoFlipLimitSwitchDown;
 
@@ -97,5 +98,6 @@ public class RobotMap {
 		cargoFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
 		cargoFlipLimitSwitchDown = new DigitaInput(WHATEVER THE ID IS);
 		*/
+		hatchFlipLimitSwitchMid = new DigitalInput(3);
 	}
 }

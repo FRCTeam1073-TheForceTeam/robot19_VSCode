@@ -1,9 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.ModeSwitch;
-import frc.robot.commands.HatchCommands.HatchGrab;
-import frc.robot.commands.HatchCommands.HatchPlace;
+import frc.robot.commands.*;
+import frc.robot.commands.HatchCommands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -42,7 +41,7 @@ public class OI {
 		climberOverride = operatorControl.start;
 		climberOverride.whenPressed(new ModeSwitch(1));
 
-		//operatorControl.b.whenPressed(new FingerDebug());
+		operatorControl.x.whenPressed(new AutoHatchFloor());
 	}
 	public boolean getLeftBumperCargo() {
 		return (operatorControl.leftBumper.get() && Robot.operatorMode.equals("Cargo"));
