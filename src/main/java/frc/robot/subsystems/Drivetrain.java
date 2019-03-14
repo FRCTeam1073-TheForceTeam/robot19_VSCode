@@ -33,7 +33,7 @@ public class Drivetrain extends Subsystem {
 	private double PO = 1;
 	private int CLE = 0;
 
-	public boolean sixSim = false;
+	public boolean sixSim = true;
   
 	/**
  	 * @author Nathaniel
@@ -73,13 +73,13 @@ public class Drivetrain extends Subsystem {
 		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
 		
 		/* Configure output and sensor direction */
-		leftMaster.setInverted(true);
-		rightMaster.setInverted(false);
-		leftSlave.setInverted(true);
-		rightSlave.setInverted(false);
+		leftMaster.setInverted(false);
+		rightMaster.setInverted(true);
+		leftSlave.setInverted(false);
+		rightSlave.setInverted(true);
 		if (sixSim) {
-			leftSlaveTwo.setInverted(true);
-			rightSlaveTwo.setInverted(false);
+			leftSlaveTwo.setInverted(false);
+			rightSlaveTwo.setInverted(true);
 		}
 
 		/* 

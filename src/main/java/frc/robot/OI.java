@@ -2,8 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ModeSwitch;
-import frc.robot.commands.HatchCommands.HatchGrab;
-import frc.robot.commands.HatchCommands.HatchPlace;
+import frc.robot.commands.HatchCommands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -33,8 +32,8 @@ public class OI {
 
 		operatorLeft = operatorControl.leftBumper;
 		operatorRight = operatorControl.rightBumper;
-		operatorLeft.whenPressed(new HatchGrab());
-		operatorRight.whenPressed(new HatchPlace());
+		operatorLeft.whenPressed(new HatchGrabberUp());
+		operatorRight.whenPressed(new HatchGrabberDown());
 		
 		modeSwitch = operatorControl.select;
 		modeSwitch.whenPressed(new ModeSwitch(0));

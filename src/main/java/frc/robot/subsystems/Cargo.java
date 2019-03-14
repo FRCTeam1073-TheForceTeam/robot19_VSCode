@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Presets;
@@ -18,7 +17,6 @@ public class Cargo extends Subsystem {
   
   public final WPI_TalonSRX cargoCollect = RobotMap.cargoCollect;
 	public final WPI_TalonSRX cargoLift = RobotMap.cargoLift;
-	public final WPI_VictorSPX cargoLift2 = RobotMap.cargoLift2;
 	
 	public DigitalInput switchDown = RobotMap.cargoFlipLimitSwitchDown;
 	public DigitalInput switchUp = RobotMap.cargoFlipLimitSwitchUp;

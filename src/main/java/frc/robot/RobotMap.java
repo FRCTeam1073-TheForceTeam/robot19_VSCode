@@ -29,26 +29,25 @@ public class RobotMap {
 	public static WPI_VictorSPX leftSlave;
 	public static WPI_VictorSPX leftSlaveTwo;
 
-	public static WPI_VictorSPX leftClimber;
+	public static WPI_TalonSRX leftClimber;
 	public static WPI_TalonSRX rightClimber;
 
 	public static WPI_TalonSRX lidar;
 
 	public static WPI_TalonSRX hatchCollect;
 	public static WPI_TalonSRX hatchLift;
+	public static WPI_VictorSPX hatchLiftSlave;
 
 	public static WPI_TalonSRX cargoCollect;
 	public static WPI_TalonSRX cargoLift;
-	public static WPI_VictorSPX cargoLift2;
 
 	public static Solenoid high;
 	public static Solenoid low;
 
 	public static BuiltInAccelerometer accelerometer;
 
-	public static Solenoid fingerUp,fingerDown;
-	public static Solenoid hatchExtender;
-	public static Solenoid hatchRetractor;
+	public static Solenoid hatchRaiser;
+	public static Solenoid hatchLowerer;
 	public static DigitalInput hatchFlipLimitSwitchUp;
 	public static DigitalInput hatchFlipLimitSwitchDown;
 	public static DigitalInput cargoFlipLimitSwitchUp;
@@ -74,20 +73,18 @@ public class RobotMap {
 
 		hatchCollect = new WPI_TalonSRX(5);
 		hatchLift = new WPI_TalonSRX(6);
+		hatchLiftSlave = new WPI_VictorSPX(12);
 
 		rightClimber = new WPI_TalonSRX(10);
-		leftClimber = new WPI_VictorSPX(11);
+		leftClimber = new WPI_TalonSRX(13);
 
 		cargoCollect = new WPI_TalonSRX(14);
-		cargoLift = new WPI_TalonSRX(13);
-		cargoLift2 = new WPI_VictorSPX(12);
+		cargoLift = new WPI_TalonSRX(11);
 
 		high = new Solenoid(7);
 		low = new Solenoid(6);
-		hatchExtender = new Solenoid(5);
-		hatchRetractor = new Solenoid(4);
-		fingerUp = new Solenoid(0);
-		fingerDown = new Solenoid(1);
+		hatchRaiser = new Solenoid(5);
+		hatchLowerer = new Solenoid(4);
 
 		collectorInSensor = new DigitalInput(1/*Wherever*/);
 		duckInSensor = new DigitalInput(2/*Wherever*/);
