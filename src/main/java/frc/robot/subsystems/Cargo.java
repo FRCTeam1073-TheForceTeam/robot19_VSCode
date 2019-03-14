@@ -18,7 +18,6 @@ public class Cargo extends Subsystem {
   
   public final WPI_TalonSRX cargoCollect = RobotMap.cargoCollect;
 	public final WPI_TalonSRX cargoLift = RobotMap.cargoLift;
-	public final WPI_VictorSPX cargoLift2 = RobotMap.cargoLift2;
 	
 	public DigitalInput switchDown = RobotMap.cargoFlipLimitSwitchDown;
 	public DigitalInput switchUp = RobotMap.cargoFlipLimitSwitchUp;

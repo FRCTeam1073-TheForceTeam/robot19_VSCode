@@ -32,7 +32,7 @@ public class Vision extends Subsystem {
 	}
 	
 	/** Pulls variables from Network Tables */
-	public void refreshLines() {
+	private void refreshLines() {
 		lines = Robot.networktable.table.getEntry("cam_#_lineseg").getDoubleArray(new double[0]);
 	}
 

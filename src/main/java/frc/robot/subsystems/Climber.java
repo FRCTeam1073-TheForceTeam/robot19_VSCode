@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Presets;
 import frc.robot.RobotMap;
@@ -16,7 +15,7 @@ import frc.robot.commands.ClimbControls;
 public class Climber extends Subsystem {
     
     public final WPI_TalonSRX rightClimber = RobotMap.rightClimber;
-	public final WPI_VictorSPX leftClimber = RobotMap.leftClimber;
+	public final WPI_TalonSRX leftClimber = RobotMap.leftClimber;
 	
 	public double climbEncoder;
 	
@@ -43,7 +42,6 @@ public class Climber extends Subsystem {
 		rightClimber.setInverted(false);
 		leftClimber.setInverted(true);
 		leftClimber.follow(rightClimber);
-
 	}
     
     @Override
@@ -56,7 +54,6 @@ public class Climber extends Subsystem {
 	}
 
 	public void tank(double val) {
-		leftClimber.set(ControlMode.PercentOutput, val);
 		rightClimber.set(ControlMode.PercentOutput, val);
 	}
 }
