@@ -11,10 +11,8 @@ public class Pnuematic extends Subsystem {
   
   private final Solenoid high = RobotMap.high;
   private final Solenoid low = RobotMap.low;
-  private final Solenoid fingerUp = RobotMap.fingerUp;
-  private final Solenoid fingerDown = RobotMap.fingerDown;
-  private final Solenoid hatchExtender = RobotMap.hatchExtender;
-  private final Solenoid hatchRetractor = RobotMap.hatchRetractor;
+  private final Solenoid hatchRaiser = RobotMap.hatchRaiser;
+  private final Solenoid hatchLowerer = RobotMap.hatchLowerer;
   
   @Override
   public void initDefaultCommand() {
@@ -40,32 +38,18 @@ public class Pnuematic extends Subsystem {
     high.set(false); 
   }
 
-  public boolean isFingerExtended() {
-    return fingerUp.get()&&(!fingerDown.get());
-  }
-
-  public void fingerRaise(){
-    fingerUp.set(true);
-    fingerDown.set(false);
-  }
-
-  public void fingerLower(){
-    fingerUp.set(false);
-    fingerDown.set(true);
-  }
-
-  public boolean isHatchExtended(){
-    if (hatchExtender.get() && !hatchRetractor.get()) return true;
+  public boolean isHatchGrabberRaised(){
+    if (hatchRaiser.get() && !hatchLowerer.get()) return true;
     return false;
   }
 
-  public void hatchExtend() {
-    hatchExtender.set(true);
-    hatchRetractor.set(false);
+  public void hatchGrabberUp() {
+    hatchRaiser.set(true);
+    hatchLowerer.set(false);
   }
   
-  public void hatchRetract(){
-    hatchExtender.set(false);
-    hatchRetractor.set(true);
+  public void hatchGrabberDown(){
+    hatchRaiser.set(false);
+    hatchLowerer.set(true);
   }
 }

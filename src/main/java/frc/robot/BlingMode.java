@@ -14,8 +14,5 @@ package frc.robot;
 public enum BlingMode {
     ROBOT_INT,
     ROBOT_ERROR,
-    
-
-    
     OFF
 }

@@ -46,9 +46,8 @@ public class RobotMap {
 
 	public static BuiltInAccelerometer accelerometer;
 
-	public static Solenoid fingerUp,fingerDown;
-	public static Solenoid hatchExtender;
-	public static Solenoid hatchRetractor;
+	public static Solenoid hatchRaiser;
+	public static Solenoid hatchLowerer;
 	public static DigitalInput hatchFlipLimitSwitchUp;
 	public static DigitalInput hatchFlipLimitSwitchDown;
 	public static DigitalInput cargoFlipLimitSwitchUp;
@@ -84,10 +83,8 @@ public class RobotMap {
 
 		high = new Solenoid(7);
 		low = new Solenoid(6);
-		hatchExtender = new Solenoid(5);
-		hatchRetractor = new Solenoid(4);
-		fingerUp = new Solenoid(0);
-		fingerDown = new Solenoid(1);
+		hatchRaiser = new Solenoid(5);
+		hatchLowerer = new Solenoid(4);
 
 		collectorInSensor = new DigitalInput(1/*Wherever*/);
 		duckInSensor = new DigitalInput(2/*Wherever*/);

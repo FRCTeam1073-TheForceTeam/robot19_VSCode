@@ -19,7 +19,6 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
 	public double initialBootTime, teleopStartTime, autoStartTime;
 	public static OI oi;
-	public static Bling bling;
 	public static NetworkTable networktable;
 	public static OperatorMode operatorMode;
 	public static Drivetrain drivetrain;
@@ -31,6 +30,7 @@ public class Robot extends TimedRobot {
 	public static Cargo cargo;
 	public static Lidar lidar;
 	public static Hatch hatch;
+	public static Bling bling;
 	public static String FMS;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
 	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
@@ -63,9 +63,6 @@ public class Robot extends TimedRobot {
 		RobotMap.headingGyro.calibrate();
     
 		networktable = new NetworkTable();
-		
-		bling = new Bling();
-		bling.sendRobotInit();
 
 		drivetrain = new Drivetrain();
 
@@ -81,9 +78,11 @@ public class Robot extends TimedRobot {
 
 		lidar = new Lidar();
 
-		cargo = new Cargo();
+		//cargo = new Cargo();
 			
 		hatch = new Hatch();
+
+		bling = new Bling();
 
     	oi = new OI();
 
@@ -102,7 +101,6 @@ public class Robot extends TimedRobot {
 		debugGearbox = new AutoObject(61);
 		debugBling = new AutoObject(62);
 
-		
 		/* The Position Chooser */
 		autonomousPosition = new SendableChooser<AutoObject>();
 		autonomousPosition.setDefaultOption("None", other);
@@ -129,6 +127,8 @@ public class Robot extends TimedRobot {
 		
 		debugRunner = new SystemTest();
 		autonomousCommand = new AutoTest();
+
+		bling.sendRobotInit();
   }
 
   /**

@@ -88,19 +88,11 @@ public class Hatch extends Subsystem {
 		hatchCollect.set(ControlMode.Velocity, value);
 	}
 
-	public void fingerLower() {
-		Robot.pnuematic.fingerLower();
+	public void hatchGrabberUp() {
+		Robot.pnuematic.hatchGrabberUp();
 	}
 
-	public void fingerRaise() {
-		Robot.pnuematic.fingerRaise();
-	}
-
-	public void hatchExtend() {
-		Robot.pnuematic.hatchExtend();
-	}
-
-	public void hatchRetract() {
-		Robot.pnuematic.hatchRetract();
+	public void hatchGrabberDown() {
+		Robot.pnuematic.hatchGrabberDown();
 	}
 }
