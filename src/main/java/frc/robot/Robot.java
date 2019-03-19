@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
 	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
 	public static boolean notClear;
-	public static boolean debugMode, shiftDisable;
+	public static boolean debugMode, autoBox;
 	public static Command debugRunner;
 	public Command autonomousCommand;
 
@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
 		operatorMode = OperatorMode.CLIMB;
 		
 		debugMode = false;
-		shiftDisable = false;
+		autoBox = false;
 		notClear = false;
 
 		RobotMap.headingGyro.reset();
@@ -78,11 +78,11 @@ public class Robot extends TimedRobot {
 
 		lidar = new Lidar();
 
-		//cargo = new Cargo();
+		cargo = new Cargo();
 			
 		hatch = new Hatch();
 
-		bling = new Bling();
+		//bling = new Bling();
 
     	oi = new OI();
 
@@ -126,9 +126,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Debug", debugChooser);
 		
 		debugRunner = new SystemTest();
-		autonomousCommand = new AutoTest();
-
-		bling.sendRobotInit();
   }
 
   /**
@@ -178,7 +175,6 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		
 		debugPrint("Auto Starting");
-		if (autonomousCommand != null) autonomousCommand.start();
 	}
 
 	/** This function is called periodically during autonomous */
@@ -198,8 +194,6 @@ public class Robot extends TimedRobot {
 		else debugMode = false;
 
 		Scheduler.getInstance().run();
-
-		if (autonomousCommand != null) autonomousCommand.cancel();
 	}
 	
 	/** This function is called periodically during operator control */

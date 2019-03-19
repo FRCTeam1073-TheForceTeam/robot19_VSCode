@@ -31,6 +31,9 @@ public class RobotMap {
 
 	public static WPI_TalonSRX leftClimber;
 	public static WPI_TalonSRX rightClimber;
+	
+	public static DigitalInput climberLeftLim;
+	public static DigitalInput climberRightLim;
 
 	public static WPI_TalonSRX lidar;
 
@@ -38,8 +41,8 @@ public class RobotMap {
 	public static WPI_TalonSRX hatchLift;
 	public static WPI_VictorSPX hatchLiftSlave;
 
-	public static WPI_TalonSRX cargoCollect;
-	public static WPI_TalonSRX cargoLift;
+	public static Solenoid bucketUp;
+	public static Solenoid bucketDown;
 
 	public static Solenoid high;
 	public static Solenoid low;
@@ -48,10 +51,9 @@ public class RobotMap {
 
 	public static Solenoid hatchRaiser;
 	public static Solenoid hatchLowerer;
-	public static DigitalInput hatchFlipLimitSwitchUp;
-	public static DigitalInput hatchFlipLimitSwitchDown;
-	public static DigitalInput cargoFlipLimitSwitchUp;
-	public static DigitalInput cargoFlipLimitSwitchDown;
+	public static DigitalInput flipperTopLim;
+	public static DigitalInput flipperMidLim;
+	public static DigitalInput flipperBotLim;
 
 	public static DigitalInput collectorInSensor;
 	public static DigitalInput duckInSensor;
@@ -78,21 +80,16 @@ public class RobotMap {
 		rightClimber = new WPI_TalonSRX(10);
 		leftClimber = new WPI_TalonSRX(13);
 
-		cargoCollect = new WPI_TalonSRX(14);
-		cargoLift = new WPI_TalonSRX(11);
+		bucketUp = new Solenoid(0);
+		bucketDown = new Solenoid(1);
 
 		high = new Solenoid(7);
 		low = new Solenoid(6);
 		hatchRaiser = new Solenoid(5);
 		hatchLowerer = new Solenoid(4);
 
-		collectorInSensor = new DigitalInput(1/*Wherever*/);
-		duckInSensor = new DigitalInput(2/*Wherever*/);
-		/**HERE'S WHERE THE LIMIT SWITCHES WILL GO
-		hatchFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
-		hatchFlipLimitSwitchDown = new DigitalInput(WHATEVER THE ID IS);
-		cargoFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
-		cargoFlipLimitSwitchDown = new DigitaInput(WHATEVER THE ID IS);
-		*/
+		climberLeftLim = new DigitalInput(4);
+		climberRightLim = new DigitalInput(5);
+		flipperMidLim = new DigitalInput(6);
 	}
 }

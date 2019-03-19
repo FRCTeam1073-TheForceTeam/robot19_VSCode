@@ -30,7 +30,6 @@ public class AutoObject {
 	}
 
 	/** Coopertition?? */
-
 	public void Invert() {
 		if (Robot.FMS.equals("RRR")) Robot.FMS = "LLL";
 		else if (Robot.FMS.equals("RLR")) Robot.FMS = "LRL";

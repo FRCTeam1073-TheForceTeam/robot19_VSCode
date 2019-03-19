@@ -50,6 +50,7 @@ public class DriveControls extends Command {
 	 */
 	public DriveControls(double deadzone) {
 		requires(Robot.drivetrain);
+		requires(Robot.pnuematic);
 		this.deadzone = deadzone;
 	}
 
@@ -57,7 +58,11 @@ public class DriveControls extends Command {
 	protected void execute() {
 		/* Controller Data */
 		forward = Robot.oi.driverControl.getRawAxis(1);
-		rotational = Robot.oi.driverControl.getRawAxis(2);
+		rotational = Robot.oi.driverControl.getRawAxis(4);
+
+		if (Robot.oi.driverControl.y.get()) Robot.autoBox = !Robot.autoBox;
+		if (!Robot.autoBox && Robot.oi.driverControl.x.get() && !Robot.pnuematic.isLowGear()) Robot.pnuematic.setLowGear();
+		if (!Robot.autoBox && Robot.oi.driverControl.b.get() && !Robot.pnuematic.isHighGear()) Robot.pnuematic.setHighGear();
 		
 		/* Outputs Checked Controller Data to Motors */
 		arcaderDrive(limit(deadZoneCheck(forward)), limit(deadZoneCheck(rotational)));
@@ -89,7 +94,7 @@ public class DriveControls extends Command {
 				rightMotorOutput = fwd - rot;
 			}
 		}
-		output(leftMotorOutput, rightMotorOutput, "Slow Mode Check");
+		output(leftMotorOutput, rightMotorOutput, "Competition");
 	}
 	
 	/** Affects the style of output to motors */
@@ -116,10 +121,10 @@ public class DriveControls extends Command {
 				executes = 0;
 			}
 		}
-		else if (mode.equals("Slow Mode Check")) {
-			double multiplier = 1;
+		else if (mode.equals("Competition")) {
+			double multiplier = .25;
 			Robot.debugPrint(Robot.oi.driverControl.getRightTrigger());
-			if (Robot.oi.driverControl.getRightTrigger() > .05) multiplier = .25 + (Robot.oi.driverControl.getRightTrigger() * .75);
+			multiplier += deadZoneCheck(Robot.oi.driverControl.getRightTrigger() * .75);
 			Robot.drivetrain.tank(limit(multiplier * left), (limit(multiplier * right)));	
 		}
 		else if (mode.equals("PID")) Robot.drivetrain.velocity(speedModifier(limit(left)), speedModifier(limit(right)));

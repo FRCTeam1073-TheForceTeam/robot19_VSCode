@@ -21,9 +21,6 @@ public class Hatch extends Subsystem {
 	public final WPI_VictorSPX hatchLiftSlave = RobotMap.hatchLiftSlave;
 	public final WPI_TalonSRX hatchCollect = RobotMap.hatchCollect;
 
-	public final DigitalInput topLim = RobotMap.hatchFlipLimitSwitchUp;
-	public final DigitalInput bottomLim = RobotMap.hatchFlipLimitSwitchDown;
-
 	public final DigitalInput collectInSensor = RobotMap.collectorInSensor;
 	public final DigitalInput duckInSensor = RobotMap.duckInSensor;
 
@@ -95,4 +92,12 @@ public class Hatch extends Subsystem {
 	public void hatchGrabberDown() {
 		Robot.pnuematic.hatchGrabberDown();
 	}
+
+	public boolean isHatchGrabberRaised() {
+		return Robot.pnuematic.isHatchGrabberRaised();
+	  }
+	
+	  public boolean isHatchGrabberLowered() {
+		return Robot.pnuematic.isHatchGrabberRaised();
+	  }
 }
