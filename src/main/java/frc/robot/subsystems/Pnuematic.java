@@ -9,6 +9,8 @@ import frc.robot.RobotMap;
  */
 public class Pnuematic extends Subsystem {
   
+  private final Solenoid bucketUp = RobotMap.bucketUp;
+	private final Solenoid bucketDown = RobotMap.bucketDown;
   private final Solenoid high = RobotMap.high;
   private final Solenoid low = RobotMap.low;
   private final Solenoid hatchRaiser = RobotMap.hatchRaiser;
@@ -16,6 +18,26 @@ public class Pnuematic extends Subsystem {
   
   @Override
   public void initDefaultCommand() {
+  }
+
+  public boolean isBucketUp() {
+    if (!bucketDown.get() && bucketUp.get()) return true;
+    return false;
+  }
+
+  public boolean isBucketDown() {
+    if (bucketDown.get() && !bucketUp.get()) return true;
+    return false;
+  }
+
+  public void bucketUp() {
+    bucketUp.set(true);
+    bucketDown.set(false);
+  }
+
+  public void bucketDown() {
+    bucketUp.set(false);
+    bucketDown.set(true);
   }
 
   public boolean isHighGear() {
@@ -38,8 +60,13 @@ public class Pnuematic extends Subsystem {
     high.set(false); 
   }
 
-  public boolean isHatchGrabberRaised(){
+  public boolean isHatchGrabberRaised() {
     if (hatchRaiser.get() && !hatchLowerer.get()) return true;
+    return false;
+  }
+
+  public boolean isHatchGrabberLowered() {
+    if (!hatchRaiser.get() && hatchLowerer.get()) return true;
     return false;
   }
 
@@ -48,7 +75,7 @@ public class Pnuematic extends Subsystem {
     hatchLowerer.set(false);
   }
   
-  public void hatchGrabberDown(){
+  public void hatchGrabberDown() {
     hatchRaiser.set(false);
     hatchLowerer.set(true);
   }

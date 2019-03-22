@@ -1,8 +1,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.ModeSwitch;
-import frc.robot.commands.HatchCommands.*;
+import frc.robot.commands.CargoCommands.CargoBucketDown;
+import frc.robot.commands.CargoCommands.CargoBucketUp;
+import frc.robot.commands.HatchCommands.HatchGrabberDown;
+import frc.robot.commands.HatchCommands.HatchGrabberUp;
+import frc.robot.commands.HatchCommands.SendFlipperToLim;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -16,7 +19,7 @@ public class OI {
 	public JoystickButton driverCancel, lowGearHold, highGearHold;
 
 	/** Operator Controls */
-	public JoystickButton operatorCancel, operatorRight, operatorLeft, modeSwitch, climberOverride;
+	public JoystickButton operatorCancel, operatorRight, bucketButton, modeSwitch, hatchDownToLim;
 	
     public OI() {
 		/* Controller Assignment */
@@ -30,17 +33,15 @@ public class OI {
 		lowGearHold = driverControl.leftBumper;
 		highGearHold = driverControl.rightBumper;
 
-		operatorLeft = operatorControl.leftBumper;
+		hatchDownToLim = operatorControl.x;
+		hatchDownToLim.whenPressed(new SendFlipperToLim(.5));
+
+		bucketButton = operatorControl.b;
+		bucketButton.whenPressed(new CargoBucketUp());
+		bucketButton.whenReleased(new CargoBucketDown());
+
 		operatorRight = operatorControl.rightBumper;
-		operatorLeft.whenPressed(new HatchGrabberUp());
 		operatorRight.whenPressed(new HatchGrabberDown());
-		
-		modeSwitch = operatorControl.select;
-		modeSwitch.whenPressed(new ModeSwitch(0));
-
-		climberOverride = operatorControl.start;
-		climberOverride.whenPressed(new ModeSwitch(1));
-
-		//operatorControl.b.whenPressed(new FingerDebug());
+		operatorRight.whenReleased(new HatchGrabberUp());
 	}
 }

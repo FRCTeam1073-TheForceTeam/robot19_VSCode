@@ -1,4 +1,4 @@
-package frc.robot.commands.HatchCommands;
+package frc.robot.commands.CargoCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -7,20 +7,19 @@ import frc.robot.Robot;
  * Lowers hatch grabber
  * @author Nathaniel
  */
-public class HatchGrabberDown extends Command {
+public class CargoBucketDown extends Command {
   
   /** 
    * Lowers hatch grabber
    * @author Nathaniel
    */
-  public HatchGrabberDown() {
-    requires(Robot.hatch);
+  public CargoBucketDown() {
   }
 
   /** Lowers hatch grabber and finishes when confirmed lowered */
   @Override
   protected boolean isFinished() {
-    Robot.hatch.hatchGrabberDown();
-    return Robot.hatch.isHatchGrabberLowered();
+    Robot.cargo.bucketDown();
+    return Robot.cargo.isBucketDown();
   }
 }
