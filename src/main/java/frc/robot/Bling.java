@@ -43,7 +43,7 @@ package frc.robot;
         }
         
         public void send() {
-                newtable.getEntry("Bling_Command").setString(put);
+                Robot.networktable.table.getEntry("Bling_Command").setString(put);
         }
 
         public void setPattern( BlingMode pattern ) {

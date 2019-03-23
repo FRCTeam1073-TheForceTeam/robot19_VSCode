@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Presets;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.commands.BlingControls;
 import frc.robot.commands.DriveControls;
 
 /**
@@ -161,9 +162,10 @@ public class Drivetrain extends Subsystem {
 		Robot.networktable.table.getEntry("PIDReadout").setString("P: " + P + "\tI: " + I + "\tD: " + D + "\tK: " + K + "\tIZ: " + IZ + "\tPO: " + PO + "\tCLE: " + CLE);
 	}
   
-  @Override
-  public void initDefaultCommand() {
-  	setDefaultCommand(new DriveControls(Presets.deadzone));
+	@Override
+  	public void initDefaultCommand() {
+		setDefaultCommand(new BlingControls());
+//		setDefaultCommand(new DriveControls(Presets.deadzone));
 	}
 
   public void periodic() {
