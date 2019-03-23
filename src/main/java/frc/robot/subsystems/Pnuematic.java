@@ -11,6 +11,8 @@ public class Pnuematic extends Subsystem {
   
   private final Solenoid high = RobotMap.high;
   private final Solenoid low = RobotMap.low;
+  private final Solenoid bucketUp = RobotMap.bucketUp;
+  private final Solenoid bucketDown = RobotMap.bucketDown;
   private final Solenoid fingerUp = RobotMap.fingerUp;
   private final Solenoid fingerDown = RobotMap.fingerDown;
   private final Solenoid hatchExtender = RobotMap.hatchExtender;
@@ -64,8 +66,18 @@ public class Pnuematic extends Subsystem {
     hatchRetractor.set(false);
   }
   
-  public void hatchRetract(){
+  public void hatchRetract() {
     hatchExtender.set(false);
     hatchRetractor.set(true);
+  }
+
+  public void bucketExtend() {
+    bucketUp.set(true);
+    bucketDown.set(false);
+  }
+
+  public void bucketRetract() {
+    bucketUp.set(false);
+    bucketDown.set(true);
   }
 }

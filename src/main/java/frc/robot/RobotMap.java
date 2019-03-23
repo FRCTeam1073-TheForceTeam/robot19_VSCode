@@ -37,18 +37,15 @@ public class RobotMap {
 	public static WPI_TalonSRX hatchCollect;
 	public static WPI_TalonSRX hatchLift;
 
-	public static WPI_TalonSRX cargoCollect;
-	public static WPI_TalonSRX cargoLift;
-	public static WPI_VictorSPX cargoLift2;
-
 	public static Solenoid high;
 	public static Solenoid low;
 
 	public static BuiltInAccelerometer accelerometer;
 
-	public static Solenoid fingerUp,fingerDown;
+	public static Solenoid fingerUp, fingerDown;
 	public static Solenoid hatchExtender;
 	public static Solenoid hatchRetractor;
+	public static Solenoid bucketUp, bucketDown;
 	public static DigitalInput hatchFlipLimitSwitchUp;
 	public static DigitalInput hatchFlipLimitSwitchDown;
 	public static DigitalInput hatchFlipLimitSwitchMid;
@@ -79,25 +76,22 @@ public class RobotMap {
 		rightClimber = new WPI_TalonSRX(10);
 		leftClimber = new WPI_VictorSPX(11);
 
-		cargoCollect = new WPI_TalonSRX(14);
-		cargoLift = new WPI_TalonSRX(13);
-		cargoLift2 = new WPI_VictorSPX(12);
-
 		high = new Solenoid(7);
 		low = new Solenoid(6);
 		hatchExtender = new Solenoid(5);
 		hatchRetractor = new Solenoid(4);
 		fingerUp = new Solenoid(0);
 		fingerDown = new Solenoid(1);
+		//bucketUp = new Solenoid(IDK???);
+		//bucketDown = new Solenoid(IDK???);
+
 
 		collectorInSensor = new DigitalInput(1/*Wherever*/);
 		duckInSensor = new DigitalInput(2/*Wherever*/);
 		/**HERE'S WHERE THE LIMIT SWITCHES WILL GO
 		hatchFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
 		hatchFlipLimitSwitchDown = new DigitalInput(WHATEVER THE ID IS);
-		cargoFlipLimitSwitchUp = new DigitalInput(WHATEVER THE ID IS);
-		cargoFlipLimitSwitchDown = new DigitaInput(WHATEVER THE ID IS);
 		*/
-		hatchFlipLimitSwitchMid = new DigitalInput(3);
+		hatchFlipLimitSwitchMid = new DigitalInput(0);
 	}
 }

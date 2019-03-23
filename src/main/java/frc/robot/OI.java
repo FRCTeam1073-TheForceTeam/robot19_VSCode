@@ -16,7 +16,7 @@ public class OI {
 	public JoystickButton driverCancel, lowGearHold, highGearHold;
 
 	/** Operator Controls */
-	public JoystickButton operatorCancel, operatorRight, operatorLeft, modeSwitch, climberOverride;
+	public JoystickButton operatorCancel, hookDown;
 	
     public OI() {
 		/* Controller Assignment */
@@ -30,47 +30,10 @@ public class OI {
 		lowGearHold = driverControl.leftBumper;
 		highGearHold = driverControl.rightBumper;
 
-		operatorLeft = operatorControl.leftBumper;
-		operatorRight = operatorControl.rightBumper;
-		operatorLeft.whenPressed(new HatchGrabberUp());
-		operatorRight.whenPressed(new HatchGrabberDown());
-		
-		modeSwitch = operatorControl.select;
-		modeSwitch.whenPressed(new ModeSwitch(0));
-
-		climberOverride = operatorControl.start;
-		climberOverride.whenPressed(new ModeSwitch(1));
+		hookDown = operatorControl.rightBumper;
+		hookDown.whenPressed(new HatchGrabberDown());
+		hookDown.whenReleased(new HatchGrabberUp());
 
 		operatorControl.x.whenPressed(new AutoHatchFloor());
-	}
-	public boolean getLeftBumperCargo() {
-		return (operatorControl.leftBumper.get() && Robot.operatorMode.equals("Cargo"));
-	}
-	public boolean getLeftBumperHatch() {
-		return (operatorControl.leftBumper.get() && Robot.operatorMode.equals("Hatch"));
-	}
-	public boolean getLeftBumperClimb() {
-		return (operatorControl.leftBumper.get() && Robot.operatorMode.equals("Climb"));
-	}
-	public boolean getRightBumperCargo() {
-		return (operatorControl.rightBumper.get() && Robot.operatorMode.equals("Cargo"));
-	}
-	public boolean getRightBumperHatch() {
-		return (operatorControl.rightBumper.get() && Robot.operatorMode.equals("Hatch"));
-	}
-	public boolean getRightBumperClimb() {
-		return (operatorControl.rightBumper.get() && Robot.operatorMode.equals("Climb"));
-	}
-	public double getOperatorY1Cargo() {
-		if(Robot.operatorMode.equals("Cargo")) return (operatorControl.getY1());
-		return 0;
-	}
-	public double getOperatorY1Hatch() {
-		if(Robot.operatorMode.equals("Hatch")) return (operatorControl.getY1());
-		return 0;
-	}
-	public double getOperatorY1Climb() {
-		if(Robot.operatorMode.equals("Climb")) return (operatorControl.getY1());
-		return 0;
 	}
 }

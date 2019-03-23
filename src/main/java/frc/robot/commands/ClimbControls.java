@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OperatorMode;
 import frc.robot.Robot;
 
 /**
@@ -12,7 +11,7 @@ import frc.robot.Robot;
  * 
  * This command does not finish.
  * 
- * @author Cam
+ * @author Nathaniel
  * @see /subsystems/Climber.java
  * @category Climb Command
  */
@@ -33,7 +32,7 @@ public class ClimbControls extends Command {
 	 * 
 	 * This command does not finish.
 	 * 
-	 * @author Nathaiel
+	 * @author Nathaniel
 	 * @see /subsystems/Climber.java
 	 * @category Drive Command
 	 */
@@ -45,8 +44,7 @@ public class ClimbControls extends Command {
 	/** Called Repeatedly */
 	protected void execute() {
 		/* Outputs Checked Controller Data to Motors */
-		if (Robot.operatorMode.equals(OperatorMode.CLIMB)) Robot.climber.tank(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(5)));
-		else Robot.climber.tank(0);
+		Robot.climber.tank(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(5)));
 	}
 
 	/** 

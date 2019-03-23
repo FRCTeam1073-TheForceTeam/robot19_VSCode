@@ -21,7 +21,6 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Bling bling;
 	public static NetworkTable networktable;
-	public static OperatorMode operatorMode;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
   	public static Feedback feedback;
@@ -52,8 +51,6 @@ public class Robot extends TimedRobot {
     	debugPrint("Robot Initializing");
 		
 		RobotMap.init();
-
-		operatorMode = OperatorMode.CLIMB;
 		
 		debugMode = false;
 		shiftDisable = false;

@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OperatorMode;
 import frc.robot.Robot;
 
 /**
@@ -39,15 +38,10 @@ public class HatchControls extends Command {
 
 	/** Called Repeatedly */
 	protected void execute() {
-		if (Robot.operatorMode.equals(OperatorMode.CLIMB)) {
 			flipper(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
 			if (deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) > 0 || deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()) > 0) 
 			Robot.hatch.setCollector(deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) - deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()));
 			else Robot.hatch.setCollector(0);
-		} else {
-			flipper(0);
-			Robot.hatch.setCollector(0);
-		}
 	}
 
 	/** Sets flipper after checking limit switches */
