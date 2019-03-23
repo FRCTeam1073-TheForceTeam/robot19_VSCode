@@ -19,7 +19,6 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
 	public double initialBootTime, teleopStartTime, autoStartTime;
 	public static OI oi;
-	public static Bling bling;
 	public static NetworkTable networktable;
 	public static OperatorMode operatorMode;
 	public static Drivetrain drivetrain;
@@ -31,11 +30,12 @@ public class Robot extends TimedRobot {
 	public static Cargo cargo;
 	public static Lidar lidar;
 	public static Hatch hatch;
+	public static Bling bling;
 	public static String FMS;
 	public static SendableChooser<AutoObject> autonomousPosition, autonomousMatchType, debugChooser;
 	public AutoObject left, center, right, other, quals, elims, experimental, debugAll, debugMotors, debugGearbox, debugBling;
 	public static boolean notClear;
-	public static boolean debugMode, shiftDisable;
+	public static boolean debugMode, autoBox;
 	public static Command debugRunner;
 	public Command autonomousCommand;
 
@@ -53,19 +53,16 @@ public class Robot extends TimedRobot {
 		
 		RobotMap.init();
 
-		operatorMode = OperatorMode.HATCH;
+		operatorMode = OperatorMode.CLIMB;
 		
 		debugMode = false;
-		shiftDisable = false;
+		autoBox = false;
 		notClear = false;
 
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
     
 		networktable = new NetworkTable();
-		
-		bling = new Bling();
-		bling.sendRobotInit();
 
 		drivetrain = new Drivetrain();
 
@@ -85,6 +82,8 @@ public class Robot extends TimedRobot {
 			
 		hatch = new Hatch();
 
+		//bling = new Bling();
+
     	oi = new OI();
 
 		FMS = "";
@@ -102,7 +101,6 @@ public class Robot extends TimedRobot {
 		debugGearbox = new AutoObject(61);
 		debugBling = new AutoObject(62);
 
-		
 		/* The Position Chooser */
 		autonomousPosition = new SendableChooser<AutoObject>();
 		autonomousPosition.setDefaultOption("None", other);
@@ -128,7 +126,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Debug", debugChooser);
 		
 		debugRunner = new SystemTest();
-		autonomousCommand = new AutoTest();
   }
 
   /**
@@ -178,7 +175,6 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		
 		debugPrint("Auto Starting");
-		if (autonomousCommand != null) autonomousCommand.start();
 	}
 
 	/** This function is called periodically during autonomous */
@@ -198,8 +194,6 @@ public class Robot extends TimedRobot {
 		else debugMode = false;
 
 		Scheduler.getInstance().run();
-
-		if (autonomousCommand != null) autonomousCommand.cancel();
 	}
 	
 	/** This function is called periodically during operator control */
