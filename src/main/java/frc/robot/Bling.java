@@ -15,9 +15,6 @@ package frc.robot;
  import edu.wpi.first.networktables.NetworkTable;
 
  public class Bling {
-        NetworkTable newtable;
-
-
         private String color;
         private String speed;
         private int min;
