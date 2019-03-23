@@ -26,7 +26,7 @@ public class BlingControls extends Command {
   @Override
   protected void execute() {
     if(Robot.oi.operatorControl.x.get()){
-      Robot.bling.sendRobotInit();
+     Robot.bling.sendRobotInit();
     }
     else if(Robot.oi.operatorControl.y.get()){
       Robot.bling.sendFlipUp();

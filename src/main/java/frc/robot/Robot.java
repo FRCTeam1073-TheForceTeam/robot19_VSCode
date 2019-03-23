@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
 			
 		hatch = new Hatch();
 
-		//bling = new Bling();
+		bling = new Bling();
 
     	oi = new OI();
 

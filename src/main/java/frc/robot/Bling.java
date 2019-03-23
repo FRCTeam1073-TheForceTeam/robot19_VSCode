@@ -15,6 +15,9 @@ package frc.robot;
  import edu.wpi.first.networktables.NetworkTable;
 
  public class Bling {
+        NetworkTable newtable;
+
+
         private String color;
         private String speed;
         private int min;
@@ -40,7 +43,7 @@ package frc.robot;
         }
         
         public void send() {
-                Robot.networktable.table.getEntry("Bling_Command").setString(put);
+                newtable.getEntry("Bling_Command").setString(put);
         }
 
         public void setPattern( BlingMode pattern ) {
