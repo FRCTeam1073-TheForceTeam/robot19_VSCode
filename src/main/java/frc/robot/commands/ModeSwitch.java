@@ -29,21 +29,13 @@ public class ModeSwitch extends Command {
   @Override
   protected boolean isFinished() {
     if (val == 0) {
-      if (Robot.operatorMode.equals(OperatorMode.HATCH)) {
-        Robot.operatorMode = OperatorMode.CARGO;
-        Robot.oi.operatorLeft.whenPressed(new ExampleCommand());
-        Robot.oi.operatorRight.whenPressed(new ExampleCommand());
-      }
-      else {
-        Robot.operatorMode = OperatorMode.HATCH;
-        Robot.oi.operatorLeft.whenPressed(new HatchGrab());
-        Robot.oi.operatorRight.whenPressed(new HatchPlace());
-      }
+      Robot.operatorMode = OperatorMode.CARGO;
+      Robot.oi.operatorRight.whenPressed(new ExampleCommand());
     }
     else if (val == 1) {
       Robot.operatorMode = OperatorMode.CLIMB;
-      Robot.oi.operatorLeft.whenPressed(new ExampleCommand());
-      Robot.oi.operatorRight.whenPressed(new ExampleCommand());
+      Robot.oi.operatorRight.whenPressed(new HatchGrabberDown());
+      Robot.oi.operatorRight.whenReleased(new HatchGrabberUp());
     }
     return true;
   }

@@ -1,8 +1,10 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OperatorMode;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 /**
  * This is the climber movement controls
@@ -20,6 +22,9 @@ public class ClimbControls extends Command {
 	
 	/** Controller Dead Zone */
 	private double deadzone;
+
+	private DigitalInput climberLeftLim = RobotMap.climberLeftLim;
+	private DigitalInput climberRightLim = RobotMap.climberRightLim;
 
 	/**
 	 * This is the climber movement controls
@@ -45,14 +50,13 @@ public class ClimbControls extends Command {
 	/** Called Repeatedly */
 	protected void execute() {
 		/* Outputs Checked Controller Data to Motors */
-		if (Robot.operatorMode.equals(OperatorMode.CLIMB)) {
-			Robot.climber.tank(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(5)));
-			Robot.hatch.setFlipper(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
-		}
-		else {
-			Robot.climber.tank(0);
-			Robot.hatch.setFlipper(0);
-		}
+		if (Robot.operatorMode.equals(OperatorMode.CLIMB)) speedCheck();
+		else Robot.climber.tank(0);
+	}
+
+	private void speedCheck() {
+		if (Robot.oi.operatorControl.leftBumper.get()) Robot.climber.tank(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(5)));
+		else Robot.climber.tank(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(5)) / 2);
 	}
 
 	/** 

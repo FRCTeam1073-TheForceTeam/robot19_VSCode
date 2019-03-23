@@ -49,7 +49,7 @@ public class AdvancedTurn extends Command {
 		if (0 <= Math.abs(finalDegrees) && 
 			Math.abs(finalDegrees) <= 359) this.finalDegrees = Math.abs(finalDegrees);
 		if (Math.abs(finalDegrees) == 360) this.finalDegrees = 0;
-		if (this.finalDegrees == -1) System.out.print("WARN: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
+		if (this.finalDegrees == -1) Robot.debugPrint("WARN: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
 				+ "\"Invalid input!\n"
 				+ "Must be: 0 to 359\n"
 				+ "Your input: " + finalDegrees + "\"");
@@ -57,7 +57,7 @@ public class AdvancedTurn extends Command {
 		if (direction.equals("right") == true ||
 			direction.equals("left") == true ||
 			direction.equals("point") == true) this.direction = direction;
-		if (this.direction.equals("empty")) System.out.print("WARN: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
+		if (this.direction.equals("empty")) Robot.debugPrint("WARN: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
 				+ "\"Invalid direction!\n"
 				+ "Must be: \"right\", \"left\", or \"point\"\n"
 				+ "Your input: " + direction + "\"");

@@ -1,11 +1,13 @@
 package frc.robot.subsystems;
 
-import frc.robot.*;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
+import frc.robot.commands.Vision.LineHandler;
 
 /**
  * @author Nathaniel
  */
-public class Vision {
+public class Vision extends Subsystem {
 	
 	public double xDelta, xWidth, yDelta, yWidth, blockCount, width;
 
@@ -18,6 +20,11 @@ public class Vision {
 		Robot.debugPrint("\"Where we droppin' boys?\"");
 	}
 
+	@Override
+	protected void initDefaultCommand() {
+		//setDefaultCommand(new LineHandler(6, 3));
+	}
+
 	/** Checks if vision sees anything */
 	public double blockCheck() {
 		if (blockCount > 0) return 1;
@@ -25,7 +32,7 @@ public class Vision {
 	}
 	
 	/** Pulls variables from Network Tables */
-	public void refreshLines() {
+	private void refreshLines() {
 		lines = Robot.networktable.table.getEntry("cam_#_lineseg").getDoubleArray(new double[0]);
 	}
 
