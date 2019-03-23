@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OperatorMode;
+import frc.robot.Presets;
 import frc.robot.Robot;
 
 /**
@@ -39,7 +40,7 @@ public class HatchControls extends Command {
 
 	/** Called Repeatedly */
 	protected void execute() {
-		if (Robot.operatorMode.equals(OperatorMode.CLIMB)) {
+		if (Robot.operatorMode.equals(OperatorMode.CLIMB) && ampCheck(Presets.maxHatchAmps)) {
 			flipper(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
 			if (deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) > 0 || deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()) > 0) 
 			Robot.hatch.setCollector(deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) - deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()));
@@ -66,6 +67,15 @@ public class HatchControls extends Command {
 	private double deadZoneCheck(double val) {
 		if (Math.abs(val) < deadzone) return 0;
 		return val;
+	}
+
+	/**
+	 * @param Input to check against amperage of motors
+	 * @return If amperage is over limit
+	 */
+	private boolean ampCheck(double limit){
+		System.out.println("Hatch Amperage: " + Robot.hatch.hatchLift.getOutputCurrent());
+		return Robot.hatch.hatchLift.getOutputCurrent() >= limit;
 	}
 
 	/** 

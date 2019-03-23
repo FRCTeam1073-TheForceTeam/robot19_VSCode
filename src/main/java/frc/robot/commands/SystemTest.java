@@ -110,14 +110,6 @@ public class SystemTest extends Command {
       //stepsLeft--;
       //^Shouldn't exist unless it should???
     }
-    else if (state.equals("duck")) {
-      if(stepsLeft == 1) duckTest();
-      if(complete) {
-        stepsLeft--;
-        complete = false;
-        firstTime = true;
-      }
-    }
     else if (state.equals("hatch")) {
       if(stepsLeft == 1) hatchTest();
       if(complete) {
@@ -171,20 +163,6 @@ public class SystemTest extends Command {
       complete = true;
       side.set(ControlMode.PercentOutput, 0);
     }
-  }
-
-  private void duckTest(){
-    table.getEntry("DebugStateDuck").setString("Testing duck, WATCH MANUALLY FOR INCONSISTENCIES");
-    for (int i = 0; i < 5; i++) {
-      Robot.pnuematic.fingerRaise();
-      Robot.pnuematic.fingerLower();
-    }
-
-    for (int i = 0; i < 5; i++) {
-      Robot.pnuematic.hatchExtend();
-      Robot.pnuematic.hatchRetract();
-    }
-    complete = true;
   }
 
   private void hatchTest() {
