@@ -21,6 +21,10 @@ public class Hatch extends Subsystem {
 	public final WPI_VictorSPX hatchLiftSlave = RobotMap.hatchLiftSlave;
 	public final WPI_TalonSRX hatchCollect = RobotMap.hatchCollect;
 
+	public final DigitalInput topLim = RobotMap.flipperTopLim;
+	public final DigitalInput midLim = RobotMap.flipperMidLim;
+	public final DigitalInput bottomLim = RobotMap.flipperBotLim;
+
 	public final DigitalInput collectInSensor = RobotMap.collectorInSensor;
 	public final DigitalInput duckInSensor = RobotMap.duckInSensor;
 
@@ -62,7 +66,7 @@ public class Hatch extends Subsystem {
     	setDefaultCommand(new HatchControls(Presets.deadzone));
 	}
 
-  	public void periodic() {
+	public void periodic() {
 	}
 
 	public void setFlipper(double value) {
