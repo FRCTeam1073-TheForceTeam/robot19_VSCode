@@ -2,10 +2,11 @@ package frc.robot.commands.Vision;
 
 public class Line {
 
-    private double x1, y1, x2, y2, theta, score, length;
+    private double camera, x1, y1, x2, y2, theta, score, length;
     private double[] line;
 
-    public Line(double[] line) {
+    public Line(double camera, double[] line) {
+        this.camera = camera;
         this.line = line;
         setup();
     }
@@ -22,6 +23,10 @@ public class Line {
 
     public double[] getRawLine() {
         return line;
+    }
+
+    public double camera() {
+        return camera;
     }
 
     public double x1() {
