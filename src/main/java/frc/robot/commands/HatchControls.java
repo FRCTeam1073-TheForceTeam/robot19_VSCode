@@ -52,9 +52,7 @@ public class HatchControls extends Command {
 
 	/** Sets flipper after checking limit switches */
 	public void flipper(double val) {
-		/*if (Robot.hatch.topLim.get() && val < 0) Robot.hatch.setFlipper(val);
-		else if (Robot.hatch.bottomLim.get() && val > 0) Robot.hatch.setFlipper(val);
-		else */
+		if ((Robot.hatch.bottomLim.get() && val >= 0) || (Robot.hatch.topLim.get() && val < 0)) val=0;
 		if (!Robot.oi.operatorControl.leftBumper.get()) val /= 2;
 		Robot.hatch.setFlipper(val);
 	}
