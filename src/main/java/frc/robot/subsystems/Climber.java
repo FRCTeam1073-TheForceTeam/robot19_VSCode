@@ -27,14 +27,17 @@ public class Climber extends Subsystem {
 		/* Reset all motors */
 		rightClimber.configFactoryDefault();
 		leftClimber.configFactoryDefault();
+		climbCrawler.configFactoryDefault();
 
     	rightClimber.setSafetyEnabled(false);
 		leftClimber.setSafetyEnabled(false);
+		climbCrawler.setSafetyEnabled(false);
 
 		/* Set Neutral Mode */
 		rightClimber.setNeutralMode(NeutralMode.Brake);
 		leftClimber.setNeutralMode(NeutralMode.Brake);
-		
+		climbCrawler.setNeutralMode(NeutralMode.Brake);
+
 		/* Configure the left Talon's selected sensor to a Quad Encoder*/
 		rightClimber.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
 		leftClimber.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, Presets.timeoutMS);
