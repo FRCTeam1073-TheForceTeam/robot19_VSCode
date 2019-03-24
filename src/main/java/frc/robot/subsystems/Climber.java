@@ -16,6 +16,7 @@ public class Climber extends Subsystem {
     
     public final WPI_TalonSRX rightClimber = RobotMap.rightClimber;
 	public final WPI_TalonSRX leftClimber = RobotMap.leftClimber;
+	public final WPI_TalonSRX climbCrawler = RobotMap.climbWheels;
 	
 	public double climbEncoder;
 	
@@ -55,5 +56,9 @@ public class Climber extends Subsystem {
 
 	public void tank(double val) {
 		rightClimber.set(ControlMode.PercentOutput, val);
+	}
+
+	public void crawl(double val) {
+		climbCrawler.set(ControlMode.PercentOutput, val);
 	}
 }

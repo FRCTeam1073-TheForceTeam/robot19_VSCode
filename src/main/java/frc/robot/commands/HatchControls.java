@@ -11,6 +11,7 @@ import frc.robot.Robot;
  * Deadzones, because frankly, why not?
  * Checked with operator (Jack), and controls are compatible with rest of operator OI.
  * @author Nathaniel
+ * @author Jack
  */
 public class HatchControls extends Command {
 

@@ -7,18 +7,6 @@ import frc.robot.Presets;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-/**
- * This is the climber movement controls
- * for the teleoperated period of a match.
- * It is also the default command for 
- * the Climber.java subsystem.
- * 
- * This command does not finish.
- * 
- * @author Cam
- * @see /subsystems/Climber.java
- * @category Climb Command
- */
 public class ClimbControls extends Command {
 	
 	/** Controller Dead Zone */
@@ -39,7 +27,8 @@ public class ClimbControls extends Command {
 	 * 
 	 * This command does not finish.
 	 * 
-	 * @author Nathaiel
+	 * @author Nathaniel
+	 * @author Jack
 	 * @see /subsystems/Climber.java
 	 * @category Drive Command
 	 */
@@ -51,8 +40,11 @@ public class ClimbControls extends Command {
 	/** Called Repeatedly */
 	protected void execute() {
 		/* Outputs Checked Controller Data to Motors */
-		if (Robot.operatorMode.equals(OperatorMode.CLIMB) && !ampCheck(Presets.maxClimberAmps)) speedCheck();
+		if (Robot.operatorMode.equals(OperatorMode.CLIMB)) speedCheck();
 		else Robot.climber.tank(0);
+
+		if (Robot.oi.operatorControl.y.get()) Robot.climber.crawl(.75);
+		else Robot.climber.crawl(0);
 	}
 
 	private void speedCheck() {
