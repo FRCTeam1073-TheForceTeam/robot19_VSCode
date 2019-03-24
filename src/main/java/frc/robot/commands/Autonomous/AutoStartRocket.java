@@ -13,6 +13,10 @@ public class AutoStartRocket extends CommandGroup {
    * @category Autonomous
    */
   public AutoStartRocket() {
-    
+    //Drive forward
+    //Turn left or right
+      //Left
+
+      //Right
   }
 }
