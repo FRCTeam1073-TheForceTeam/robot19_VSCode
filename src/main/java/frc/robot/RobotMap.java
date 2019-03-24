@@ -90,6 +90,8 @@ public class RobotMap {
 
 		climberLeftLim = new DigitalInput(4);
 		climberRightLim = new DigitalInput(5);
-		flipperMidLim = new DigitalInput(6);
+		flipperBotLim = new DigitalInput(6);
+		flipperMidLim = new DigitalInput(7);
+		flipperTopLim = new DigitalInput(8);
 	}
 }
