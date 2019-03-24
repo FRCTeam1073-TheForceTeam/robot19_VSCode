@@ -17,6 +17,12 @@ public class HatchControls extends Command {
 	/** Controller Dead Zone */
 	private double deadzone;
 
+	/** Prevents motor from moving upwards */
+	private boolean preventUp;
+
+	/** Prevents motor from moving downwards */
+	private boolean preventDown;
+
 	/**
 	 * This is the hatch movement controls
 	 * for the teleoperated period of a match.
@@ -29,7 +35,7 @@ public class HatchControls extends Command {
 	 * 
 	 * This command does not finish.
 	 * 
-	 * @author Nathaiel
+	 * @author Nathaniel, Jack
 	 * @see /subsystems/hatch.java
 	 * @category Drive Command
 	 */
@@ -40,14 +46,13 @@ public class HatchControls extends Command {
 
 	/** Called Repeatedly */
 	protected void execute() {
-		if (Robot.operatorMode.equals(OperatorMode.CLIMB) && ampCheck(Presets.maxHatchAmps)) {
+		flagReset();
+		ampCheck(Presets.maxHatchAmps);
+		if (!preventUp && !preventDown){
 			flipper(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
 			if (deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) > 0 || deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()) > 0) 
 			Robot.hatch.setCollector(deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) - deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()));
 			else Robot.hatch.setCollector(0);
-		} else {
-			flipper(0);
-			Robot.hatch.setCollector(0);
 		}
 	}
 
@@ -73,11 +78,21 @@ public class HatchControls extends Command {
 	 * @param Input to check against amperage of motors
 	 * @return If amperage is over limit
 	 */
-	private boolean ampCheck(double limit){
+	private void ampCheck(double limit){
 		System.out.println("Hatch Amperage: " + Robot.hatch.hatchLift.getOutputCurrent());
-		return Robot.hatch.hatchLift.getOutputCurrent() >= limit;
+		if(Robot.hatch.hatchLift.getOutputCurrent() >= limit){
+			if(Robot.oi.operatorControl.getY1() > 0) preventUp = true;
+			if(Robot.oi.operatorControl.getY1() < 0) preventDown = true;
+		}
 	}
 
+	/** 
+	 * Resets the flags if the other direction is held
+	 */
+	private void flagReset(){
+		if(Robot.oi.operatorControl.getY1() > 0) preventDown = false;
+		if(Robot.oi.operatorControl.getY1() < 0) preventUp = false;
+	}
 	/** 
 	 * This command should never finish as it 
 	 * must remain active for the duration of

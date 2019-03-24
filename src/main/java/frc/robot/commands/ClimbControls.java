@@ -51,7 +51,7 @@ public class ClimbControls extends Command {
 	/** Called Repeatedly */
 	protected void execute() {
 		/* Outputs Checked Controller Data to Motors */
-		if (Robot.operatorMode.equals(OperatorMode.CLIMB) && ampCheck(Presets.maxClimberAmps)) speedCheck();
+		if (Robot.operatorMode.equals(OperatorMode.CLIMB) && !ampCheck(Presets.maxClimberAmps)) speedCheck();
 		else Robot.climber.tank(0);
 	}
 
