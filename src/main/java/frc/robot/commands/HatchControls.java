@@ -47,19 +47,15 @@ public class HatchControls extends Command {
 
 	/** Called Repeatedly */
 	protected void execute() {
-		flagReset();
-		ampCheck(Presets.maxHatchAmps);
-		if (!preventUp && !preventDown){
 			flipper(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
 			if (deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) > 0 || deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()) > 0) 
 			Robot.hatch.setCollector(deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) - deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()));
 			else Robot.hatch.setCollector(0);
-		}
 	}
 
 	/** Sets flipper after checking limit switches */
 	public void flipper(double val) {
-		if ((Robot.hatch.bottomLim.get() && val >= 0) || (Robot.hatch.topLim.get() && val < 0)) val=0;
+		//if ((Robot.hatch.bottomLim.get() && val > 0) || (Robot.hatch.topLim.get() && val < 0)) val = 0;
 		if (!Robot.oi.operatorControl.leftBumper.get()) val /= 2;
 		Robot.hatch.setFlipper(val);
 	}

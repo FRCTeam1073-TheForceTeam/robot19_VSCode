@@ -9,11 +9,13 @@ public class VisionHandler extends Command {
     private Vision vision = Robot.vision;
     private Line[] lines;
     private Blob[] blobs;
+    private Point[] points;
     private boolean processing = false;
     
     private int mode = 0;
     private int lineCam = -1;
     private int blobCam = -1;
+    private int pointCam = -1;
 
     /**
      * A vision processing line detection processor for use in autonomous alignment among other things
@@ -27,13 +29,15 @@ public class VisionHandler extends Command {
         for (int i = 0; i < vision.cameras().length; i++) {
             if (vision.cameras()[i].contains("lines")) lineCam = i;
             if (vision.cameras()[i].contains("blobs")) blobCam = i;
+            if (vision.cameras()[i].contains("point")) pointCam = i;
         }
     }
 
     protected void execute() {
         if (processing && mode == 0) lineChooser(vision.getLines(lineCam));
         else if (processing && mode == 1) blobChooser(vision.getBlobs(blobCam));
-        else if (processing && mode == 2) {
+        else if (processing && mode == 2) pointChooser(vision.getPoints(pointCam));
+        else if (processing && mode == 3) {
             lineChooser(vision.getLines(lineCam));
             blobChooser(vision.getBlobs(blobCam));
         }
@@ -55,12 +59,25 @@ public class VisionHandler extends Command {
         }
     }
 
+    private void pointChooser(double[] incomingData) {
+        int total = incomingData.length / 6;
+        for (int i = 0; i < incomingData.length; i += 2) {
+            double[] arr = {incomingData[i], incomingData[i] + 1};
+            points[--total] = new Point(pointCam, arr);
+        }
+        vision.points = getPoints();
+    }
+
     public Line[] getLines() {
         return lines;
     }
 
     public Blob[] getBlobs() {
         return blobs;
+    }
+
+    public Point[] getPoints() {
+        return points;
     }
 
     public boolean toggleVision() {

@@ -5,13 +5,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class SendFlipperToLim extends Command {
+public class SendFlipperToTop extends Command {
 
     private double speed;
 
-    private DigitalInput flipperMidLim = RobotMap.flipperMidLim;
+    private DigitalInput flipperTopLim = RobotMap.flipperTopLim;
 
-    public SendFlipperToLim(double speed) {
+    public SendFlipperToTop(double speed) {
         this.speed = speed;
     }
 
@@ -20,7 +20,7 @@ public class SendFlipperToLim extends Command {
     }
 
     protected boolean isFinished() {
-        return flipperMidLim.get() || Robot.oi.driverCancel.get() || Robot.oi.operatorCancel.get();
+        return !RobotMap.flipperTopLim.get() || Robot.oi.driverCancel.get() || Robot.oi.operatorCancel.get();
     }
 
     protected void end() {

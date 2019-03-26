@@ -1,8 +1,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.HatchCommands.*;
-import frc.robot.commands.CargoCommands.*;
+import frc.robot.commands.Autonomous.PerfectDropoff;
+import frc.robot.commands.AutonomousTools.Align;
+import frc.robot.commands.HatchCommands.HatchGrabberDown;
+import frc.robot.commands.HatchCommands.HatchGrabberUp;
+import frc.robot.commands.HatchCommands.SendFlipperToMid;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -13,10 +16,10 @@ public class OI {
 	public XboxController driverControl, operatorControl;
 
 	/** Driver Controls */
-	public JoystickButton driverCancel, lowGearHold, highGearHold;
+	public JoystickButton driverCancel, lowGearHold, highGearHold, drop;
 
 	/** Operator Controls */
-	public JoystickButton operatorCancel, operatorRight, bucketButton, modeSwitch, hatchDownToLim;
+	public JoystickButton operatorCancel, operatorRight, bucketButton, modeSwitch, hatchDownToMid;
 	
     public OI() {
 		/* Controller Assignment */
@@ -28,14 +31,17 @@ public class OI {
 		operatorCancel = operatorControl.a;
 
 		lowGearHold = driverControl.leftBumper;
-		highGearHold = driverControl.rightBumper;
+		lowGearHold.whenPressed(new Align(1, 1, 1));
 
-		hatchDownToLim = operatorControl.x;
-		hatchDownToLim.whenPressed(new SendFlipperToLim(.5));
+		hatchDownToMid = operatorControl.b;
+		hatchDownToMid.whenPressed(new SendFlipperToMid(.5));
 
-		bucketButton = operatorControl.b;
+		drop = driverControl.rightBumper;
+		drop.whenPressed(new PerfectDropoff());
+
+		/*bucketButton = operatorControl.b;
 		bucketButton.whenPressed(new CargoBucketUp());
-		bucketButton.whenReleased(new CargoBucketDown());
+		bucketButton.whenReleased(new CargoBucketDown());*/
 
 		operatorRight = operatorControl.rightBumper;
 		operatorRight.whenPressed(new HatchGrabberDown());
