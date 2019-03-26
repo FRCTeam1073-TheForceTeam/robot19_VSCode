@@ -27,11 +27,13 @@ public class Vision extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
+		cameras();
 		handler = new VisionHandler(2);
 		setDefaultCommand(handler);
 	}
 
 	public String[] cameras() {
+		camArray = new String[5];
 		camArray[0] = "point";
 		camArray[1] = "none";
 		camArray[2] = "none";

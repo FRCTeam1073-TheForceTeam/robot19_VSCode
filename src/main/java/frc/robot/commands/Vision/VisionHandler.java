@@ -22,25 +22,16 @@ public class VisionHandler extends Command {
      * @author Nathaniel
      */
     public VisionHandler(int mode) {
+        requires(Robot.vision);
         this.mode = mode;
     }
 
     protected void initialize() {
-        for (int i = 0; i < vision.cameras().length; i++) {
-            if (vision.cameras()[i].contains("lines")) lineCam = i;
-            if (vision.cameras()[i].contains("blobs")) blobCam = i;
-            if (vision.cameras()[i].contains("point")) pointCam = i;
-        }
+        pointCam = 0;
     }
 
     protected void execute() {
-        if (processing && mode == 0) lineChooser(vision.getLines(lineCam));
-        else if (processing && mode == 1) blobChooser(vision.getBlobs(blobCam));
-        else if (processing && mode == 2) pointChooser(vision.getPoints(pointCam));
-        else if (processing && mode == 3) {
-            lineChooser(vision.getLines(lineCam));
-            blobChooser(vision.getBlobs(blobCam));
-        }
+        pointChooser(Robot.vision.getPoints(pointCam));
     }
 
     private void lineChooser(double[] incomingData) {
