@@ -7,23 +7,24 @@
 
 package frc.robot.commands.Autonomous;
 
-import frc.robot.*;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
+import frc.robot.Robot;
 import frc.robot.commands.AutonomousTools.*;
 import frc.robot.commands.HatchCommands.*;
 
-public class PerfectDropoff extends CommandGroup {
+public class PerfectPickup extends CommandGroup {
 
-  public PerfectDropoff() {
+  public PerfectPickup() {
     addParallel(new SendFlipperToTop(.75));
     addSequential(new Align());
     if (!Robot.canceled) {
       addSequential(new AdvancederDrive(20, "forward", 400));
       addSequential(new WaitCommand(.1));
-      addParallel(new SendFlipperToMid(.75));
-      addSequential(new AdvancederDrive(25, "backward", 450));
-      addSequential(new SendFlipperToTop(.75));
+      addSequential(new HatchGrabberDown());
+      addSequential(new AdvancederDrive(25, "backward", 500));
+      addParallel(new HatchGrabberUp());
+      addSequential(new SendFlipperToMid(.75));
     }
   }
 }

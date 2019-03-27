@@ -31,4 +31,8 @@ public class Point {
     public double distance() {
         return distance;
     }
+
+    public String toString() {
+        return "Point: " + getRawPoint() + " From Cam: " + camera();
+    }
 }

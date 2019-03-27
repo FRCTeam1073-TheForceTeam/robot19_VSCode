@@ -16,7 +16,7 @@ public class OI {
 	public XboxController driverControl, operatorControl;
 
 	/** Driver Controls */
-	public JoystickButton driverCancel, lowGearHold, highGearHold, drop;
+	public JoystickButton driverCancel, grab, drop;
 
 	/** Operator Controls */
 	public JoystickButton operatorCancel, operatorRight, bucketButton, modeSwitch, hatchDownToMid;
@@ -30,11 +30,8 @@ public class OI {
 		driverCancel = driverControl.a;
 		operatorCancel = operatorControl.a;
 
-		lowGearHold = driverControl.leftBumper;
-		lowGearHold.whenPressed(new Align(1, 1, 1));
-
-		hatchDownToMid = operatorControl.b;
-		hatchDownToMid.whenPressed(new SendFlipperToMid(.5));
+		grab = driverControl.leftBumper;
+		grab.whenPressed(new Align(1, 1, 1));
 
 		drop = driverControl.rightBumper;
 		drop.whenPressed(new PerfectDropoff());
@@ -46,5 +43,9 @@ public class OI {
 		operatorRight = operatorControl.rightBumper;
 		operatorRight.whenPressed(new HatchGrabberDown());
 		operatorRight.whenReleased(new HatchGrabberUp());
+
+		
+		hatchDownToMid = operatorControl.b;
+		hatchDownToMid.whenPressed(new SendFlipperToMid(.5));
 	}
 }

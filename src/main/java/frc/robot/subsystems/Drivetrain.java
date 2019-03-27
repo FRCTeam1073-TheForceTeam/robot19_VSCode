@@ -244,6 +244,11 @@ public class Drivetrain extends Subsystem {
 		}
 	}
 
+	public void tank(double val) {
+		leftMaster.set(ControlMode.PercentOutput, val);
+		rightMaster.set(ControlMode.PercentOutput, val);
+	}
+
 	public void tank(double left, double right) {
 		leftMaster.set(ControlMode.PercentOutput, left);
 		rightMaster.set(ControlMode.PercentOutput, right);

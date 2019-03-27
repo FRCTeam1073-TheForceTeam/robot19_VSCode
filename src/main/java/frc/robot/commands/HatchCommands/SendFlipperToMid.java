@@ -20,7 +20,7 @@ public class SendFlipperToMid extends Command {
     }
 
     protected boolean isFinished() {
-        return !RobotMap.flipperMidLim.get() || Robot.oi.driverCancel.get() || Robot.oi.operatorCancel.get();
+        return !RobotMap.flipperMidLim.get();
     }
 
     protected void end() {
