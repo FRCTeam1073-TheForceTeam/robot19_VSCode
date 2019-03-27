@@ -9,4 +9,6 @@ public class Presets {
 	public final static double maxClimberAmps = 5000;
 
 	public final static double maxHatchAmps = 1000;
+
+	public final static double smoothingAlpha = .5;
 }

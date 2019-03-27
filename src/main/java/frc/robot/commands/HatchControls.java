@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OperatorMode;
 import frc.robot.Presets;
 import frc.robot.Robot;
 
@@ -24,6 +23,9 @@ public class HatchControls extends Command {
 	/** Prevents motor from moving downwards */
 	private boolean preventDown;
 
+	/** Current estimate of amperage value */
+	private double estValue;
+
 	/**
 	 * This is the hatch movement controls
 	 * for the teleoperated period of a match.
@@ -36,7 +38,8 @@ public class HatchControls extends Command {
 	 * 
 	 * This command does not finish.
 	 * 
-	 * @author Nathaniel, Jack
+	 * @author Nathaniel
+	 * @author Jack
 	 * @see /subsystems/hatch.java
 	 * @category Drive Command
 	 */
@@ -47,14 +50,13 @@ public class HatchControls extends Command {
 
 	/** Called Repeatedly */
 	protected void execute() {
-		flagReset();
 		ampCheck(Presets.maxHatchAmps);
 		if (!preventUp && !preventDown){
 			flipper(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
-			if (deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) > 0 || deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()) > 0) 
-			Robot.hatch.setCollector(deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) - deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()));
-			else Robot.hatch.setCollector(0);
 		}
+		if (deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) > 0 || deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()) > 0) 
+		Robot.hatch.setCollector(deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) - deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()));
+		else Robot.hatch.setCollector(0);
 	}
 
 	/** Sets flipper after checking limit switches */
@@ -77,12 +79,21 @@ public class HatchControls extends Command {
 	 * @param Input to check against amperage of motors
 	 * @return If amperage is over limit
 	 */
-	private void ampCheck(double limit){
-		System.out.println("Hatch Amperage: " + Robot.hatch.hatchLift.getOutputCurrent());
-		if(Robot.hatch.hatchLift.getOutputCurrent() >= limit){
+	private void ampCheck(double limit) {
+		flagReset();
+		if(smooth(Robot.hatch.hatchLift.getOutputCurrent()) >= limit){
 			if(Robot.oi.operatorControl.getY1() > 0) preventUp = true;
 			if(Robot.oi.operatorControl.getY1() < 0) preventDown = true;
 		}
+	}
+
+	/**
+	 * @param newVal Value of the current amperage
+	 * @return A very smooth estimate of the amperage
+	 */
+	private double smooth(double newVal) {
+		estValue = Presets.smoothingAlpha * estValue + (1.0 - Presets.smoothingAlpha) * newVal;
+		return estValue;
 	}
 
 	/** 
@@ -92,6 +103,7 @@ public class HatchControls extends Command {
 		if(Robot.oi.operatorControl.getY1() > 0) preventDown = false;
 		if(Robot.oi.operatorControl.getY1() < 0) preventUp = false;
 	}
+	
 	/** 
 	 * This command should never finish as it 
 	 * must remain active for the duration of
