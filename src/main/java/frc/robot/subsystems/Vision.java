@@ -1,8 +1,9 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
-import frc.robot.commands.Vision.VisionHandler;
+import frc.robot.commands.Vision.*;
 
 /**
  * @author Nathaniel
@@ -12,6 +13,10 @@ public class Vision extends Subsystem {
 	public double xDelta, xWidth, yDelta, yWidth, blockCount, width;
 	
 	private String[] camArray;
+	
+	public Point[] points;
+
+	public Command handler;
 
 	/**
  	 * @author Nathaniel
@@ -22,12 +27,15 @@ public class Vision extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		//setDefaultCommand(new VisionHandler(2));
+		cameras();
+		handler = new VisionHandler(2);
+		setDefaultCommand(handler);
 	}
 
 	public String[] cameras() {
-		camArray[0] = "none";
-		camArray[1] = "lines blobs";
+		camArray = new String[5];
+		camArray[0] = "point";
+		camArray[1] = "none";
 		camArray[2] = "none";
 		camArray[3] = "none";
 		camArray[4] = "none";
@@ -45,6 +53,10 @@ public class Vision extends Subsystem {
 	}
 
 	public double[] getBlobs(int val) {
+		return Robot.networktable.table.getEntry("cam_" + val + "_cargo").getDoubleArray(new double[0]);
+	}
+
+	public double[] getPoints(int val) {
 		return Robot.networktable.table.getEntry("cam_" + val + "_hatch").getDoubleArray(new double[0]);
 	}
 }

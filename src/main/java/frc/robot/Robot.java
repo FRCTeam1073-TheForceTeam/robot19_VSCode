@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SystemTest;
-import frc.robot.commands.AutonomousTools.AutoTest;
 import frc.robot.subsystems.*;
 
 /**
@@ -39,6 +38,8 @@ public class Robot extends TimedRobot {
 	public static Command debugRunner;
 	public Command autonomousCommand;
 
+	public static boolean canceled;
+
 	protected Robot() {
 		super(0.03); //cycle time
 	}
@@ -58,6 +59,7 @@ public class Robot extends TimedRobot {
 		debugMode = false;
 		autoBox = false;
 		notClear = false;
+		canceled = false;
 
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
