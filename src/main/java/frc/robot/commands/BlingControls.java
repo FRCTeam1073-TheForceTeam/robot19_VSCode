@@ -25,19 +25,19 @@ public class BlingControls extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.oi.operatorControl.x.get()){
+    if(Robot.oi.auxillaryController.x.get()){
      Robot.bling.sendRobotInit();
     }
-    else if(Robot.oi.operatorControl.y.get()){
+    else if(Robot.oi.auxillaryController.y.get()){
       Robot.bling.sendFlipUp();
     }
-    else if(Robot.oi.operatorControl.b.get()){
+    else if(Robot.oi.auxillaryController.b.get()){
       Robot.bling.sendFlipDown();
     }
-    else if(Robot.oi.operatorControl.leftBumper.get()){
+    else if(Robot.oi.auxillaryController.leftBumper.get()){
       Robot.bling.sendAdvancedTurn();
     }
-    else if(Robot.oi.operatorControl.rightBumper.get()){
+    else if(Robot.oi.auxillaryController.rightBumper.get()){
       Robot.bling.sendSystemTest();
     }
   }

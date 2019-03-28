@@ -13,7 +13,7 @@ import frc.robot.commands.HatchCommands.SendFlipperToMid;
  */
 public class OI {
 	/** User Controllers */
-	public XboxController driverControl, operatorControl;
+	public XboxController driverControl, operatorControl, auxillaryController;
 
 	/** Driver Controls */
 	public JoystickButton driverCancel, grab, drop;
@@ -25,6 +25,7 @@ public class OI {
 		/* Controller Assignment */
     	driverControl = new XboxController(0);
 		operatorControl = new XboxController(1);
+		auxillaryController = new XboxController(2);
 
 		/* Cancel Buttons */
 		driverCancel = driverControl.a;
