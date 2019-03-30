@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
 
 		pnuematic = new Pnuematic();
 
-		feedback = new Feedback();
+		//feedback = new Feedback();
 
 		gearbox = new GearBox();
 

@@ -16,14 +16,10 @@ import frc.robot.commands.HatchCommands.*;
 public class PerfectDropoff extends CommandGroup {
 
   public PerfectDropoff() {
-    addParallel(new SendFlipperToTop(.75));
-    addSequential(new Align());
-    if (!Robot.canceled) {
-      addSequential(new AdvancederDrive(20, "forward", 400));
-      addSequential(new WaitCommand(.1));
-      addParallel(new SendFlipperToMid(.75));
-      addSequential(new AdvancederDrive(25, "backward", 450));
-      addSequential(new SendFlipperToTop(.75));
-    }
+    addSequential(new AdvancederDrive(10, "forward", 200));
+    addSequential(new WaitCommand(.1));
+    addParallel(new SendFlipperToMid(.75));
+    addSequential(new AdvancederDrive(25, "backward", 550));
+    addSequential(new SendFlipperToTop(.75));
   }
 }

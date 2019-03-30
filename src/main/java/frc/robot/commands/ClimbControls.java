@@ -65,7 +65,7 @@ public class ClimbControls extends Command {
 	 * @param Input to check against amperage of motors
 	 * @return If amperage is over limit
 	 */
-	private boolean ampCheck(double limit){
+	private boolean ampCheck(double limit) {
 		System.out.println("Climber Amperage: " + Robot.climber.rightClimber.getOutputCurrent());
 		return Robot.climber.rightClimber.getOutputCurrent() >= limit;
 	}

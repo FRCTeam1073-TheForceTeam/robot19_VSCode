@@ -55,7 +55,7 @@ public class HatchControls extends Command {
 
 	/** Sets flipper after checking limit switches */
 	public void flipper(double val) {
-		//if ((Robot.hatch.bottomLim.get() && val > 0) || (Robot.hatch.topLim.get() && val < 0)) val = 0;
+		if ((!Robot.hatch.bottomLim.get() && val > 0) || (!Robot.hatch.topLim.get() && val < 0)) val = 0;
 		if (!Robot.oi.operatorControl.leftBumper.get()) val /= 2;
 		Robot.hatch.setFlipper(val);
 	}
@@ -73,7 +73,7 @@ public class HatchControls extends Command {
 	 * @param Input to check against amperage of motors
 	 * @return If amperage is over limit
 	 */
-	private void ampCheck(double limit){
+	private void ampCheck(double limit) {
 		System.out.println("Hatch Amperage: " + Robot.hatch.hatchLift.getOutputCurrent());
 		if(Robot.hatch.hatchLift.getOutputCurrent() >= limit){
 			if(Robot.oi.operatorControl.getY1() > 0) preventUp = true;

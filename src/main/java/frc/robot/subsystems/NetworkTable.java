@@ -12,7 +12,7 @@ public class NetworkTable extends Subsystem {
 
   public static NetworkTableInstance inst;
   public DriverStation ds = DriverStation.getInstance();
-  public edu.wpi.first.networktables.NetworkTable table;
+  public edu.wpi.first.networktables.NetworkTable table, visionTable;
 
   /**
    * @author Nathaniel
@@ -20,6 +20,7 @@ public class NetworkTable extends Subsystem {
   public NetworkTable() {
 		inst = NetworkTableInstance.getDefault();
     table = inst.getTable("1073Table");
+    visionTable = inst.getTable("CameraFeedback");
   }
 
   @Override
@@ -34,6 +35,7 @@ public class NetworkTable extends Subsystem {
 
   public void refresh() {
     table = inst.getTable("1073Table");
+    visionTable = inst.getTable("CameraFeedback");
     if (ds.isAutonomous()) table.getEntry("Period").setString("Auto");
     else table.getEntry("Period").setString("Tele");
   }

@@ -27,19 +27,6 @@ public class Vision extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		cameras();
-		handler = new VisionHandler(2);
-		setDefaultCommand(handler);
-	}
-
-	public String[] cameras() {
-		camArray = new String[5];
-		camArray[0] = "point";
-		camArray[1] = "none";
-		camArray[2] = "none";
-		camArray[3] = "none";
-		camArray[4] = "none";
-		return camArray;
 	}
 
 	/** Checks if vision sees anything */
@@ -49,14 +36,14 @@ public class Vision extends Subsystem {
 	}
 
 	public double[] getLines(int val) {
-		return Robot.networktable.table.getEntry("cam_" + val + "_lineseg").getDoubleArray(new double[0]);
+		return Robot.networktable.visionTable.getEntry("cam_" + val + "_lineseg").getDoubleArray(new double[0]);
 	}
 
 	public double[] getBlobs(int val) {
-		return Robot.networktable.table.getEntry("cam_" + val + "_cargo").getDoubleArray(new double[0]);
+		return Robot.networktable.visionTable.getEntry("cam_" + val + "_cargo").getDoubleArray(new double[0]);
 	}
 
 	public double[] getPoints(int val) {
-		return Robot.networktable.table.getEntry("cam_" + val + "_hatch").getDoubleArray(new double[0]);
+		return Robot.networktable.visionTable.getEntry("cam_0_hatch").getDoubleArray(new double[0]);
 	}
 }

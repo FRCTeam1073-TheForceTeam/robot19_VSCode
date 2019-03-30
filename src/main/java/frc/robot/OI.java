@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.Autonomous.PerfectDropoff;
+import frc.robot.commands.Autonomous.PerfectPickup;
 import frc.robot.commands.AutonomousTools.Align;
 import frc.robot.commands.HatchCommands.HatchGrabberDown;
 import frc.robot.commands.HatchCommands.HatchGrabberUp;
@@ -16,7 +17,7 @@ public class OI {
 	public XboxController driverControl, operatorControl;
 
 	/** Driver Controls */
-	public JoystickButton driverCancel, grab, drop;
+	public JoystickButton driverCancel, grab, drop, align;
 
 	/** Operator Controls */
 	public JoystickButton operatorCancel, operatorRight, bucketButton, modeSwitch, hatchDownToMid;
@@ -31,10 +32,13 @@ public class OI {
 		operatorCancel = operatorControl.a;
 
 		grab = driverControl.leftBumper;
-		grab.whenPressed(new Align(1, 1, 1));
+		grab.whenPressed(new PerfectPickup());
 
 		drop = driverControl.rightBumper;
 		drop.whenPressed(new PerfectDropoff());
+
+		align = driverControl.b;
+		align.whenPressed(new Align());
 
 		/*bucketButton = operatorControl.b;
 		bucketButton.whenPressed(new CargoBucketUp());
