@@ -6,7 +6,6 @@ import frc.robot.commands.CargoCommands.CargoBucketUp;
 import frc.robot.commands.HatchCommands.HatchGrabberDown;
 import frc.robot.commands.HatchCommands.HatchGrabberUp;
 import frc.robot.commands.HatchCommands.SendFlipperToLim;
-
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -44,4 +43,5 @@ public class OI {
 		operatorRight.whenPressed(new HatchGrabberDown());
 		operatorRight.whenReleased(new HatchGrabberUp());
 	}
+	
 }
