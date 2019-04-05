@@ -15,6 +15,10 @@ public class SendFlipperToMid extends Command {
         this.speed = speed;
     }
 
+    protected void initialize() {
+        Robot.bling.sendHatchToMid();
+    }
+
     protected void execute() {
         Robot.hatch.setFlipper(-speed);
     }
@@ -25,5 +29,6 @@ public class SendFlipperToMid extends Command {
 
     protected void end() {
         Robot.hatch.setFlipper(0);
+		Robot.bling.sendDefaultPattern();
     }
 }

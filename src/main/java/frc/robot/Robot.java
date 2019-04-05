@@ -84,7 +84,9 @@ public class Robot extends TimedRobot {
 			
 		hatch = new Hatch();
 
-		//bling = new Bling();
+		bling = new Bling();
+
+		bling.sendRobotInit();
 
     	oi = new OI();
 
@@ -196,6 +198,7 @@ public class Robot extends TimedRobot {
 		else debugMode = false;
 
 		Scheduler.getInstance().run();
+		Robot.bling.sendDefaultPattern();
 	}
 	
 	/** This function is called periodically during operator control */

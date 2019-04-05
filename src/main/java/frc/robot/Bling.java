@@ -106,6 +106,24 @@ package frc.robot;
         public void sendRobotInit() {
                 setPattern("RainbowHalves", "Rainbow", "All", "Medium", 0, 100);
                 send();
+                Robot.debugPrint("ROBOT INIT");
         }
-
+        public void sendDefaultPattern(){
+                Robot.bling.setPattern("Alternates", "TeamColors", "All", "Slow", 0, 100);
+        }
+        public void sendHatchGrabberDown(){
+                Robot.bling.setPattern("Solid", "Purple", "All", "Medium", 0, 100);
+        }
+        public void sendHatchGrabberUp(){
+                Robot.bling.setPattern("Solid", "Cyan", "All", "Medium", 0, 100);
+        }
+        public void sendHatchToMid(){
+                Robot.bling.setPattern("Solid", "White", "All", "Medium", 0, 100);
+        }
+        public void sendAlign(){
+                Robot.bling.setPattern("Solid", "Red", "All", "Medium", 0, 100);
+        }
+        public void sendClimberFoldUp(){
+                Robot.bling.setPattern("Solid", "Green", "All", "Medium", 0, 100);
+        }
 }

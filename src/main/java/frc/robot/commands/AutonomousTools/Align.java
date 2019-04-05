@@ -53,6 +53,7 @@ public class Align extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		choosePoint();
+		Robot.bling.sendAlign();
 	}
 
 	private void choosePoint() {
@@ -125,6 +126,7 @@ public class Align extends Command {
 	
 	protected void end() {
 		Robot.drivetrain.tank(0);
+		Robot.bling.sendDefaultPattern();
 	}
 
 

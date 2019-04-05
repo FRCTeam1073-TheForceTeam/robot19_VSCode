@@ -76,6 +76,7 @@ public class AdvancedTurn extends Command {
 		
 		/* Grabs a start time for timeout */
 		timeStart = System.currentTimeMillis();
+		Robot.bling.sendAdvancedTurn();
 	}
 	
 	/** Makes a point based turn act like a degree based one */
@@ -126,6 +127,7 @@ public class AdvancedTurn extends Command {
 		Robot.drivetrain.zero();
 		Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancedTurn says:\n"
 				+ "\"Final Gyro point: " + currentDegrees + "\"");
+		Robot.bling.sendDefaultPattern();
 	}
 }
 		

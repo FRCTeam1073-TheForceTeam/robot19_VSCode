@@ -53,6 +53,10 @@ public class DriveControls extends Command {
 		requires(Robot.pnuematic);
 		this.deadzone = deadzone;
 	}
+	
+	protected void initialize(){
+		Robot.bling.sendDefaultPattern();
+	}
 
 	/** Called Repeatedly */
 	protected void execute() {

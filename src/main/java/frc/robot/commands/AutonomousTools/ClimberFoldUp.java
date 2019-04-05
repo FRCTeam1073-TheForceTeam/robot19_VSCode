@@ -8,6 +8,10 @@ public class ClimberFoldUp extends Command {
     requires(Robot.climber);
   }
 
+  protected void initialize() {
+    Robot.bling.sendClimberFoldUp();
+  }
+
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
@@ -26,7 +30,7 @@ public class ClimberFoldUp extends Command {
   @Override
   protected void end() {
     Robot.climber.rightClimber.set(0);
-
+    Robot.bling.sendDefaultPattern();
   }
 
   // Called when another command which requires one or more of the same

@@ -17,10 +17,19 @@ public class HatchGrabberUp extends Command {
     requires(Robot.hatch);
   }
 
+  protected void initialize() {
+    Robot.bling.sendHatchGrabberUp();
+  }
+
   /** Raises hatch grabber and finishes when confirmed raised */
   @Override
   protected boolean isFinished() {
     Robot.hatch.hatchGrabberUp();
     return Robot.hatch.isHatchGrabberRaised();
   }
+
+  protected void end() {
+    Robot.bling.sendDefaultPattern();
+  }
+
 }

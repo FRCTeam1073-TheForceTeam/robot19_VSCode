@@ -15,6 +15,10 @@ public class SendFlipperToTop extends Command {
         this.speed = speed;
     }
 
+    protected void initialize() {
+        Robot.bling.sendFlipUp();
+    }
+
     protected void execute() {
         Robot.hatch.setFlipper(speed);
     }
@@ -25,5 +29,6 @@ public class SendFlipperToTop extends Command {
 
     protected void end() {
         Robot.hatch.setFlipper(0);
+		Robot.bling.sendDefaultPattern();
     }
 }
