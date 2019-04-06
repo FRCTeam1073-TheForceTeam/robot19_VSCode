@@ -86,11 +86,11 @@ public class Robot extends TimedRobot {
 
 		bling = new Bling();
 
-		bling.sendRobotInit();
-
     	oi = new OI();
 
 		FMS = "";
+
+		bling.sendRobotInit();
 
 		/* Position Objects */
 		left = new AutoObject(1);
@@ -130,6 +130,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Debug", debugChooser);
 		
 		debugRunner = new SystemTest();
+
   }
 
   /**

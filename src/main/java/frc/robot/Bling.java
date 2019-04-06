@@ -12,9 +12,11 @@ package frc.robot;
  * Should be Called BlinkyLights but whatever
 * @author Nick
  */
- import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
- public class Bling {
+ public class Bling extends Subsystem {
         private String color;
         private String speed;
         private int min;
@@ -23,6 +25,16 @@ package frc.robot;
         private String segment;
         private String put;
         private String put2;
+        @Override
+        protected void initDefaultCommand() {
+        }
+
+        @Override
+        public void periodic(){
+                if(RobotController.isBrownedOut()||Robot.oi.driverControl.start.get()){
+                        sendBrownOut();
+                }
+        }
 
         public String setPattern(String patt,  String col, String seg, String spd, int mini, int maxi) {
                 pattern = patt;
@@ -108,22 +120,33 @@ package frc.robot;
                 send();
                 Robot.debugPrint("ROBOT INIT");
         }
-        public void sendDefaultPattern(){
-                Robot.bling.setPattern("Alternates", "TeamColors", "All", "Slow", 0, 100);
+        public void sendDefaultPattern() {
+                setPattern("Alternates", "TeamColors", "All", "Slow", 0, 100);
+                send();
         }
-        public void sendHatchGrabberDown(){
-                Robot.bling.setPattern("Solid", "Purple", "All", "Medium", 0, 100);
+        public void sendHatchGrabberDown() {
+                setPattern("Solid", "Purple", "All", "Medium", 0, 100);
+                send();
         }
-        public void sendHatchGrabberUp(){
-                Robot.bling.setPattern("Solid", "Cyan", "All", "Medium", 0, 100);
+        public void sendHatchGrabberUp() {
+                setPattern("Solid", "Cyan", "All", "Medium", 0, 100);
+                send();
         }
-        public void sendHatchToMid(){
-                Robot.bling.setPattern("Solid", "White", "All", "Medium", 0, 100);
+        public void sendHatchToMid() {
+                setPattern("Solid", "White", "All", "Medium", 0, 100);
+                send();
         }
-        public void sendAlign(){
-                Robot.bling.setPattern("Solid", "Red", "All", "Medium", 0, 100);
+        public void sendAlign() {
+                setPattern("Solid", "Red", "All", "Medium", 0, 100);
+                send();
         }
-        public void sendClimberFoldUp(){
-                Robot.bling.setPattern("Solid", "Green", "All", "Medium", 0, 100);
+        public void sendClimberFoldUp() {
+                setPattern("Solid", "Green", "All", "Medium", 0, 100);
+                send();
         }
+        public void sendBrownOut() {
+                setPattern("Alternates","BlackAndYellow","All","Fast",0,100);
+                send();
+        }
+
 }

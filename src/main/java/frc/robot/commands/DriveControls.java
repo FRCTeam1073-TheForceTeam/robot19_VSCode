@@ -60,6 +60,7 @@ public class DriveControls extends Command {
 
 	/** Called Repeatedly */
 	protected void execute() {
+		System.out.println(Robot.networktable.table.getEntry("Bling_Command").getString("[ERROR] BLING NOT ACTIVE"));
 		/* Controller Data */
 		forward = Robot.oi.driverControl.getRawAxis(1);
 		rotational = Robot.oi.driverControl.getRawAxis(4);
