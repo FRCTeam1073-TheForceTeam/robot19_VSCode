@@ -31,15 +31,6 @@ public class OI {
 		driverCancel = driverControl.a;
 		operatorCancel = operatorControl.a;
 
-		grab = driverControl.leftBumper;
-		grab.whenPressed(new PerfectPickup());
-
-		drop = driverControl.rightBumper;
-		drop.whenPressed(new PerfectDropoff());
-
-		align = driverControl.b;
-		align.whenPressed(new Align());
-
 		/*bucketButton = operatorControl.b;
 		bucketButton.whenPressed(new CargoBucketUp());
 		bucketButton.whenReleased(new CargoBucketDown());*/

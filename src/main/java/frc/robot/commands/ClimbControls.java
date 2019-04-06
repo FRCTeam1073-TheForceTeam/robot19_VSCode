@@ -44,6 +44,7 @@ public class ClimbControls extends Command {
 		else Robot.climber.tank(0);
 
 		if (Robot.oi.operatorControl.y.get()) Robot.climber.crawl(.75);
+		else if (Robot.oi.operatorControl.select.get()) Robot.climber.crawl(-.25);
 		else Robot.climber.crawl(0);
 	}
 

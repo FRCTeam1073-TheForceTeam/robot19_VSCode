@@ -62,7 +62,7 @@ public class DriveControls extends Command {
 
 		if (Robot.oi.driverControl.y.get()) Robot.autoBox = !Robot.autoBox;
 		if (!Robot.autoBox && Robot.oi.driverControl.x.get() && !Robot.pnuematic.isLowGear()) Robot.pnuematic.setLowGear();
-		if (!Robot.autoBox && Robot.oi.driverControl.x.get() && !Robot.pnuematic.isHighGear()) Robot.pnuematic.setHighGear();
+		if (!Robot.autoBox && Robot.oi.driverControl.b.get() && !Robot.pnuematic.isHighGear()) Robot.pnuematic.setHighGear();
 		
 		/* Outputs Checked Controller Data to Motors */
 		arcaderDrive(limit(deadZoneCheck(forward)), limit(deadZoneCheck(rotational)));
