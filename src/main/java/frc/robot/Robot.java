@@ -19,7 +19,6 @@ public class Robot extends TimedRobot {
 	public double initialBootTime, teleopStartTime, autoStartTime;
 	public static OI oi;
 	public static NetworkTable networktable;
-	public static OperatorMode operatorMode;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
   	public static Feedback feedback;
@@ -53,8 +52,6 @@ public class Robot extends TimedRobot {
     	debugPrint("Robot Initializing");
 		
 		RobotMap.init();
-
-		operatorMode = OperatorMode.CLIMB;
 		
 		debugMode = false;
 		autoBox = false;

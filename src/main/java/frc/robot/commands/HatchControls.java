@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OperatorMode;
 import frc.robot.Presets;
 import frc.robot.Robot;
 

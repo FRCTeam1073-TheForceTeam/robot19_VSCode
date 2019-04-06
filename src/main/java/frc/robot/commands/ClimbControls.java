@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OperatorMode;
 import frc.robot.Presets;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -40,8 +39,7 @@ public class ClimbControls extends Command {
 	/** Called Repeatedly */
 	protected void execute() {
 		/* Outputs Checked Controller Data to Motors */
-		if (Robot.operatorMode.equals(OperatorMode.CLIMB)) speedCheck();
-		else Robot.climber.tank(0);
+		speedCheck();
 
 		if (Robot.oi.operatorControl.y.get()) Robot.climber.crawl(.75);
 		else if (Robot.oi.operatorControl.select.get()) Robot.climber.crawl(-.25);
