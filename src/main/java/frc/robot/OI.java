@@ -1,11 +1,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.CargoCommands.CargoBucketDown;
-import frc.robot.commands.CargoCommands.CargoBucketUp;
+import frc.robot.commands.Autonomous.PerfectDropoff;
+import frc.robot.commands.Autonomous.PerfectPickup;
+import frc.robot.commands.AutonomousTools.Align;
 import frc.robot.commands.HatchCommands.HatchGrabberDown;
 import frc.robot.commands.HatchCommands.HatchGrabberUp;
-import frc.robot.commands.HatchCommands.SendFlipperToLim;
+import frc.robot.commands.HatchCommands.SendFlipperToMid;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -16,10 +17,10 @@ public class OI {
 	public XboxController driverControl, operatorControl;
 
 	/** Driver Controls */
-	public JoystickButton driverCancel, lowGearHold, highGearHold;
+	public JoystickButton driverCancel, grab, drop, align;
 
 	/** Operator Controls */
-	public JoystickButton operatorCancel, operatorRight, bucketButton, modeSwitch, hatchDownToLim;
+	public JoystickButton operatorCancel, operatorRight, bucketButton, modeSwitch, hatchDownToMid;
 	
     public OI() {
 		/* Controller Assignment */
@@ -30,18 +31,25 @@ public class OI {
 		driverCancel = driverControl.a;
 		operatorCancel = operatorControl.a;
 
-		lowGearHold = driverControl.leftBumper;
-		highGearHold = driverControl.rightBumper;
+		grab = driverControl.leftBumper;
+		grab.whenPressed(new PerfectPickup());
 
-		hatchDownToLim = operatorControl.x;
-		hatchDownToLim.whenPressed(new SendFlipperToLim(.5));
+		drop = driverControl.rightBumper;
+		drop.whenPressed(new PerfectDropoff());
 
-		bucketButton = operatorControl.b;
+		align = driverControl.b;
+		align.whenPressed(new Align());
+
+		/*bucketButton = operatorControl.b;
 		bucketButton.whenPressed(new CargoBucketUp());
-		bucketButton.whenReleased(new CargoBucketDown());
+		bucketButton.whenReleased(new CargoBucketDown());*/
 
 		operatorRight = operatorControl.rightBumper;
 		operatorRight.whenPressed(new HatchGrabberDown());
 		operatorRight.whenReleased(new HatchGrabberUp());
+
+		
+		hatchDownToMid = operatorControl.b;
+		hatchDownToMid.whenPressed(new SendFlipperToMid(.5));
 	}
 }

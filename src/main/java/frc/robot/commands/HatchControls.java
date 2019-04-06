@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OperatorMode;
+import frc.robot.Presets;
 import frc.robot.Robot;
 
 /**
@@ -10,11 +11,18 @@ import frc.robot.Robot;
  * Deadzones, because frankly, why not?
  * Checked with operator (Jack), and controls are compatible with rest of operator OI.
  * @author Nathaniel
+ * @author Jack
  */
 public class HatchControls extends Command {
 
 	/** Controller Dead Zone */
 	private double deadzone;
+
+	/** Prevents motor from moving upwards */
+	private boolean preventUp;
+
+	/** Prevents motor from moving downwards */
+	private boolean preventDown;
 
 	/**
 	 * This is the hatch movement controls
@@ -28,7 +36,7 @@ public class HatchControls extends Command {
 	 * 
 	 * This command does not finish.
 	 * 
-	 * @author Nathaiel
+	 * @author Nathaniel, Jack
 	 * @see /subsystems/hatch.java
 	 * @category Drive Command
 	 */
@@ -39,20 +47,15 @@ public class HatchControls extends Command {
 
 	/** Called Repeatedly */
 	protected void execute() {
-		if (Robot.operatorMode.equals(OperatorMode.CLIMB)) {
 			flipper(-deadZoneCheck(Robot.oi.operatorControl.getRawAxis(1)));
 			if (deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) > 0 || deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()) > 0) 
 			Robot.hatch.setCollector(deadZoneCheck(Robot.oi.operatorControl.getRightTrigger()) - deadZoneCheck(Robot.oi.operatorControl.getLeftTrigger()));
 			else Robot.hatch.setCollector(0);
-		} else {
-			flipper(0);
-			Robot.hatch.setCollector(0);
-		}
 	}
 
 	/** Sets flipper after checking limit switches */
 	public void flipper(double val) {
-		if ((Robot.hatch.bottomLim.get() && val >= 0) || (Robot.hatch.topLim.get() && val < 0)) val=0;
+		if ((!Robot.hatch.bottomLim.get() && val > 0) || (!Robot.hatch.topLim.get() && val < 0)) val = 0;
 		if (!Robot.oi.operatorControl.leftBumper.get()) val /= 2;
 		Robot.hatch.setFlipper(val);
 	}
@@ -66,6 +69,25 @@ public class HatchControls extends Command {
 		return val;
 	}
 
+	/**
+	 * @param Input to check against amperage of motors
+	 * @return If amperage is over limit
+	 */
+	private void ampCheck(double limit) {
+		System.out.println("Hatch Amperage: " + Robot.hatch.hatchLift.getOutputCurrent());
+		if(Robot.hatch.hatchLift.getOutputCurrent() >= limit){
+			if(Robot.oi.operatorControl.getY1() > 0) preventUp = true;
+			if(Robot.oi.operatorControl.getY1() < 0) preventDown = true;
+		}
+	}
+
+	/** 
+	 * Resets the flags if the other direction is held
+	 */
+	private void flagReset(){
+		if(Robot.oi.operatorControl.getY1() > 0) preventDown = false;
+		if(Robot.oi.operatorControl.getY1() < 0) preventUp = false;
+	}
 	/** 
 	 * This command should never finish as it 
 	 * must remain active for the duration of

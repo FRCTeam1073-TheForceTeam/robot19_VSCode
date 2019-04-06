@@ -26,13 +26,13 @@ public class AdvancederDrive extends Command {
 	private double deadzone = 0.25;
 	
 	/** Normal running speed */
-	private double normalSpeed = 1;
+	private double normalSpeed = .55;
 	
 	/** Modifier to speed when adjusting for drift */
 	private double adjustSpeed = .95;
 	
 	/** Near end running speed */
-	private double slowSpeed = .7;
+	private double slowSpeed = .55;
 
 	/** Near end distance */
 	private double inchesLeft = 7;
@@ -58,8 +58,8 @@ public class AdvancederDrive extends Command {
 	public AdvancederDrive(double distance, String direction, double timeout) {
 		this.distance = Math.abs(distance * 118);
 		
-		if (direction.equals("forward")) this.direction = 1;
-		else if (direction.equals("backward")) this.direction = -1;
+		if (direction.equals("forward")) this.direction = -1;
+		else if (direction.equals("backward")) this.direction = 1;
 		else Robot.debugPrint("WARN: robot19.commands.AutonomousTools.AdvancederDrive says\n"
 				+ "\"Invalid string!\n"
 				+ "Must be: \"forward\" or \"backward\"\n"
@@ -105,8 +105,8 @@ public class AdvancederDrive extends Command {
 	private double distanceCheck() {
 		Robot.debugPrint("LOG: robot19.commands.AutonomousTools.AdvancederDrive says:\n"
 				+ "\"distanceCheck: TD " + (int)(Math.abs(currentLeft - initialLeft) + Math.abs(currentRight - initialRight) / (2 * distance)) + "\t CL" + (int)currentLeft + "\t CR" + (int)currentRight + "\"");
-		if (Math.abs(currentLeft - initialLeft) <= 2) return Math.abs(currentRight - initialRight);
-		if (Math.abs(currentRight - initialRight) <= 2) return Math.abs(currentLeft - initialLeft);
+		if (Math.abs(currentLeft - initialLeft) <= 5) return Math.abs(currentRight - initialRight);
+		if (Math.abs(currentRight - initialRight) <= 5) return Math.abs(currentLeft - initialLeft);
 		return (Math.abs(currentLeft - initialLeft) + Math.abs(currentRight - initialRight)) / 2;
 	}
 
