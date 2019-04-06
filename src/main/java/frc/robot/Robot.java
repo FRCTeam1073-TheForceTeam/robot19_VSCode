@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SystemTest;
 import frc.robot.subsystems.*;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -40,8 +41,16 @@ public class Robot extends TimedRobot {
 
 	public static boolean canceled;
 
+	edu.wpi.first.networktables.NetworkTable netTable;
+	NetworkTableInstance netTableInst;
+	public double lidarLeft;
+	public double lidarRight;
+	public double lidarAngle;
+
 	protected Robot() {
 		super(0.03); //cycle time
+		netTableInst = NetworkTableInstance.getDefault();
+		netTable = netTableInst.getTable("1073Table");
 	}
 
   /**
@@ -51,7 +60,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     	debugPrint("Robot Initializing");
-		
+		lidarLeft = netTable.getEntry("lidarPoint1").getDouble(0);
+		lidarRight = netTable.getEntry("lidarPoint2").getDouble(0);
+		lidarAngle = netTable.getEntry("lidarAngle").getDouble(0);
 		RobotMap.init();
 
 		operatorMode = OperatorMode.CLIMB;
@@ -127,6 +138,12 @@ public class Robot extends TimedRobot {
 		debugChooser.addOption("Bling", debugBling);
 		SmartDashboard.putData("Debug", debugChooser);
 		
+		//Lidar To Dashboard
+		SmartDashboard.putNumber("LidarLeft", lidarLeft);
+		SmartDashboard.putNumber("LidarRight", lidarRight);
+		SmartDashboard.putNumber("LidarAngle", lidarAngle);
+
+
 		debugRunner = new SystemTest();
   }
 
@@ -140,6 +157,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+	lidarLeft = netTable.getEntry("lidarPoint1").getDouble(0);
+	lidarRight = netTable.getEntry("lidarPoint2").getDouble(0);
+	lidarAngle = netTable.getEntry("lidarAngle").getDouble(0);
+	SmartDashboard.putNumber("LidarLeft", lidarLeft);
+	SmartDashboard.putNumber("LidarRight", lidarRight);
+	SmartDashboard.putNumber("LidarAngle", lidarAngle);
+	
   }
   
   /**
