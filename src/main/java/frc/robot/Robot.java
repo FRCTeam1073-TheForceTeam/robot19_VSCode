@@ -6,8 +6,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SystemTest;
+import frc.robot.commands.AutonomousTools.AutoTest;
 import frc.robot.subsystems.*;
 import edu.wpi.first.networktables.NetworkTableInstance;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -59,10 +61,26 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    	debugPrint("Robot Initializing");
-		lidarLeft = netTable.getEntry("lidarPoint1").getDouble(0);
-		lidarRight = netTable.getEntry("lidarPoint2").getDouble(0);
-		lidarAngle = netTable.getEntry("lidarAngle").getDouble(0);
+		debugPrint("Robot Initializing");
+		if(netTable.getEntry("point1").getDouble(0) != -1){
+			lidarLeft = netTable.getEntry("point1").getDouble(0);
+			}
+		else{
+			lidarLeft = lidarLeft;
+		}
+		if(netTable.getEntry("point2").getDouble(0) != -1){
+			lidarRight = netTable.getEntry("point2").getDouble(0);
+		}
+		else{
+			lidarRight = lidarRight;
+		}
+		if(netTable.getEntry("point2").getDouble(0) != -1){
+			lidarAngle = netTable.getEntry("lidarAngle").getDouble(0);
+		}	
+		else{
+			lidarAngle = lidarAngle;
+		}
+
 		RobotMap.init();
 
 		operatorMode = OperatorMode.CLIMB;
@@ -137,11 +155,13 @@ public class Robot extends TimedRobot {
 		debugChooser.addOption("Gearbox", debugGearbox);
 		debugChooser.addOption("Bling", debugBling);
 		SmartDashboard.putData("Debug", debugChooser);
+	
 		
 		//Lidar To Dashboard
 		SmartDashboard.putNumber("LidarLeft", lidarLeft);
 		SmartDashboard.putNumber("LidarRight", lidarRight);
 		SmartDashboard.putNumber("LidarAngle", lidarAngle);
+		SmartDashboard.putString("LidarAlign", "Init");
 
 
 		debugRunner = new SystemTest();
@@ -157,8 +177,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-	lidarLeft = netTable.getEntry("lidarPoint1").getDouble(0);
-	lidarRight = netTable.getEntry("lidarPoint2").getDouble(0);
+	lidarLeft = netTable.getEntry("point1").getDouble(0);
+	lidarRight = netTable.getEntry("point2").getDouble(0);
 	lidarAngle = netTable.getEntry("lidarAngle").getDouble(0);
 	SmartDashboard.putNumber("LidarLeft", lidarLeft);
 	SmartDashboard.putNumber("LidarRight", lidarRight);
