@@ -8,9 +8,7 @@ import frc.robot.RobotMap;
  * @author Nathaniel
  */
 public class Pnuematic extends Subsystem {
-  
-  private final Solenoid bucketUp = RobotMap.bucketUp;
-	private final Solenoid bucketDown = RobotMap.bucketDown;
+
   private final Solenoid high = RobotMap.high;
   private final Solenoid low = RobotMap.low;
   private final Solenoid hatchRaiser = RobotMap.hatchRaiser;
@@ -18,26 +16,6 @@ public class Pnuematic extends Subsystem {
   
   @Override
   public void initDefaultCommand() {
-  }
-
-  public boolean isBucketUp() {
-    if (!bucketDown.get() && bucketUp.get()) return true;
-    return false;
-  }
-
-  public boolean isBucketDown() {
-    if (bucketDown.get() && !bucketUp.get()) return true;
-    return false;
-  }
-
-  public void bucketUp() {
-    bucketUp.set(true);
-    bucketDown.set(false);
-  }
-
-  public void bucketDown() {
-    bucketUp.set(false);
-    bucketDown.set(true);
   }
 
   public boolean isHighGear() {

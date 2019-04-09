@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SystemTest;
-import frc.robot.commands.AutonomousTools.AutoTest;
 import frc.robot.subsystems.*;
 
 /**
@@ -20,14 +19,12 @@ public class Robot extends TimedRobot {
 	public double initialBootTime, teleopStartTime, autoStartTime;
 	public static OI oi;
 	public static NetworkTable networktable;
-	public static OperatorMode operatorMode;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
   	public static Feedback feedback;
 	public static GearBox gearbox;
 	public static Climber climber;
 	public static Vision vision;
-	public static Cargo cargo;
 	public static Lidar lidar;
 	public static Hatch hatch;
 	public static Bling bling;
@@ -38,6 +35,8 @@ public class Robot extends TimedRobot {
 	public static boolean debugMode, autoBox;
 	public static Command debugRunner;
 	public Command autonomousCommand;
+
+	public static boolean canceled;
 
 	protected Robot() {
 		super(0.03); //cycle time
@@ -52,12 +51,11 @@ public class Robot extends TimedRobot {
     	debugPrint("Robot Initializing");
 		
 		RobotMap.init();
-
-		operatorMode = OperatorMode.CLIMB;
 		
 		debugMode = false;
 		autoBox = false;
 		notClear = false;
+		canceled = false;
 
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
@@ -68,7 +66,7 @@ public class Robot extends TimedRobot {
 
 		pnuematic = new Pnuematic();
 
-		feedback = new Feedback();
+		//feedback = new Feedback();
 
 		gearbox = new GearBox();
 
@@ -77,8 +75,6 @@ public class Robot extends TimedRobot {
 		vision = new Vision();
 
 		lidar = new Lidar();
-
-		cargo = new Cargo();
 			
 		hatch = new Hatch();
 

@@ -8,44 +8,13 @@ public class Feedback extends Subsystem {
 
     private final Accelerometer accl = RobotMap.accelerometer;
     public static double mt;
+    
     public Feedback() {
 
     }
 
     public void initDefaultCommand() {
-
-    }
-
-    public void periodic() {
-        mt = Robot.networktable.ds.getMatchTime();
-
-        //Rumbles left/right/left/right at the start of endgame to warn drivers
-        if (mt == 30) {
-            Robot.oi.driverControl.rumble(percentRumble(accl.getX()), 0);
-            Robot.oi.driverControl.rumble(0, percentRumble(accl.getX()));
-            Robot.oi.driverControl.rumble(percentRumble(accl.getX()), 0);
-            Robot.oi.driverControl.rumble(0, percentRumble(accl.getX()));
-        }
-        //Getting hit from the left
-        if (accl.getX() > .2) {
-            Robot.oi.driverControl.rumble(percentRumble(accl.getX()), 0);
-            Robot.oi.operatorControl.rumble(percentRumble(accl.getX()), 0);
-        }
-        //Getting hit from the right
-        else if (accl.getX() < -.2) {
-            Robot.oi.driverControl.rumble(0, percentRumble(accl.getX()));
-            Robot.oi.operatorControl.rumble(0, percentRumble(accl.getX()));
-        }
-        //Getting hit from the back or front
-        else if (Math.abs(accl.getY()) > .2) {
-            Robot.oi.driverControl.rumbleTime(percentRumble(accl.getY()), 10);
-            Robot.oi.operatorControl.rumbleTime(percentRumble(accl.getY()), 10);
-        }
-        //nOThInG hIt uS No pRoBlEm wE CaN sTiLl hAvE RuMbLe
-        else {
-            Robot.oi.driverControl.rumbleTime(0, 0);
-            Robot.oi.operatorControl.rumbleTime(0, 0);
-        }
+        
     }
 
     private double percentRumble(double val) {

@@ -31,18 +31,14 @@ public class RobotMap {
 
 	public static WPI_TalonSRX leftClimber;
 	public static WPI_TalonSRX rightClimber;
-	
+	public static WPI_TalonSRX climbWheels;
+
 	public static DigitalInput climberLeftLim;
 	public static DigitalInput climberRightLim;
-
-	public static WPI_TalonSRX lidar;
 
 	public static WPI_TalonSRX hatchCollect;
 	public static WPI_TalonSRX hatchLift;
 	public static WPI_VictorSPX hatchLiftSlave;
-
-	public static Solenoid bucketUp;
-	public static Solenoid bucketDown;
 
 	public static Solenoid high;
 	public static Solenoid low;
@@ -71,17 +67,13 @@ public class RobotMap {
 		headingGyro = new ADXRS450_Gyro();
 		accelerometer = new BuiltInAccelerometer();
 
-		lidar = new WPI_TalonSRX(15);
-
 		hatchCollect = new WPI_TalonSRX(5);
 		hatchLift = new WPI_TalonSRX(6);
 		hatchLiftSlave = new WPI_VictorSPX(12);
 
 		rightClimber = new WPI_TalonSRX(10);
 		leftClimber = new WPI_TalonSRX(13);
-
-		bucketUp = new Solenoid(0);
-		bucketDown = new Solenoid(1);
+		climbWheels = new WPI_TalonSRX(15);
 
 		high = new Solenoid(7);
 		low = new Solenoid(6);
@@ -90,6 +82,8 @@ public class RobotMap {
 
 		climberLeftLim = new DigitalInput(4);
 		climberRightLim = new DigitalInput(5);
-		flipperMidLim = new DigitalInput(6);
+		flipperBotLim = new DigitalInput(6);
+		flipperMidLim = new DigitalInput(7);
+		flipperTopLim = new DigitalInput(8);
 	}
 }
