@@ -31,10 +31,6 @@ public class OI {
 		driverCancel = driverControl.a;
 		operatorCancel = operatorControl.a;
 
-		/*bucketButton = operatorControl.b;
-		bucketButton.whenPressed(new CargoBucketUp());
-		bucketButton.whenReleased(new CargoBucketDown());*/
-
 		operatorRight = operatorControl.rightBumper;
 		operatorRight.whenPressed(new HatchGrabberDown());
 		operatorRight.whenReleased(new HatchGrabberUp());

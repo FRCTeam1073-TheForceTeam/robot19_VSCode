@@ -25,7 +25,6 @@ public class Robot extends TimedRobot {
 	public static GearBox gearbox;
 	public static Climber climber;
 	public static Vision vision;
-	public static Cargo cargo;
 	public static Lidar lidar;
 	public static Hatch hatch;
 	public static Bling bling;
@@ -76,8 +75,6 @@ public class Robot extends TimedRobot {
 		vision = new Vision();
 
 		lidar = new Lidar();
-
-		cargo = new Cargo();
 			
 		hatch = new Hatch();
 

@@ -45,7 +45,6 @@ public class Climber extends Subsystem {
 		/* Configure output and sensor direction */
 		rightClimber.setInverted(false);
 		leftClimber.setInverted(true);
-		leftClimber.follow(rightClimber);
 
 		climbCrawler.setInverted(false);
 	}
@@ -61,6 +60,7 @@ public class Climber extends Subsystem {
 
 	public void tank(double val) {
 		rightClimber.set(ControlMode.PercentOutput, val);
+		leftClimber.set(ControlMode.PercentOutput, val);
 	}
 
 	public void crawl(double val) {

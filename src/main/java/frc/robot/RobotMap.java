@@ -40,9 +40,6 @@ public class RobotMap {
 	public static WPI_TalonSRX hatchLift;
 	public static WPI_VictorSPX hatchLiftSlave;
 
-	public static Solenoid bucketUp;
-	public static Solenoid bucketDown;
-
 	public static Solenoid high;
 	public static Solenoid low;
 
@@ -77,9 +74,6 @@ public class RobotMap {
 		rightClimber = new WPI_TalonSRX(10);
 		leftClimber = new WPI_TalonSRX(13);
 		climbWheels = new WPI_TalonSRX(15);
-
-		bucketUp = new Solenoid(0);
-		bucketDown = new Solenoid(1);
 
 		high = new Solenoid(7);
 		low = new Solenoid(6);
