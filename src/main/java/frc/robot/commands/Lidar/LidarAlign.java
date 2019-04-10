@@ -1,15 +1,11 @@
 package frc.robot.commands.Lidar;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
-import frc.robot.commands.Lidar.*;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import java.lang.Math;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.*;
 
 public class LidarAlign extends Command {
-	edu.wpi.first.networktables.NetworkTable netTable;
-	NetworkTableInstance netTableInst;
 
 	/** Output for Motor Power */
 	private double leftMotorOutput, rightMotorOutput;
@@ -17,7 +13,13 @@ public class LidarAlign extends Command {
 	/** Just a delay */
 	private double executes = 0;
 
-	private double distance, trigger, speed, difSpeed, lidarLeft, lidarRight, lidarAngle, crossMeasure, leftAngle, rightAngle, speedLeft, speedRight;
+	private double distance, trigger, speed, difSpeed, lidarLeft, lidarRight, lidarAngle, crossMeasure, leftAngle, rightAngle;
+	
+	private double speedLeft = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203),
+	speedRight = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203);
+	
+		// speedLeft = (-2.57*Math.pow(10, -7)*Math.pow(lidarLeft, 2)+(8.43*Math.pow(10,-4)*lidarLeft)-.4);
+		// speedRight = (-2.57*Math.pow(10, -7)*Math.pow(lidarRight, 2)+(8.43*Math.pow(10,-4)*lidarRight)-.4);
 
 	private double stopDistance = 450.0;
 
@@ -46,8 +48,6 @@ public class LidarAlign extends Command {
 	public LidarAlign(double speed) {
 		requires(Robot.drivetrain);
 		this.speed = speed;
-		netTableInst = NetworkTableInstance.getDefault();
-		netTable = netTableInst.getTable("1073Table");
 	}
 
 	/** 
@@ -55,32 +55,27 @@ public class LidarAlign extends Command {
 	 */
 	public LidarAlign() {
 		requires(Robot.drivetrain);
-		// speedLeft = (-2.57*Math.pow(10, -7)*Math.pow(lidarLeft, 2)+(8.43*Math.pow(10,-4)*lidarLeft)-.4);
-		// speedRight = (-2.57*Math.pow(10, -7)*Math.pow(lidarRight, 2)+(8.43*Math.pow(10,-4)*lidarRight)-.4);
-		speedLeft = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203);
-		speedRight = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203);
-		netTableInst = NetworkTableInstance.getDefault();
-		netTable = netTableInst.getTable("1073Table");
 
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		
-		if(netTable.getEntry("point1").getDouble(0) != -1){
-			lidarLeft = netTable.getEntry("point1").getDouble(0);
+		//Sets up the variable and ignores the -1 (error) values
+		if(Robot.networktable.table.getEntry("point1").getDouble(0) != -1){
+			lidarLeft = Robot.networktable.table.getEntry("point1").getDouble(0);
 			}
 		else{
 			lidarLeft = lidarLeft;
 		}
-		if(netTable.getEntry("point2").getDouble(0) != -1){
-			lidarRight = netTable.getEntry("point2").getDouble(0);
+		if(Robot.networktable.table.getEntry("point2").getDouble(0) != -1){
+			lidarRight = Robot.networktable.table.getEntry("point2").getDouble(0);
 		}
 		else{
 			lidarRight = lidarRight;
 		}
-		if(netTable.getEntry("point2").getDouble(0) != -1){
-			lidarAngle = netTable.getEntry("lidarAngle").getDouble(0);
+		if(Robot.networktable.table.getEntry("point2").getDouble(0) != -1){
+			lidarAngle = Robot.networktable.table.getEntry("lidarAngle").getDouble(0);
 		}	
 		else{
 			lidarAngle = lidarAngle;
@@ -88,25 +83,29 @@ public class LidarAlign extends Command {
 }
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+
+		//Sets up the variable and ignores the -1 (error) values
 		
-		if(netTable.getEntry("point1").getDouble(0) != -1){
-			lidarLeft = netTable.getEntry("point1").getDouble(0);
+		if(Robot.networktable.table.getEntry("point1").getDouble(0) != -1){
+			lidarLeft = Robot.networktable.table.getEntry("point1").getDouble(0);
 			}
 		else{
 			lidarLeft = lidarLeft;
 		}
-		if(netTable.getEntry("point2").getDouble(0) != -1){
-			lidarRight = netTable.getEntry("point2").getDouble(0);
+		if(Robot.networktable.table.getEntry("point2").getDouble(0) != -1){
+			lidarRight = Robot.networktable.table.getEntry("point2").getDouble(0);
 		}
 		else{
 			lidarRight = lidarRight;
 		}
-		if(netTable.getEntry("point2").getDouble(0) != -1){
-			lidarAngle = netTable.getEntry("lidarAngle").getDouble(0);
+		if(Robot.networktable.table.getEntry("point2").getDouble(0) != -1){
+			lidarAngle = Robot.networktable.table.getEntry("lidarAngle").getDouble(0);
 		}	
 		else{
 			lidarAngle = lidarAngle;
 		}
+
+		//Calculates other side and angle measurements of the triangle
 		crossMeasure = Math.sqrt((Math.pow(lidarLeft, 2)+Math.pow(lidarRight, 2))-(2*lidarLeft*lidarRight*Math.cos(Math.toRadians(lidarAngle))));
 		leftAngle = Math.toDegrees(Math.asin(lidarRight*(Math.sin(Math.toRadians(lidarAngle))/crossMeasure)));
 		rightAngle = Math.toDegrees(Math.asin(lidarLeft*(Math.sin(Math.toRadians(lidarAngle))/crossMeasure)));
@@ -116,6 +115,8 @@ public class LidarAlign extends Command {
 			Robot.drivetrain.tank(0, 0);
 			SmartDashboard.putString("LidarAlign", "Straight");
 		}
+
+		//sets the correction speed based on triangle leg length (relative to the stop difference)
 		else if(lidarLeft > (lidarRight + legError)){
 			Robot.drivetrain.tank(speedLeft, speedRight);
 		}
@@ -124,27 +125,9 @@ public class LidarAlign extends Command {
 		}
 
 		}
-
-	private void getAligned(double x) {
-		if (x < -validZone) Robot.drivetrain.tank(speed, speed * .5);
-		else if (x > validZone) Robot.drivetrain.tank(speed * .5, speed);
-	}
-
-	private void stayCentered() {
-		Robot.drivetrain.tank(speed);
-	}
-	private boolean straightCheck() {
-		if(leftAngle == rightAngle ){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-
-	// Make this return true when this Command no longer needs to run execute()
+	// Make this return true when this Command no longer needs to run execute(), stops at a set distance (stopDistance) or for driver/opperator control
 	protected boolean isFinished() {
-		if(lidarLeft == stopDistance && lidarRight == stopDistance){
+		if((lidarLeft == stopDistance && lidarRight == stopDistance) || (Robot.oi.driverCancel.get() == true) || (Robot.oi.operatorCancel.get() == true)){
 			return true;
 		}
 		else{

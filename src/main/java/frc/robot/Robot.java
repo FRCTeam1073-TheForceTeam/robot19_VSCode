@@ -177,12 +177,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-	lidarLeft = netTable.getEntry("point1").getDouble(0);
-	lidarRight = netTable.getEntry("point2").getDouble(0);
-	lidarAngle = netTable.getEntry("lidarAngle").getDouble(0);
-	SmartDashboard.putNumber("LidarLeft", lidarLeft);
-	SmartDashboard.putNumber("LidarRight", lidarRight);
-	SmartDashboard.putNumber("LidarAngle", lidarAngle);
 	
   }
   
