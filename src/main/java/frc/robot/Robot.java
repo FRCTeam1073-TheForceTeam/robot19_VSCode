@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SystemTest;
 import frc.robot.subsystems.*;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -16,7 +17,9 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-	public double initialBootTime, teleopStartTime, autoStartTime;
+	edu.wpi.first.networktables.NetworkTable netTable;
+	NetworkTableInstance netTableInst;
+	public double initialBootTime, teleopStartTime, autoStartTime, lidarDistance;
 	public static OI oi;
 	public static NetworkTable networktable;
 	public static OperatorMode operatorMode;
@@ -37,7 +40,6 @@ public class Robot extends TimedRobot {
 	public static boolean debugMode, autoBox;
 	public static Command debugRunner;
 	public Command autonomousCommand;
-
 	public static boolean canceled;
 
 	protected Robot() {
@@ -50,6 +52,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+		netTableInst = NetworkTableInstance.getDefault();
+		netTable = netTableInst.getTable("1073Table");
     	debugPrint("Robot Initializing");
 		
 		RobotMap.init();
@@ -60,7 +64,7 @@ public class Robot extends TimedRobot {
 		autoBox = false;
 		notClear = false;
 		canceled = false;
-
+		lidarDistance = netTable.getEntry("simple distance").getDouble(0);
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
     
@@ -126,7 +130,7 @@ public class Robot extends TimedRobot {
 		debugChooser.addOption("Gearbox", debugGearbox);
 		debugChooser.addOption("Bling", debugBling);
 		SmartDashboard.putData("Debug", debugChooser);
-		
+		SmartDashboard.putNumber("SimpleDistance", lidarDistance);
 		debugRunner = new SystemTest();
   }
 
@@ -140,7 +144,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-  }
+	lidarDistance = netTable.getEntry("simple distance").getDouble(0);
+	SmartDashboard.putNumber("SimpleDistance", lidarDistance);
+	
+}
   
   /**
    * This function is called when the disabled button is hit.
