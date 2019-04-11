@@ -8,7 +8,7 @@ import java.lang.Math;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class LidarPrint extends Command {
+public class LidarAlignCamera extends Command {
 
 	/** Output for Motor Power */
 	private double leftMotorOutput, rightMotorOutput;
@@ -93,40 +93,3 @@ public class LidarPrint extends Command {
 
 
 
-
-
-
-
-
-	/**************************************Backup Drive*******************************************/
-	/**
-   	 * Arcade drive method for differential drive platform.
-  	 *
-  	 * @param fwd The robot's speed along the X axis [-1.0..1.0]. Forward is positive.
-  	 * @param rot The robot's rotation rate around the Z axis [-1.0..1.0]. Clockwise is positive.
-  	 */
-	public void arcaderDrive(double fwd, double rot) {
-		double maxInput = Math.copySign(Math.max(Math.abs(fwd), Math.abs(rot)), fwd);
-			if (fwd >= 0.0) {
-			if (rot >= 0.0) {
-				leftMotorOutput = maxInput;
-				rightMotorOutput = fwd - rot;
-			} else {
-				leftMotorOutput = fwd + rot;
-				rightMotorOutput = maxInput;
-			}
-		} else {
-			if (rot >= 0.0) {
-				leftMotorOutput = fwd + rot;
-				rightMotorOutput = maxInput;
-			} else {
-				leftMotorOutput = maxInput;
-				rightMotorOutput = fwd - rot;
-			}
-		}
-		Robot.drivetrain.tank(leftMotorOutput, rightMotorOutput);
-	}
-}
-	
-	/** Affects the style of output to motors */
-	
