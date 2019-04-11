@@ -13,8 +13,14 @@ public class LidarAlign extends Command {
 	/** Just a delay */
 	private double executes = 0;
 
-	private double distance, trigger, speed, difSpeed, lidarLeft, lidarRight, lidarAngle, crossMeasure, leftAngle, rightAngle;
+	private double distance, trigger, speed, difSpeed, crossMeasure, leftAngle, rightAngle;
 	
+	private double lidarLeft = Robot.lidar.lidarLeft;
+	private double lidarLeftUse, lidarRightUse, lidarAngleUse;
+	private double lidarRight = Robot.lidar.lidarRight;
+	private double lidarAngle = Robot.lidar.lidarAngle;
+
+
 	private double speedLeft = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203),
 	speedRight = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203);
 	
@@ -62,23 +68,23 @@ public class LidarAlign extends Command {
 	protected void initialize() {
 		
 		//Sets up the variable and ignores the -1 (error) values
-		if(Robot.networktable.table.getEntry("point1").getDouble(0) != -1){
-			lidarLeft = Robot.networktable.table.getEntry("point1").getDouble(0);
+		if(lidarLeft != -1){
+			lidarLeftUse = lidarLeft;
 			}
 		else{
-			lidarLeft = lidarLeft;
+			lidarLeftUse = lidarLeftUse;
 		}
-		if(Robot.networktable.table.getEntry("point2").getDouble(0) != -1){
-			lidarRight = Robot.networktable.table.getEntry("point2").getDouble(0);
+		if(lidarRight != -1){
+			lidarRightUse = lidarRight;
 		}
 		else{
-			lidarRight = lidarRight;
+			lidarRightUse = lidarRightUse;
 		}
-		if(Robot.networktable.table.getEntry("point2").getDouble(0) != -1){
-			lidarAngle = Robot.networktable.table.getEntry("lidarAngle").getDouble(0);
+		if(lidarAngle != -1){
+			lidarAngleUse = lidarAngle;
 		}	
 		else{
-			lidarAngle = lidarAngle;
+			lidarAngleUse = lidarAngleUse;
 		}
 }
 	// Called repeatedly when this Command is scheduled to run
@@ -86,23 +92,23 @@ public class LidarAlign extends Command {
 
 		//Sets up the variable and ignores the -1 (error) values
 		
-		if(Robot.networktable.table.getEntry("point1").getDouble(0) != -1){
-			lidarLeft = Robot.networktable.table.getEntry("point1").getDouble(0);
+		if(lidarLeft != -1){
+			lidarLeftUse = lidarLeft;
 			}
 		else{
-			lidarLeft = lidarLeft;
+			lidarLeftUse = lidarLeftUse;
 		}
-		if(Robot.networktable.table.getEntry("point2").getDouble(0) != -1){
-			lidarRight = Robot.networktable.table.getEntry("point2").getDouble(0);
+		if(lidarRight != -1){
+			lidarRightUse = lidarRight;
 		}
 		else{
-			lidarRight = lidarRight;
+			lidarRightUse = lidarRightUse;
 		}
-		if(Robot.networktable.table.getEntry("point2").getDouble(0) != -1){
-			lidarAngle = Robot.networktable.table.getEntry("lidarAngle").getDouble(0);
+		if(lidarAngle != -1){
+			lidarAngleUse = lidarAngle;
 		}	
 		else{
-			lidarAngle = lidarAngle;
+			lidarAngleUse = lidarAngleUse;
 		}
 
 		//Calculates other side and angle measurements of the triangle
