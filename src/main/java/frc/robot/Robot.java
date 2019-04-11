@@ -38,16 +38,8 @@ public class Robot extends TimedRobot {
 	public Command autonomousCommand;
 	public static boolean canceled;
 
-	edu.wpi.first.networktables.NetworkTable netTable;
-	NetworkTableInstance netTableInst;
-	public double lidarLeft;
-	public double lidarRight;
-	public double lidarAngle;
-
 	protected Robot() {
 		super(0.03); //cycle time
-		netTableInst = NetworkTableInstance.getDefault();
-		netTable = netTableInst.getTable("1073Table");
 	}
 
   /**
