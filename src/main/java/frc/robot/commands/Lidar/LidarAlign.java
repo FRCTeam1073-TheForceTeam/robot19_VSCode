@@ -112,28 +112,28 @@ public class LidarAlign extends Command {
 		}
 
 		//Calculates other side and angle measurements of the triangle
-		crossMeasure = Math.sqrt((Math.pow(lidarLeft, 2)+Math.pow(lidarRight, 2))-(2*lidarLeft*lidarRight*Math.cos(Math.toRadians(lidarAngle))));
-		leftAngle = Math.toDegrees(Math.asin(lidarRight*(Math.sin(Math.toRadians(lidarAngle))/crossMeasure)));
-		rightAngle = Math.toDegrees(Math.asin(lidarLeft*(Math.sin(Math.toRadians(lidarAngle))/crossMeasure)));
+		crossMeasure = Math.sqrt((Math.pow(lidarLeftUse, 2)+Math.pow(lidarRightUse, 2))-(2*lidarLeftUse*lidarRightUse*Math.cos(Math.toRadians(lidarAngleUse))));
+		leftAngle = Math.toDegrees(Math.asin(lidarRightUse*(Math.sin(Math.toRadians(lidarAngleUse))/crossMeasure)));
+		rightAngle = Math.toDegrees(Math.asin(lidarLeftUse*(Math.sin(Math.toRadians(lidarAngleUse))/crossMeasure)));
 		//totalDist = 
 		
-		if((lidarLeft <= stopDistance) || (lidarRight <=stopDistance)){
+		if((lidarLeftUse <= stopDistance) || (lidarRightUse <=stopDistance)){
 			Robot.drivetrain.tank(0, 0);
 			SmartDashboard.putString("LidarAlign", "Straight");
 		}
 
 		//sets the correction speed based on triangle leg length (relative to the stop difference)
-		else if(lidarLeft > (lidarRight + legError)){
+		else if(lidarLeftUse > (lidarRightUse + legError)){
 			Robot.drivetrain.tank(speedLeft, speedRight);
 		}
-		else if(lidarRight > (lidarLeft + legError)){
+		else if(lidarRightUse > (lidarLeftUse + legError)){
 			Robot.drivetrain.tank(speedLeft, speedRight);
 		}
 
 		}
 	// Make this return true when this Command no longer needs to run execute(), stops at a set distance (stopDistance) or for driver/opperator control
 	protected boolean isFinished() {
-		if((lidarLeft == stopDistance && lidarRight == stopDistance) || (Robot.oi.driverCancel.get() == true) || (Robot.oi.operatorCancel.get() == true)){
+		if((lidarLeftUse == stopDistance && lidarRightUse == stopDistance) || (Robot.oi.driverCancel.get() == true) || (Robot.oi.operatorCancel.get() == true)){
 			return true;
 		}
 		else{
