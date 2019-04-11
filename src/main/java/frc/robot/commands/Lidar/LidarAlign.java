@@ -16,13 +16,12 @@ public class LidarAlign extends Command {
 	private double distance, trigger, speed, difSpeed, crossMeasure, leftAngle, rightAngle;
 	
 	private double lidarLeft = Robot.lidar.lidarLeft;
-	private double lidarLeftUse, lidarRightUse, lidarAngleUse;
 	private double lidarRight = Robot.lidar.lidarRight;
 	private double lidarAngle = Robot.lidar.lidarAngle;
+	private double lidarLeftUse, lidarRightUse, lidarAngleUse;
 
-
-	private double speedLeft = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203),
-	speedRight = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203);
+	private double speedLeft = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeftUse, 2)+(5.95*Math.pow(10,-4)*lidarLeftUse)-.203),
+	speedRight = (-3.95*Math.pow(10, -8)*Math.pow(lidarRightUse, 2)+(5.95*Math.pow(10,-4)*lidarRightUse)-.203);
 	
 		// speedLeft = (-2.57*Math.pow(10, -7)*Math.pow(lidarLeft, 2)+(8.43*Math.pow(10,-4)*lidarLeft)-.4);
 		// speedRight = (-2.57*Math.pow(10, -7)*Math.pow(lidarRight, 2)+(8.43*Math.pow(10,-4)*lidarRight)-.4);
