@@ -36,22 +36,6 @@ public class LidarAlignCamera extends Command {
 
 	private final double validZone = 10;
 
-	
-
-
-
-	/**
-	 * @category Autonomous
-	 * @author Cam
-	 */
-
-	/** 
-	 * @author Cam
-	 */
-	public LidarPrint() {
-
-	}
-
 	// Called just before this Command runs the first time
 	protected void initialize() {
 }
@@ -79,7 +63,7 @@ public class LidarAlignCamera extends Command {
 
 		distAway = (lidarLeft +lidarRight)/2;
 		//Robot.networktable.table.setEntry("distanceAway");
-		}
+	}
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 			return false;
@@ -88,6 +72,7 @@ public class LidarAlignCamera extends Command {
 	protected void end() {
 		Robot.drivetrain.tank(0,0);
 	}
+}
 
 
 
