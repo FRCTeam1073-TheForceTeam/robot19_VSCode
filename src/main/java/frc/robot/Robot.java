@@ -17,9 +17,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  * project.
  */
 public class Robot extends TimedRobot {
-	edu.wpi.first.networktables.NetworkTable netTable;
-	NetworkTableInstance netTableInst;
-	public double initialBootTime, teleopStartTime, autoStartTime, lidarDistance;
+	public double initialBootTime, teleopStartTime, autoStartTime;
 	public static OI oi;
 	public static NetworkTable networktable;
 	public static Drivetrain drivetrain;
@@ -50,8 +48,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-		netTableInst = NetworkTableInstance.getDefault();
-		netTable = netTableInst.getTable("1073Table");
     	debugPrint("Robot Initializing");
 		
 		RobotMap.init();
@@ -60,7 +56,6 @@ public class Robot extends TimedRobot {
 		autoBox = false;
 		notClear = false;
 		canceled = false;
-		lidarDistance = netTable.getEntry("simple distance").getDouble(0);
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
     
@@ -124,7 +119,6 @@ public class Robot extends TimedRobot {
 		debugChooser.addOption("Gearbox", debugGearbox);
 		debugChooser.addOption("Bling", debugBling);
 		SmartDashboard.putData("Debug", debugChooser);
-		SmartDashboard.putNumber("SimpleDistance", lidarDistance);
 		debugRunner = new SystemTest();
   }
 
@@ -138,9 +132,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-	lidarDistance = netTable.getEntry("simple distance").getDouble(0);
-	SmartDashboard.putNumber("SimpleDistance", lidarDistance);
-	
 }
   
   /**
@@ -182,6 +173,7 @@ public class Robot extends TimedRobot {
 
 	/** This function is called periodically during autonomous */
 	public void autonomousPeriodic() {
+		lidar.refresh();
 		Scheduler.getInstance().run();
 	}
 
@@ -201,6 +193,7 @@ public class Robot extends TimedRobot {
 	
 	/** This function is called periodically during operator control */
 	public void teleopPeriodic() {
+		lidar.refresh();
 		Scheduler.getInstance().run();
 	}
 

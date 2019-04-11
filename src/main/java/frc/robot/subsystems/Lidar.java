@@ -4,16 +4,15 @@ import frc.robot.*;
 
 public class Lidar {
 
-	public boolean stop;
+	public double lidarDistance;
 	
 	public Lidar() {
-		Robot.debugPrint("\"Where we droppin' boys?\"");
 	}
 	
 	/** Pulls variables from Network Tables */
-	public void refresh() {
-		stop = Robot.networktable.table.getEntry("Stop").getBoolean(false);
+	public void refresh() {	
+		lidarDistance = (Robot.networktable.table.getEntry("point1").getDouble(0) + Robot.networktable.table.getEntry("point2").getDouble(0)) / 2;
 		
-		Robot.networktable.table.getEntry("LidarReadout").setString("");
+		Robot.networktable.table.getEntry("LidarReadout").setString("LiDAR Distance: " + lidarDistance);
 	}
 }
