@@ -60,8 +60,11 @@ public class DriveControls extends Command {
 		forward = Robot.oi.driverControl.getRawAxis(1);
 		rotational = Robot.oi.driverControl.getRawAxis(4);
 
-		if (Robot.oi.driverControl.select.get()) Robot.networktable.table.getEntry("CamSwap").setBoolean(true);
-		else Robot.networktable.table.getEntry("CamSwap").setBoolean(false);
+		if (Robot.oi.driverControl.select.get()) Robot.networktable.table.getEntry("CamSwapHatch").setBoolean(true);
+		else Robot.networktable.table.getEntry("CamSwapHatch").setBoolean(false);
+		if (Robot.oi.driverControl.start.get()) Robot.networktable.table.getEntry("CamSwapCargo").setBoolean(true);
+		else Robot.networktable.table.getEntry("CamSwapCargo").setBoolean(false);
+		
 		if (Robot.oi.driverControl.y.get()) Robot.autoBox = !Robot.autoBox;
 		if (!Robot.autoBox && Robot.oi.driverControl.x.get() && !Robot.pnuematic.isLowGear()) Robot.pnuematic.setLowGear();
 		if (!Robot.autoBox && Robot.oi.driverControl.b.get() && !Robot.pnuematic.isHighGear()) Robot.pnuematic.setHighGear();
