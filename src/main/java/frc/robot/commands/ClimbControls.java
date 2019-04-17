@@ -42,14 +42,14 @@ public class ClimbControls extends Command {
 		speedCheck();
 
 		if (Robot.oi.operatorControl.y.get()) Robot.climber.crawl(.75);
-		else if (Robot.oi.operatorControl.select.get()) Robot.climber.crawl(-.75);
+		else if (Robot.oi.operatorControl.select.get()) Robot.climber.crawl(-1);
 		else if (Robot.oi.operatorControl.start.get()) Robot.climber.crawl(1);
 		else Robot.climber.crawl(0);
 	}
 
 	private void speedCheck() {
 		if (Robot.oi.operatorControl.leftBumper.get()) Robot.climber.tank(.1);
-		else Robot.climber.tank(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(5)) / 2);
+		else Robot.climber.tank(deadZoneCheck(Robot.oi.operatorControl.getRawAxis(5)) / 1.5);
 	}
 
 	/** 

@@ -105,7 +105,7 @@ public class XboxController extends Joystick {
 	 * @param mag The rumble value.
 	 * @param milis The duration of the rumble
 	 */
-	public void rumbleTime(double mag, double milis){
+	public void rumbleTime(double mag, double milis) {
 		setRumble(RumbleType.kLeftRumble,mag);
 		setRumble(RumbleType.kRightRumble,mag);
 		try {
@@ -124,10 +124,8 @@ public class XboxController extends Joystick {
 	 * @param milis The duration of the rumble
 	 * @param times The amount of repeats before end
 	 */
-	public void rumbleTimeRep(double mag, double milis, double times)
-	{
-		for(int i = 0; i < times; i++)
-		{
+	public void rumbleTimeRep(double mag, double milis, double times) {
+		for(int i = 0; i < times; i++) {
 			setRumble(RumbleType.kLeftRumble,mag);
 			setRumble(RumbleType.kRightRumble,mag);
 				try {

@@ -21,8 +21,8 @@ public class GearBox extends Subsystem {
   }
 
   public void periodic() {
-    update();
-    if (Robot.autoBox) shiftCheck();
+    //update();
+    //if (Robot.autoBox) shiftCheck();
   }
 
   public void shiftCheck() {
@@ -37,6 +37,6 @@ public class GearBox extends Subsystem {
     speedR = (Math.abs(rightVelocity));
     if (pnuematic.isHighGear()) gear = "high";
     else if (pnuematic.isLowGear()) gear = "low";
-    Robot.networktable.table.getEntry("GearBoxReadout").setString("\tLeft velocity: " + dec.format(leftVelocity) + "\tRight velocity: " + dec.format(rightVelocity) + "\tSpeed: " + dec.format(((speedL + speedR) / 2) / 141.6) + "\tGear: " + gear);
+    // Robot.networktable.table.getEntry("GearBoxReadout").setString("\tLeft velocity: " + dec.format(leftVelocity) + "\tRight velocity: " + dec.format(rightVelocity) + "\tSpeed: " + dec.format(((speedL + speedR) / 2) / 141.6) + "\tGear: " + gear);
   }
 }
