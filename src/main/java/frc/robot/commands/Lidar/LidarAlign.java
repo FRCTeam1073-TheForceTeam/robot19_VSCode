@@ -13,10 +13,15 @@ public class LidarAlign extends Command {
 	/** Just a delay */
 	private double executes = 0;
 
-	private double distance, trigger, speed, difSpeed, lidarLeft, lidarRight, lidarAngle, crossMeasure, leftAngle, rightAngle;
+	private double distance, trigger, speed, difSpeed, crossMeasure, leftAngle, rightAngle;
 	
-	private double speedLeft = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203),
-	speedRight = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203);
+	private double lidarLeft = Robot.lidar.lidarLeft;
+	private double lidarRight = Robot.lidar.lidarRight;
+	private double lidarAngle = Robot.lidar.lidarAngle;
+	private double lidarLeftUse, lidarRightUse, lidarAngleUse;
+
+	private double speedLeft = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeftUse, 2)+(5.95*Math.pow(10,-4)*lidarLeftUse)-.203),
+	speedRight = (-3.95*Math.pow(10, -8)*Math.pow(lidarRightUse, 2)+(5.95*Math.pow(10,-4)*lidarRightUse)-.203);
 	
 		// speedLeft = (-2.57*Math.pow(10, -7)*Math.pow(lidarLeft, 2)+(8.43*Math.pow(10,-4)*lidarLeft)-.4);
 		// speedRight = (-2.57*Math.pow(10, -7)*Math.pow(lidarRight, 2)+(8.43*Math.pow(10,-4)*lidarRight)-.4);
@@ -62,23 +67,23 @@ public class LidarAlign extends Command {
 	protected void initialize() {
 		
 		//Sets up the variable and ignores the -1 (error) values
-		if(Robot.networktable.table.getEntry("point1").getDouble(0) != -1){
-			lidarLeft = Robot.networktable.table.getEntry("point1").getDouble(0);
+		if(lidarLeft != -1){
+			lidarLeftUse = lidarLeft;
 			}
 		else{
-			lidarLeft = lidarLeft;
+			lidarLeftUse = lidarLeftUse;
 		}
-		if(Robot.networktable.table.getEntry("point2").getDouble(0) != -1){
-			lidarRight = Robot.networktable.table.getEntry("point2").getDouble(0);
+		if(lidarRight != -1){
+			lidarRightUse = lidarRight;
 		}
 		else{
-			lidarRight = lidarRight;
+			lidarRightUse = lidarRightUse;
 		}
-		if(Robot.networktable.table.getEntry("point2").getDouble(0) != -1){
-			lidarAngle = Robot.networktable.table.getEntry("lidarAngle").getDouble(0);
+		if(lidarAngle != -1){
+			lidarAngleUse = lidarAngle;
 		}	
 		else{
-			lidarAngle = lidarAngle;
+			lidarAngleUse = lidarAngleUse;
 		}
 }
 	// Called repeatedly when this Command is scheduled to run
@@ -86,48 +91,48 @@ public class LidarAlign extends Command {
 
 		//Sets up the variable and ignores the -1 (error) values
 		
-		if(Robot.networktable.table.getEntry("point1").getDouble(0) != -1){
-			lidarLeft = Robot.networktable.table.getEntry("point1").getDouble(0);
+		if(lidarLeft != -1){
+			lidarLeftUse = lidarLeft;
 			}
 		else{
-			lidarLeft = lidarLeft;
+			lidarLeftUse = lidarLeftUse;
 		}
-		if(Robot.networktable.table.getEntry("point2").getDouble(0) != -1){
-			lidarRight = Robot.networktable.table.getEntry("point2").getDouble(0);
+		if(lidarRight != -1){
+			lidarRightUse = lidarRight;
 		}
 		else{
-			lidarRight = lidarRight;
+			lidarRightUse = lidarRightUse;
 		}
-		if(Robot.networktable.table.getEntry("point2").getDouble(0) != -1){
-			lidarAngle = Robot.networktable.table.getEntry("lidarAngle").getDouble(0);
+		if(lidarAngle != -1){
+			lidarAngleUse = lidarAngle;
 		}	
 		else{
-			lidarAngle = lidarAngle;
+			lidarAngleUse = lidarAngleUse;
 		}
 
 		//Calculates other side and angle measurements of the triangle
-		crossMeasure = Math.sqrt((Math.pow(lidarLeft, 2)+Math.pow(lidarRight, 2))-(2*lidarLeft*lidarRight*Math.cos(Math.toRadians(lidarAngle))));
-		leftAngle = Math.toDegrees(Math.asin(lidarRight*(Math.sin(Math.toRadians(lidarAngle))/crossMeasure)));
-		rightAngle = Math.toDegrees(Math.asin(lidarLeft*(Math.sin(Math.toRadians(lidarAngle))/crossMeasure)));
+		crossMeasure = Math.sqrt((Math.pow(lidarLeftUse, 2)+Math.pow(lidarRightUse, 2))-(2*lidarLeftUse*lidarRightUse*Math.cos(Math.toRadians(lidarAngleUse))));
+		leftAngle = Math.toDegrees(Math.asin(lidarRightUse*(Math.sin(Math.toRadians(lidarAngleUse))/crossMeasure)));
+		rightAngle = Math.toDegrees(Math.asin(lidarLeftUse*(Math.sin(Math.toRadians(lidarAngleUse))/crossMeasure)));
 		//totalDist = 
 		
-		if((lidarLeft <= stopDistance) || (lidarRight <=stopDistance)){
+		if((lidarLeftUse <= stopDistance) || (lidarRightUse <=stopDistance)){
 			Robot.drivetrain.tank(0, 0);
 			SmartDashboard.putString("LidarAlign", "Straight");
 		}
 
 		//sets the correction speed based on triangle leg length (relative to the stop difference)
-		else if(lidarLeft > (lidarRight + legError)){
+		else if(lidarLeftUse > (lidarRightUse + legError)){
 			Robot.drivetrain.tank(speedLeft, speedRight);
 		}
-		else if(lidarRight > (lidarLeft + legError)){
+		else if(lidarRightUse > (lidarLeftUse + legError)){
 			Robot.drivetrain.tank(speedLeft, speedRight);
 		}
 
 		}
 	// Make this return true when this Command no longer needs to run execute(), stops at a set distance (stopDistance) or for driver/opperator control
 	protected boolean isFinished() {
-		if((lidarLeft == stopDistance && lidarRight == stopDistance) || (Robot.oi.driverCancel.get() == true) || (Robot.oi.operatorCancel.get() == true)){
+		if((lidarLeftUse == stopDistance && lidarRightUse == stopDistance) || (Robot.oi.driverCancel.get() == true) || (Robot.oi.operatorCancel.get() == true)){
 			return true;
 		}
 		else{
