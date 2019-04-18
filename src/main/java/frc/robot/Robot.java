@@ -6,8 +6,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SystemTest;
+import frc.robot.commands.AutonomousTools.AutoTest;
 import frc.robot.subsystems.*;
 import edu.wpi.first.networktables.NetworkTableInstance;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,12 +22,14 @@ public class Robot extends TimedRobot {
 	public double initialBootTime, teleopStartTime, autoStartTime;
 	public static OI oi;
 	public static NetworkTable networktable;
+	//public static OperatorMode operatorMode;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
   	public static Feedback feedback;
 	public static GearBox gearbox;
 	public static Climber climber;
 	public static Vision vision;
+	public static Cargo cargo;
 	public static Lidar lidar;
 	public static Hatch hatch;
 	public static Bling bling;
@@ -36,10 +40,19 @@ public class Robot extends TimedRobot {
 	public static boolean debugMode, autoBox;
 	public static Command debugRunner;
 	public Command autonomousCommand;
+
 	public static boolean canceled;
+
+	edu.wpi.first.networktables.NetworkTable netTable;
+	NetworkTableInstance netTableInst;
+	public double lidarLeft;
+	public double lidarRight;
+	public double lidarAngle;
 
 	protected Robot() {
 		super(0.03); //cycle time
+		netTableInst = NetworkTableInstance.getDefault();
+		netTable = netTableInst.getTable("1073Table");
 	}
 
   /**
@@ -49,13 +62,34 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 		debugPrint("Robot Initializing");
+		if(netTable.getEntry("point1").getDouble(0) != -1){
+			lidarLeft = netTable.getEntry("point1").getDouble(0);
+			}
+		else{
+			lidarLeft = lidarLeft;
+		}
+		if(netTable.getEntry("point2").getDouble(0) != -1){
+			lidarRight = netTable.getEntry("point2").getDouble(0);
+		}
+		else{
+			lidarRight = lidarRight;
+		}
+		if(netTable.getEntry("point2").getDouble(0) != -1){
+			lidarAngle = netTable.getEntry("lidarAngle").getDouble(0);
+		}	
+		else{
+			lidarAngle = lidarAngle;
+		}
 
 		RobotMap.init();
+
+		//operatorMode = OperatorMode.CLIMB;
 		
 		debugMode = false;
 		autoBox = false;
 		notClear = false;
 		canceled = false;
+
 		RobotMap.headingGyro.reset();
 		RobotMap.headingGyro.calibrate();
     
@@ -74,6 +108,8 @@ public class Robot extends TimedRobot {
 		vision = new Vision();
 
 		lidar = new Lidar();
+
+		cargo = new Cargo();
 			
 		hatch = new Hatch();
 
@@ -119,6 +155,12 @@ public class Robot extends TimedRobot {
 		debugChooser.addOption("Gearbox", debugGearbox);
 		debugChooser.addOption("Bling", debugBling);
 		SmartDashboard.putData("Debug", debugChooser);
+	
+		
+		//Lidar To Dashboard
+		SmartDashboard.putString("LidarAlign", "Init");
+
+
 		debugRunner = new SystemTest();
   }
 
@@ -132,7 +174,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-}
+	
+  }
   
   /**
    * This function is called when the disabled button is hit.
@@ -173,7 +216,6 @@ public class Robot extends TimedRobot {
 
 	/** This function is called periodically during autonomous */
 	public void autonomousPeriodic() {
-		//lidar.refresh();
 		Scheduler.getInstance().run();
 	}
 
@@ -193,7 +235,6 @@ public class Robot extends TimedRobot {
 	
 	/** This function is called periodically during operator control */
 	public void teleopPeriodic() {
-		//lidar.refresh();
 		Scheduler.getInstance().run();
 	}
 
