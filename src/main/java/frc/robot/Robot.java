@@ -62,24 +62,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 		debugPrint("Robot Initializing");
-		if(netTable.getEntry("point1").getDouble(0) != -1){
-			lidarLeft = netTable.getEntry("point1").getDouble(0);
-			}
-		else{
-			lidarLeft = lidarLeft;
-		}
-		if(netTable.getEntry("point2").getDouble(0) != -1){
-			lidarRight = netTable.getEntry("point2").getDouble(0);
-		}
-		else{
-			lidarRight = lidarRight;
-		}
-		if(netTable.getEntry("point2").getDouble(0) != -1){
-			lidarAngle = netTable.getEntry("lidarAngle").getDouble(0);
-		}	
-		else{
-			lidarAngle = lidarAngle;
-		}
 
 		RobotMap.init();
 
@@ -188,6 +170,7 @@ public class Robot extends TimedRobot {
 		debugPrint(RobotMap.headingGyro.getAngle());
 		
 		networktable.refresh();
+		lidar.refresh();
 		
 		Robot.oi.driverControl.rumbleTimeRep(1, 250, 2);
 		Robot.oi.driverControl.rumbleTimeRep(.2, 250, 2);
@@ -197,6 +180,7 @@ public class Robot extends TimedRobot {
 
 	public void disabledPeriodic() {
 		networktable.refresh();
+		lidar.refresh();
 	}
 
 	public void autonomousInit() {
@@ -208,6 +192,7 @@ public class Robot extends TimedRobot {
 		autoStartTime = System.currentTimeMillis();
 		
 		networktable.refresh();
+		lidar.refresh();
 
 		Scheduler.getInstance().run();
 		
@@ -223,6 +208,7 @@ public class Robot extends TimedRobot {
 		teleopStartTime = System.currentTimeMillis();
 		
 		networktable.refresh();
+		lidar.refresh();
 
 		if (networktable.table.getEntry("DebugMode").getBoolean(false)) {
 			debugMode = true;
@@ -236,6 +222,7 @@ public class Robot extends TimedRobot {
 	/** This function is called periodically during operator control */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		lidar.refresh();
 	}
 
 	/** This function is called periodically during test mode */

@@ -7,6 +7,7 @@ import frc.robot.commands.AutonomousTools.Align;
 import frc.robot.commands.HatchCommands.HatchGrabberDown;
 import frc.robot.commands.HatchCommands.HatchGrabberUp;
 import frc.robot.commands.HatchCommands.SendFlipperToMid;
+import frc.robot.commands.Lidar.AlignAndDrop;
 import frc.robot.commands.Lidar.LidarAlign;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,7 +26,7 @@ public class OI {
 	public JoystickButton operatorCancel, operatorRight, bucketButton, modeSwitch, hatchDownToMid;
 	
     public OI() {
-		SmartDashboard.putData("Lidar Align", new LidarAlign());
+		SmartDashboard.putData("Lidar Drop", new AlignAndDrop());
 		/* Controller Assignment */
     	driverControl = new XboxController(0);
 		operatorControl = new XboxController(1);

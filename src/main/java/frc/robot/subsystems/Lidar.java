@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.*;
 
 public class Lidar {
@@ -15,7 +16,9 @@ public class Lidar {
 		lidarLeft = Robot.networktable.table.getEntry("point1").getDouble(0);
 		lidarRight =Robot.networktable.table.getEntry("point2").getDouble(0);
 		lidarAngle = Robot.networktable.table.getEntry("LidarAngle").getDouble(0);
-		
+		SmartDashboard.putNumber("LeftVal", lidarLeft);
+		SmartDashboard.putNumber("RightVal", lidarRight);
+
 		Robot.networktable.table.getEntry("LidarReadout").setString("LiDAR Distance: " + lidarDistance);
 	}
 }
