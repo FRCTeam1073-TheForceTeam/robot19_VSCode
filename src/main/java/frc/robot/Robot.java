@@ -173,7 +173,7 @@ public class Robot extends TimedRobot {
 
 	/** This function is called periodically during autonomous */
 	public void autonomousPeriodic() {
-		lidar.refresh();
+		//lidar.refresh();
 		Scheduler.getInstance().run();
 	}
 
@@ -193,7 +193,7 @@ public class Robot extends TimedRobot {
 	
 	/** This function is called periodically during operator control */
 	public void teleopPeriodic() {
-		lidar.refresh();
+		//lidar.refresh();
 		Scheduler.getInstance().run();
 	}
 

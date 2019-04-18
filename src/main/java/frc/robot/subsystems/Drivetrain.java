@@ -149,16 +149,6 @@ public class Drivetrain extends Subsystem {
 			rightSlaveTwo.follow(rightMaster);
 			leftSlaveTwo.follow(leftMaster);
 		}
-
-		/* Table Data Setup */
-		Robot.networktable.table.getEntry("changeP").setDouble(P);
-		Robot.networktable.table.getEntry("changeI").setDouble(I);
-		Robot.networktable.table.getEntry("changeD").setDouble(D);
-		Robot.networktable.table.getEntry("changeK").setDouble(K);
-		Robot.networktable.table.getEntry("changeIZ").setDouble(IZ);
-		Robot.networktable.table.getEntry("changeD").setDouble(PO);
-		Robot.networktable.table.getEntry("changeD").setDouble(CLE);
-		Robot.networktable.table.getEntry("PIDReadout").setString("P: " + P + "\tI: " + I + "\tD: " + D + "\tK: " + K + "\tIZ: " + IZ + "\tPO: " + PO + "\tCLE: " + CLE);
 	}
   
   @Override
@@ -169,10 +159,6 @@ public class Drivetrain extends Subsystem {
   public void periodic() {
 		leftEncoder = leftMaster.getSelectedSensorPosition();
 		rightEncoder = rightMaster.getSelectedSensorPosition();
-		Robot.networktable.table.getEntry("Gyro").setString("Gyro: " + RobotMap.headingGyro.getAngle());
-		Robot.networktable.table.getEntry("RawGyroValue").setDouble(RobotMap.headingGyro.getAngle());
-		Robot.networktable.table.getEntry("RawAccel").setDoubleArray(new double[]{RobotMap.accelerometer.getX(),RobotMap.accelerometer.getY(),RobotMap.accelerometer.getZ()});
-
 		/*if (Robot.networktable.table.getEntry("changeP").getDouble(P) != P ||
 		Robot.networktable.table.getEntry("changeI").getDouble(I) != I ||
 		Robot.networktable.table.getEntry("changeD").getDouble(D) != D ||
