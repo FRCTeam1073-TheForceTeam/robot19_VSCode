@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
 
 		lidar = new Lidar();
 
-		cargo = new Cargo();
+		//cargo = new Cargo();
 			
 		hatch = new Hatch();
 
