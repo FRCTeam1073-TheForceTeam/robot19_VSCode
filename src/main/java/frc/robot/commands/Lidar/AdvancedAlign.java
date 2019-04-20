@@ -9,12 +9,12 @@ import frc.robot.subsystems.Lidar;
 public class AdvancedAlign extends Command {
 
 //LiDAR:
-	private double lidarLeft = Robot.lidar.lidarLeft;
-	private double lidarRight = Robot.lidar.lidarRight;
-	private double lidarAngle = Robot.lidar.lidarAngle;
+	private double lidarLeft;
+	private double lidarRight;
+	private double lidarAngle;
 	private double lidarAngleUse, crossMeasure, leftAngle, rightAngle;
-	private double speedLeft = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203);
-	private double speedRight = (-3.95*Math.pow(10, -8)*Math.pow(lidarRight, 2)+(5.95*Math.pow(10,-4)*lidarRight)-.203);
+	private double speedLeft;
+	private double speedRight;
 	private double stopDistance = 450.0;
 	private double legError = 50;
 
@@ -56,8 +56,8 @@ public class AdvancedAlign extends Command {
 	 * @author Cam
 	 */
 	public AdvancedAlign(double speed, double distance, double trigger) {
-		requires(Robot.Lidar);
 		requires(Robot.drivetrain);
+		requires(Robot.lidar);
     	this.distance = distance;
 		this.speed = speed;
 		this.trigger = trigger;
@@ -67,8 +67,8 @@ public class AdvancedAlign extends Command {
 	 * @author Cam
 	 */
 	public AdvancedAlign() {
-		requires(Robot.Lidar);
 		requires(Robot.drivetrain);
+		requires(Robot.lidar);
 		speed = robotSpeed;
 		distance = robotDistance;
 		trigger = triggerValue;
@@ -77,6 +77,8 @@ public class AdvancedAlign extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		//Sets up the LiDAR variable and ignores the -1 (error) values
+		Robot.debugPrint("initialize");
+		SmartDashboard.putString("initialized", "initialized");
 		if(lidarLeft != -1){
 			lidarLeft = lidarLeft;
 			}
@@ -98,6 +100,7 @@ public class AdvancedAlign extends Command {
 
 //Vision:
 		choosePoint();
+		
 	}
 
 	private void choosePoint() {
@@ -125,6 +128,15 @@ public class AdvancedAlign extends Command {
 	protected void execute() {
 		SmartDashboard.putBoolean("isFinished", isFinished());
 		SmartDashboard.putString("control?", "aligning");
+		Robot.debugPrint("executing");
+		SmartDashboard.putString("executing", "executing");
+		lidarLeft = Robot.lidar.lidarLeft;
+		lidarRight = Robot.lidar.lidarRight;
+		lidarAngle = Robot.lidar.lidarAngle;
+		speedLeft = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203);
+		speedRight = (-3.95*Math.pow(10, -8)*Math.pow(lidarRight, 2)+(5.95*Math.pow(10,-4)*lidarRight)-.203);
+		SmartDashboard.putNumber("speedLeft", speedLeft);
+		SmartDashboard.putNumber("speedRight", speedRight);
 		//calculates our distance to a hatch drop-off location
 		// if(lidarLeft != -1){
 		// 	lidarLeft = lidarLeft;
@@ -202,10 +214,10 @@ public class AdvancedAlign extends Command {
 
 		//sets the correction speed based on triangle leg length (relative to the stop difference)
 		if(lidarLeft > (lidarRight + legError)){
-			Robot.drivetrain.tank(speedLeft, speedRight);
+			Robot.drivetrain.tank((-1.25*speedLeft) - 0.2, (-1.25*speedRight)- 0.2);
 		}
 		else if(lidarRight > (lidarLeft + legError)){
-			Robot.drivetrain.tank(speedLeft, speedRight);
+			Robot.drivetrain.tank((-1.25*speedLeft) - 0.2, (-1.25*speedRight) - 0.2);
 		}
 	}
 

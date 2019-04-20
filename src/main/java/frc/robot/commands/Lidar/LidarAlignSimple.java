@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.*;
 
-public class LidarAlign extends Command {
+public class LidarAlignSimple extends Command {
 
 	/** Output for Motor Power */
 	private double leftMotorOutput, rightMotorOutput;
@@ -50,7 +50,7 @@ public class LidarAlign extends Command {
 	 * @category Autonomous
 	 * @author Nathaniel
 	 */
-	public LidarAlign(double speed) {
+	public LidarAlignSimple(double speed) {
 		requires(Robot.drivetrain);
 		this.speed = speed;
 	}
@@ -58,7 +58,7 @@ public class LidarAlign extends Command {
 	/** 
 	 * @author Cam
 	 */
-	public LidarAlign() {
+	public LidarAlignSimple() {
 		requires(Robot.drivetrain);
 
 	}
