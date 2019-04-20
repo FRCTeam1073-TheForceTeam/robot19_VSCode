@@ -133,31 +133,31 @@ public class AdvancedAlign extends Command {
 		lidarLeft = Robot.networktable.table.getEntry("point1").getDouble(0);
 		lidarRight = Robot.networktable.table.getEntry("point2").getDouble(0);
 		lidarAngle = Robot.networktable.table.getEntry("LidarAngle").getDouble(0);
-		speedLeft = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203);
-		speedRight = (-3.95*Math.pow(10, -8)*Math.pow(lidarRight, 2)+(5.95*Math.pow(10,-4)*lidarRight)-.203);
+		speedLeft = ((9.8 *Math.pow(10, -10)*Math.pow(lidarLeft, 3))-(3.41*Math.pow(10,-6)*Math.pow(lidarLeft, 2))+(.0004*lidarLeft)-1.08);
+		speedRight = ((9.8 *Math.pow(10, -10)*Math.pow(lidarRight, 3))-(3.41*Math.pow(10,-6)*Math.pow(lidarRight, 2))+(.0004*lidarRight)-1.08);
 		SmartDashboard.putNumber("speedLeft", speedLeft);
 		SmartDashboard.putNumber("speedRight", speedRight);
 		SmartDashboard.putNumber("Left", lidarLeft);
 		SmartDashboard.putNumber("Right", lidarRight);
 		//calculates our distance to a hatch drop-off location
-		// if(lidarLeft != -1){
-		// 	lidarLeft = lidarLeft;
-		// 	}
-		// else{
-		// 	lidarLeft = lidarLeft;
-		// }
-		// if(lidarRight != -1){
-		// 	lidarRight = lidarRight;
-		// }
-		// else{
-		// 	lidarRight = lidarRight;
-		// }
-		// if(lidarAngle != -1){
-		// 	lidarAngleUse = lidarAngle;
-		// }	
-		// else{
-		// 	lidarAngleUse = lidarAngleUse;
-		// }
+		 if(lidarLeft != -1){
+		 	lidarLeft = lidarLeft;
+		 	}
+		 else{
+		 	lidarLeft = lidarLeft;
+		 }
+		 if(lidarRight != -1){
+		 	lidarRight = lidarRight;
+		 }
+		 else{
+		 	lidarRight = lidarRight;
+		 }
+		 if(lidarAngle != -1){
+		 	lidarAngleUse = lidarAngle;
+		 }	
+		 else{
+		 	lidarAngleUse = lidarAngleUse;
+		 }
 
 //Determines if LiDAR or vision is in control. LiDAR takes over at 1.2 meters away
 		if(lidarLeft <= 1200 && lidarRight <= 1200){
@@ -215,12 +215,13 @@ public class AdvancedAlign extends Command {
 
 		//sets the correction speed based on triangle leg length (relative to the stop difference)
 		if(lidarLeft > (lidarRight + legError)){
-			Robot.drivetrain.tank((-1.25*speedLeft) - 0.2, (-1.25*speedRight) - 0.2);
+			Robot.drivetrain.tank(speedLeft, speedRight);
 		}
 		else if(lidarRight > (lidarLeft + legError)){
-			Robot.drivetrain.tank((-1.25*speedLeft) - 0.2, (-1.25*speedRight) - 0.2);
+			Robot.drivetrain.tank(speedLeft, speedRight);
 		}
-	}
+	
+	}	
 
 }
 
