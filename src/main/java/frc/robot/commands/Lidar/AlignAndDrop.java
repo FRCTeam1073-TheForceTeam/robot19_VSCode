@@ -17,8 +17,9 @@ public class AlignAndDrop extends CommandGroup {
 
   public AlignAndDrop() {
     addSequential(new AdvancedAlign());
-    addParallel(new SendFlipperToMid(.75));
+    //addParallel(new SendFlipperToMid(.75));
     addSequential(new AdvancederDrive(25, "backward", 550));
-    addSequential(new SendFlipperToTop(.75));
+    //addSequential(new SendFlipperToTop(.75));
+    //sendFlipperToMid not orking due to a lack of encoders/limit switches
   }
 }

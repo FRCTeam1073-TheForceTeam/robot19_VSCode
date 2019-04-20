@@ -130,13 +130,15 @@ public class AdvancedAlign extends Command {
 		SmartDashboard.putString("control?", "aligning");
 		Robot.debugPrint("executing");
 		SmartDashboard.putString("executing", "executing");
-		lidarLeft = Robot.lidar.lidarLeft;
-		lidarRight = Robot.lidar.lidarRight;
-		lidarAngle = Robot.lidar.lidarAngle;
+		lidarLeft = Robot.networktable.table.getEntry("point1").getDouble(0);
+		lidarRight = Robot.networktable.table.getEntry("point2").getDouble(0);
+		lidarAngle = Robot.networktable.table.getEntry("LidarAngle").getDouble(0);
 		speedLeft = (-3.95*Math.pow(10, -8)*Math.pow(lidarLeft, 2)+(5.95*Math.pow(10,-4)*lidarLeft)-.203);
 		speedRight = (-3.95*Math.pow(10, -8)*Math.pow(lidarRight, 2)+(5.95*Math.pow(10,-4)*lidarRight)-.203);
 		SmartDashboard.putNumber("speedLeft", speedLeft);
 		SmartDashboard.putNumber("speedRight", speedRight);
+		SmartDashboard.putNumber("Left", lidarLeft);
+		SmartDashboard.putNumber("Right", lidarRight);
 		//calculates our distance to a hatch drop-off location
 		// if(lidarLeft != -1){
 		// 	lidarLeft = lidarLeft;
@@ -158,7 +160,7 @@ public class AdvancedAlign extends Command {
 		// }
 
 //Determines if LiDAR or vision is in control. LiDAR takes over at 1.2 meters away
-		if(lidarRight <= 1200 && lidarRight <= 1200){
+		if(lidarLeft <= 1200 && lidarRight <= 1200){
 			inControl = "lidar";
 			SmartDashboard.putString("control?", "I see you");
 		}
@@ -197,8 +199,7 @@ public class AdvancedAlign extends Command {
 //LiDAR Execute:
 	if(inControl.equals("lidar")){
 		SmartDashboard.putString("control?", "lidar");
-		SmartDashboard.putNumber("Left", lidarLeft);
-		SmartDashboard.putNumber("Right", lidarRight);
+		
 
 		//Calculates other side and angle measurements of the triangle
 		crossMeasure = Math.sqrt((Math.pow(lidarLeft, 2)+Math.pow(lidarRight, 2))-(2*lidarLeft*lidarRight*Math.cos(Math.toRadians(lidarAngleUse))));
@@ -214,7 +215,7 @@ public class AdvancedAlign extends Command {
 
 		//sets the correction speed based on triangle leg length (relative to the stop difference)
 		if(lidarLeft > (lidarRight + legError)){
-			Robot.drivetrain.tank((-1.25*speedLeft) - 0.2, (-1.25*speedRight)- 0.2);
+			Robot.drivetrain.tank((-1.25*speedLeft) - 0.2, (-1.25*speedRight) - 0.2);
 		}
 		else if(lidarRight > (lidarLeft + legError)){
 			Robot.drivetrain.tank((-1.25*speedLeft) - 0.2, (-1.25*speedRight) - 0.2);
@@ -240,13 +241,12 @@ public class AdvancedAlign extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		
-		if((lidarLeft == stopDistance && lidarRight == stopDistance) || (Robot.oi.driverCancel.get() == true) || (Robot.oi.operatorCancel.get() == true)){
-			return true;
+		boolean isFinished = false;
+		if((lidarLeft <= stopDistance && lidarRight <= stopDistance) || (Robot.oi.driverCancel.get() == true) || (Robot.oi.operatorCancel.get() == true)){
+			isFinished = true;
 		}
-		else{
-			return false;
-		}
+		SmartDashboard.putBoolean("isFinished", isFinished);
+		return isFinished;
 	}
 	
 	protected void end() {
