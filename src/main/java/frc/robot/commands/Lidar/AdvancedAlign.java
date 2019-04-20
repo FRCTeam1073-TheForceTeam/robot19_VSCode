@@ -56,6 +56,7 @@ public class AdvancedAlign extends Command {
 	 * @author Cam
 	 */
 	public AdvancedAlign(double speed, double distance, double trigger) {
+		requires(Robot.Lidar);
 		requires(Robot.drivetrain);
     	this.distance = distance;
 		this.speed = speed;
