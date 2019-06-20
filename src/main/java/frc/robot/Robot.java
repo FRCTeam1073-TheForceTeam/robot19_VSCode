@@ -1,13 +1,25 @@
 package frc.robot;
 
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.SystemTest;
-import frc.robot.subsystems.*;
-import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Feedback;
+import frc.robot.subsystems.GearBox;
+import frc.robot.subsystems.Hatch;
+import frc.robot.subsystems.Lidar;
+import frc.robot.subsystems.NetworkTable;
+import frc.robot.subsystems.Pnuematic;
+import frc.robot.subsystems.Vision;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -81,45 +93,22 @@ public class Robot extends TimedRobot {
 
     	oi = new OI();
 
-		FMS = "";
-
-		/* Position Objects */
-		left = new AutoObject(1);
-		center = new AutoObject(2);
-		right = new AutoObject(3);
-		other = new AutoObject(4);
-		quals = new AutoObject(5);
-		elims = new AutoObject(6);
-		experimental = new AutoObject(7);
-		debugAll = new AutoObject(59);
-		debugMotors = new AutoObject(60);
-		debugGearbox = new AutoObject(61);
-		debugBling = new AutoObject(62);
-
-		/* The Position Chooser */
-		autonomousPosition = new SendableChooser<AutoObject>();
-		autonomousPosition.setDefaultOption("None", other);
-		autonomousPosition.addOption("Left", left);
-		autonomousPosition.addOption("Center", center);
-		autonomousPosition.addOption("Right", right);
-		SmartDashboard.putData("Position", autonomousPosition);
-
-		/* The MatchType Chooser */
-		autonomousMatchType = new SendableChooser<AutoObject>();
-		autonomousMatchType.setDefaultOption("None", other);
-		autonomousMatchType.addOption("Qualifications", quals);
-		autonomousMatchType.addOption("Eliminations", elims);
-		autonomousMatchType.addOption("Experimental", experimental);
-		SmartDashboard.putData("Match Type", autonomousMatchType);
-
-		/* The Debug Chooser */
-		debugChooser = new SendableChooser<AutoObject>();
-		debugChooser.setDefaultOption("All", debugAll);
-		debugChooser.addOption("Motors", debugMotors);
-		debugChooser.addOption("Gearbox", debugGearbox);
-		debugChooser.addOption("Bling", debugBling);
-		SmartDashboard.putData("Debug", debugChooser);
-		debugRunner = new SystemTest();
+		new Thread(() -> {
+			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+			camera.setResolution(640, 480);
+			
+			CvSink cvSink = CameraServer.getInstance().getVideo();
+			CvSource outputStream = CameraServer.getInstance().putVideo("Blur", 640, 480);
+			
+			Mat source = new Mat();
+			Mat output = new Mat();
+			
+			while(!Thread.interrupted()) {
+				cvSink.grabFrame(source);
+				Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
+				outputStream.putFrame(output);
+			}
+		}).start();
   }
 
   /**

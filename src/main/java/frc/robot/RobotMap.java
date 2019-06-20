@@ -57,7 +57,7 @@ public class RobotMap {
 	public static void init() {
 
 		leftMaster = new WPI_TalonSRX(8);
-		leftSlave = new WPI_VictorSPX(9);
+		leftSlave = new WPI_VictorSPX(14);
 		leftSlaveTwo = new WPI_VictorSPX(7);
 
 		rightMaster = new WPI_TalonSRX(4);

@@ -4,6 +4,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * @author Nathaniel
@@ -27,10 +28,17 @@ public class NetworkTable extends Subsystem {
   public void initDefaultCommand() {
   }
 
+  private String gyroCheck() {
+    double val = (RobotMap.headingGyro.getAngle() % 360) - 0;
+    if (val > 180) return "-" + (360 - val);
+    return "+" + val;
+  }
+
   public void periodic() {
     table.getEntry("Voltage").setDouble(RobotController.getBatteryVoltage());
     table.getEntry("Time").setDouble(ds.getMatchTime());
     table.getEntry("isBrowned").setBoolean(RobotController.isBrownedOut());
+    table.getEntry("Gyro").setString(gyroCheck());
   }
 
   public void refresh() {
