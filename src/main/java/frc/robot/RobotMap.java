@@ -36,6 +36,9 @@ public class RobotMap {
 	public static DigitalInput climberLeftLim;
 	public static DigitalInput climberRightLim;
 
+	public static WPI_TalonSRX suctionArm;
+	public static WPI_TalonSRX suction;
+
 	public static WPI_TalonSRX hatchCollect;
 	public static WPI_TalonSRX hatchLift;
 	public static WPI_VictorSPX hatchLiftSlave;
@@ -74,6 +77,9 @@ public class RobotMap {
 		rightClimber = new WPI_TalonSRX(10);
 		leftClimber = new WPI_TalonSRX(13);
 		climbWheels = new WPI_TalonSRX(15);
+
+		suctionArm = new WPI_TalonSRX(10);
+		suction = new WPI_TalonSRX(15);
 
 		high = new Solenoid(7);
 		low = new Solenoid(6);

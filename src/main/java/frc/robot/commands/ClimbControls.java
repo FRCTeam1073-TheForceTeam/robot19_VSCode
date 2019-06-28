@@ -1,28 +1,18 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Presets;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
 public class ClimbControls extends Command {
 	
 	/** Controller Dead Zone */
 	private double deadzone;
 
-	private DigitalInput climberLeftLim = RobotMap.climberLeftLim;
-	private DigitalInput climberRightLim = RobotMap.climberRightLim;
-
 	/**
 	 * This is the climber movement controls
 	 * for the teleoperated period of a match.
 	 * It is also the default command for
 	 * the climber.java subsystem.
-	 * 
-	 * This command requires the drivetrain subsystem
-	 * so as to give it priority over other commands 
-	 * accessing the drivetrain.
 	 * 
 	 * This command does not finish.
 	 * 
@@ -59,15 +49,6 @@ public class ClimbControls extends Command {
 	private double deadZoneCheck(double val) {
 		if (Math.abs(val) < deadzone) return 0;
 		return val;
-	}
-
-	/**
-	 * @param Input to check against amperage of motors
-	 * @return If amperage is over limit
-	 */
-	private boolean ampCheck(double limit) {
-		System.out.println("Climber Amperage: " + Robot.climber.rightClimber.getOutputCurrent());
-		return Robot.climber.rightClimber.getOutputCurrent() >= limit;
 	}
 
 	/** 

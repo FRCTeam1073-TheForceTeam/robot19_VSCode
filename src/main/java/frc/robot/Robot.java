@@ -19,6 +19,7 @@ public class Robot extends TimedRobot {
 	public double initialBootTime, teleopStartTime, autoStartTime;
 	public static OI oi;
 	public static NetworkTable networktable;
+	public static SuctionClimber suctionClimber;
 	public static Drivetrain drivetrain;
 	public static Pnuematic pnuematic;
   	public static Feedback feedback;
@@ -62,6 +63,8 @@ public class Robot extends TimedRobot {
     
 		networktable = new NetworkTable();
 
+		suctionClimber = new SuctionClimber();
+		
 		drivetrain = new Drivetrain();
 
 		pnuematic = new Pnuematic();
@@ -70,7 +73,7 @@ public class Robot extends TimedRobot {
 
 		gearbox = new GearBox();
 
-		climber = new Climber();
+		//climber = new Climber();
 
 		vision = new Vision();
 
