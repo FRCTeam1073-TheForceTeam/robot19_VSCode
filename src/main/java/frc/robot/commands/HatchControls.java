@@ -66,26 +66,7 @@ public class HatchControls extends Command {
 		if (Math.abs(val) < deadzone) return 0;
 		return val;
 	}
-
-	/**
-	 * @param Input to check against amperage of motors
-	 * @return If amperage is over limit
-	 */
-	private void ampCheck(double limit) {
-		System.out.println("Hatch Amperage: " + Robot.hatch.hatchLift.getOutputCurrent());
-		if(Robot.hatch.hatchLift.getOutputCurrent() >= limit){
-			if(Robot.oi.operatorControl.getY1() > 0) preventUp = true;
-			if(Robot.oi.operatorControl.getY1() < 0) preventDown = true;
-		}
-	}
-
-	/** 
-	 * Resets the flags if the other direction is held
-	 */
-	private void flagReset(){
-		if(Robot.oi.operatorControl.getY1() > 0) preventDown = false;
-		if(Robot.oi.operatorControl.getY1() < 0) preventUp = false;
-	}
+	
 	/** 
 	 * This command should never finish as it 
 	 * must remain active for the duration of
@@ -94,5 +75,15 @@ public class HatchControls extends Command {
 	 */
 	protected boolean isFinished() {
 		return false;
+	}
+
+	protected void end() {
+		Robot.hatch.setCollector(0);
+		Robot.hatch.setFlipper(0);
+	}
+
+	protected void interupted() {
+		Robot.hatch.setCollector(0);
+		Robot.hatch.setFlipper(0);
 	}
 }

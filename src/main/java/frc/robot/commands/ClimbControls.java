@@ -79,4 +79,14 @@ public class ClimbControls extends Command {
 	protected boolean isFinished() {
 		return false;
 	}
+
+	protected void end() {
+		Robot.climber.crawl(0);
+		Robot.climber.tank(0);
+	}
+
+	protected void interupted() {
+		Robot.climber.crawl(0);
+		Robot.climber.tank(0);
+	}
 }

@@ -165,4 +165,12 @@ public class DriveControls extends Command {
 	protected boolean isFinished() {
 		return false;
 	}
+
+	protected void end() {
+		Robot.drivetrain.tank(0);
+	}
+
+	protected void interupted() {
+		Robot.drivetrain.tank(0);
+	}
 }
