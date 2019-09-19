@@ -1,167 +1,56 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package frc.robot.commands;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-/**
- * This is the driver movement controls
- * for the teleoperated period of a match.
- * It is also the default command for 
- * the Drivetrain.java subsystem.
- * 
- * This command does not finish.
- * 
- * @author Nathaniel
- * @see /subsystems/DriveTrain.java
- * @category Drive Command
- */
 public class DriveControls extends Command {
-	
-	/** Controller Dead Zone */
-	private double deadzone;
+  WPI_TalonSRX left_motor;
+  WPI_TalonSRX right_motor;
+  public DriveControls() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.drivetrain);
+    left_motor = Robot.drivetrain.leftMaster;
+    right_motor = Robot.drivetrain.rightMaster;
+  }
 
-	/** Controller Data: Left Y */
-	private double forward;
-	
-	/** Controller Data: Right X */
-	private double rotational;
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
+    left_motor.set(0);
+    right_motor.set(0);
+  }
 
-	/** Output for Motor Power */
-	private double leftMotorOutput, rightMotorOutput;
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    left_motor.set(Robot.oi.driverControl.getY1());
+    right_motor.set(Robot.oi.driverControl.getY2());
+  }
 
-	/** Just a delay */
-	private double executes = 0;
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return Robot.oi.driverCancel.get();
+  }
 
-	/**
-	 * This is the driver movement controls
-	 * for the teleoperated period of a match.
-	 * It is also the default command for
-	 * the robotDrivetrain.java subsystem.
-	 * 
-	 * This command requires the drivetrain subsystem
-	 * so as to give it priority over other commands 
-	 * accessing the drivetrain.
-	 * 
-	 * This command does not finish.
-	 * 
-	 * @author Nathaniel
-	 * @see /subsystems/Drivetrain.java
-	 * @category Drive Command
-	 */
-	public DriveControls(double deadzone) {
-		requires(Robot.drivetrain);
-		requires(Robot.pnuematic);
-		this.deadzone = deadzone;
-	}
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+  }
 
-	/** Called Repeatedly */
-	protected void execute() {
-		/* Controller Data */
-		forward = Robot.oi.driverControl.getRawAxis(1);
-		rotational = Robot.oi.driverControl.getRawAxis(4);
-
-		if (Robot.oi.driverControl.select.get()) Robot.networktable.table.getEntry("CamSwap").setBoolean(true);
-		else Robot.networktable.table.getEntry("CamSwap").setBoolean(false);
-		if (Robot.oi.driverControl.y.get()) Robot.autoBox = !Robot.autoBox;
-		if (!Robot.autoBox && Robot.oi.driverControl.x.get() && !Robot.pnuematic.isLowGear()) Robot.pnuematic.setLowGear();
-		if (!Robot.autoBox && Robot.oi.driverControl.b.get() && !Robot.pnuematic.isHighGear()) Robot.pnuematic.setHighGear();
-		
-		/* Outputs Checked Controller Data to Motors */
-		arcaderDrive(limit(deadZoneCheck(forward)), limit(deadZoneCheck(rotational)));
-	}
-
-	/**
-   	 * Arcade drive method for differential drive platform.
-   	 *
-   	 * @param fwd The robot's speed along the X axis [-1.0..1.0]. Forward is positive.
-   	 * @param rot The robot's rotation rate around the Z axis [-1.0..1.0]. Clockwise is positive.
-   	 */
-	public void arcaderDrive(double fwd, double rot) {
-		double maxInput = Math.copySign(Math.max(Math.abs(fwd), Math.abs(rot)), fwd);
-
-		if (fwd >= 0.0) {
-			if (rot >= 0.0) {
-				leftMotorOutput = maxInput;
-				rightMotorOutput = fwd - rot;
-			} else {
-				leftMotorOutput = fwd + rot;
-				rightMotorOutput = maxInput;
-			}
-		} else {
-			if (rot >= 0.0) {
-				leftMotorOutput = fwd + rot;
-				rightMotorOutput = maxInput;
-			} else {
-				leftMotorOutput = maxInput;
-				rightMotorOutput = fwd - rot;
-			}
-		}
-		output(leftMotorOutput, rightMotorOutput, "Competition");
-	}
-	
-	/** Affects the style of output to motors */
-	private void output(double left, double right, String mode) {
-		if (mode.equals("Zeroing")) {
-			if (forward == 0 && rotational == 0) {
-				if (executes > 20) Robot.drivetrain.zero();
-				else Robot.drivetrain.tank(0, 0);
-				executes++;
-			}
-			else {
-				Robot.drivetrain.tank(limit(left), (limit(right)));
-				executes = 0;
-			}
-		}
-		else if (mode.equals("Ramped Zeroing")) {
-			if (forward == 0 && rotational == 0) {
-				if (executes > 20) Robot.drivetrain.zero();
-				else Robot.drivetrain.tank(0, 0);
-				executes++;
-			}
-			else {
-				Robot.drivetrain.tank(limit(left), (limit(right)), 600);
-				executes = 0;
-			}
-		}
-		else if (mode.equals("Competition")) {
-			double multiplier = .25;
-			Robot.debugPrint(Robot.oi.driverControl.getRightTrigger());
-			multiplier += deadZoneCheck(Robot.oi.driverControl.getRightTrigger() * .75);
-			Robot.drivetrain.tank(limit(multiplier * left), (limit(multiplier * right)));	
-		}
-		else if (mode.equals("PID")) Robot.drivetrain.velocity(speedModifier(limit(left)), speedModifier(limit(right)));
-		else Robot.drivetrain.tank(limit(left), (limit(right)));
-	}
-
-	/** 
-	 * @param val Input to check against dead zone
-	 * @return If within dead zone return 0, Else return val
-	 */
-	private double deadZoneCheck(double val) {
-		if (Math.abs(val) < deadzone) return 0;
-		return val;
-	}
-
-	/** A velocity  */
-	private double speedModifier(double val) {
-		return Math.copySign(Math.pow(Math.abs(val), 3) * 1300, val);
-	}
-
-  	/**
-   	 * Limit motor values to the -1.0 to +1.0 range.
-   	 */
-  	private double limit(double value) {
-    	if (Math.abs(value) > 1.0) return Math.copySign(1, value);
-    	return value;
-  	}
-
-	/** 
-	 * This command should never finish as it 
-	 * must remain active for the duration of
-	 * any teleoperated period, and is only run
-	 * during the teleoperated period.
-	 */
-	protected boolean isFinished() {
-		return false;
-	}
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
+  }
 }

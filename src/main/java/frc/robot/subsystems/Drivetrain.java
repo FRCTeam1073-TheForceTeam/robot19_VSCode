@@ -163,7 +163,7 @@ public class Drivetrain extends Subsystem {
   
   @Override
   public void initDefaultCommand() {
-  	setDefaultCommand(new DriveControls(Presets.deadzone));
+  	setDefaultCommand(new DriveControls());
 	}
 
   public void periodic() {
