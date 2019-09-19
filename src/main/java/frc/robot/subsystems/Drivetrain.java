@@ -10,6 +10,7 @@ import frc.robot.Presets;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.DriveControls;
+import frc.robot.commands.Drive_Controls_Command;
 
 /**
  * @author Nathaniel
@@ -163,7 +164,7 @@ public class Drivetrain extends Subsystem {
   
   @Override
   public void initDefaultCommand() {
-  	setDefaultCommand(new DriveControls(Presets.deadzone));
+  	setDefaultCommand(new Drive_Controls_Command());
 	}
 
   public void periodic() {
