@@ -29,10 +29,10 @@ private double Left ;
   @Override
   protected void execute() {
 
-Left = Robot.oi.driverControll.getRawAxis(1);
-Right = Robot.oi.driverControll.getRawAxis(3);
+Left = Robot.oi.driverControl.getRawAxis(1);
+Right = Robot.oi.driverControl.getRawAxis(5);
 
-Robot.drivertrain.tank(Left, Right);
+Robot.drivetrain.tank(Left, Right);
 
 
   }
