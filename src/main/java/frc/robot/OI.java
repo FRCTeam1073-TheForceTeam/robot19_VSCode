@@ -36,7 +36,7 @@ public class OI {
 		operatorRight.whenReleased(new HatchGrabberUp());
 
 		
-		hatchDownToMid = operatorControl.b;
-		hatchDownToMid.whenPressed(new SendFlipperToMid(.5));
+		//hatchDownToMid = operatorControl.b;
+		//hatchDownToMid.whenPressed(new SendFlipperToMid(.5));
 	}
 }
