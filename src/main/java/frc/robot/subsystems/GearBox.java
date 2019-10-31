@@ -26,8 +26,11 @@ public class GearBox extends Subsystem {
   }
 
   public void shiftCheck() {
-    if (speedL >= 400 || speedR >= 400) pnuematic.setHighGear();
-    else pnuematic.setLowGear();
+    if (speedL >= 400 || speedR >= 400) {
+      pnuematic.setHighGear();
+    } else {
+       pnuematic.setLowGear();
+    }
   }
 
   public void update() {
